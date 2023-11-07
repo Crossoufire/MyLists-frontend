@@ -4,7 +4,7 @@ It regroups the functionalities of different site in one. It integrates statisti
 
 This project was bootstrapped with the [Create React App](https://github.com/facebook/create-react-app).
 
-The API backend [mylists-api](https://github.com/facebook/create-react-app) is also on github.
+The API backend [MyLists-api](https://github.com/Crossoufire/MyLists-api) is also on github.
 
 # Installation (Linux)
 
