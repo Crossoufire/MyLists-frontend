@@ -34,7 +34,7 @@ export default function SuppMediaInfo({ isCurrent, mediaType, mediaData, updateU
             <PagesInput
                 isEnabled={isCurrent}
                 initPage={mediaData.actual_page}
-                totalPages={mediaData.total}
+                totalPages={mediaData.total_pages}
                 updatePage={updateUserAPI.page}
             />
         );
