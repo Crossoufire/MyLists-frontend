@@ -3,9 +3,9 @@ import {Card, Col, Image, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {FaAlignJustify, FaCommentAlt, FaHeart, FaRedoAlt, FaRegCommentAlt, FaRegHeart, FaStar} from "react-icons/fa";
 
+import {getMetricValues} from "../../../utils/functions";
 import MoreFollowDetails from "./MoreFollowDetails";
 import HLine from "../../primitives/HLine";
-import {getMetricValues} from "../../../utils/functions";
 
 
 export default function FollowCard({ follow, mediaType }) {
@@ -17,7 +17,7 @@ export default function FollowCard({ follow, mediaType }) {
                 <Card.Title>
                     <Row className="gx-0">
                         <Col className="col-3">
-                            <Link to={"/profile/"+follow.username}>
+                            <Link to={`/profile/${follow.username}`}>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <Image
                                         roundedCircle
@@ -29,7 +29,7 @@ export default function FollowCard({ follow, mediaType }) {
                             </Link>
                         </Col>
                         <Col className="m-l-12">
-                            <Link to={"/profile/"+follow.username} className="text-light">
+                            <Link to={`/profile/${follow.username}`} className="text-light">
                                 <h5 style={{marginTop: "-6px"}}>{follow.username}</h5>
                             </Link>
                             <div className="d-flex flex-row justify-content-between">

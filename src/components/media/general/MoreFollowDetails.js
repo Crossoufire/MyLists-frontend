@@ -10,7 +10,7 @@ export default function MoreFollowDetails({ mediaType, follow }) {
     }
     else if (mediaType === "books") {
         if (follow.status !== "Plan to Read") {
-            return <><FaPlay/> &nbsp;Page: {follow.page}</>;
+            return <><FaPlay/> &nbsp;Page: {follow.actual_page}/{follow.total_pages}</>;
         }
     }
     else if (mediaType === "games") {

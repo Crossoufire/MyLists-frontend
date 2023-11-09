@@ -1,6 +1,6 @@
 {
   "short_name": "MyLists",
-  "name": "React MyLists",
+  "name": "MyLists",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#e2e2e2",
+  "background_color": "#070a0c"
 }

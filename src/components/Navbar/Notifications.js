@@ -56,7 +56,12 @@ export default function Notifications() {
             </Dropdown.Toggle>
             <Dropdown.Menu style={{width: 300, maxHeight: 340, overflowY: "auto"}}>
                 {loading ?
-                    <Dropdown.Item><Loading/></Dropdown.Item>
+                    <Dropdown.Item>
+                        <Loading
+                            style={null}
+                            size={25}
+                        />
+                    </Dropdown.Item>
                     :
                     notifications.map((data, idx) =>
                         <div key={data.timestamp}>

@@ -35,7 +35,7 @@ export default function Header() {
                     :
                     <>
                         <NavMediaDrop
-                            username={username}
+                            currentUser={currentUser}
                         />
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav">

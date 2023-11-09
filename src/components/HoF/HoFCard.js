@@ -4,11 +4,18 @@ import React from "react";
 
 
 export default function HoFCard({ currentUser, item }) {
+    const bg = (currentUser.id === item.id) ? "bg-dark" : "bg-card";
+
     return (
-        <Card key={item.username} className="bg-card m-b-20 text-light">
+        <Card key={item.username} className={`${bg} m-b-20 text-light`}>
             <Card.Body className="p-2">
                 <Row className="gy-3">
-                    <Col xs={12} sm={12} xl={4}>
+                    <Col xs={3} sm={3} xl={1}>
+                        <div className="d-flex flex-column align-items-center justify-content-center fs-20 h-100 fw-5">
+                            #{item.rank}
+                        </div>
+                    </Col>
+                    <Col xs={9} sm={9} xl={4}>
                         <div className="position-relative">
                             <Image
                                 className="hof-profile-img"
@@ -25,12 +32,14 @@ export default function HoFCard({ currentUser, item }) {
                                 {item.profile_level}
                             </div>
                             <h6 className="hof-profile-data text-center">
-                                <Link to={`/profile/${item.username}`}>{item.username}</Link>
+                                <Link to={`/profile/${item.username}`} className="text-light">
+                                    <u>{item.username}</u>
+                                </Link>
                             </h6>
                         </div>
                     </Col>
                     <Col xs={12} sm={12} md lg xl>
-                        <div className="d-flex flex-row flex-wrap text-center row-cols-6 align-items-center fw-5 h-100">
+                        <div className="d-flex flex-row flex-wrap text-center row-cols-5 align-items-center fw-5 h-100">
                             <div className="d-flex flex-column justify-content-evenly h-100">
                                 <div>Series</div>
                                 <Link className="text-light" to={`/list/series/${item.username}`}>
@@ -84,13 +93,9 @@ export default function HoFCard({ currentUser, item }) {
                                     </div>
                                 }
                             </div>
-                            <div className="d-flex flex-column justify-content-evenly fs-20 h-100">
-                                #{item.rank}
-                            </div>
                         </div>
                     </Col>
                 </Row>
-                {currentUser.id === item.id && <div className="ribbon-common"/>}
             </Card.Body>
         </Card>
     )

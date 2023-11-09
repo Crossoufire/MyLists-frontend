@@ -56,6 +56,25 @@ table td {
 }
 
 
+/* --- LOADING ---------------------------------------------------------------------------------------- */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 233px);
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+@media (max-width: 490px) {
+    .loading-spinner {
+        height: calc(100vh - 553px);
+    }
+}
+
+
 /* --- GENERAL ---------------------------------------------------------------------------------------- */
 .one-line-ellipsis {
     overflow: hidden;
