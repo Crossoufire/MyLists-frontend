@@ -124,10 +124,10 @@ export default function MediaDetailsPage() {
 				</Col>
 			</Row>
 			{apiData.follows_data.length !== 0 &&
-				<div className="follow-margin m-b-30 m-t-30">
+				<div className="follow-margin m-b-50 m-t-30">
 					<h4>Follows</h4>
 					<HLine/>
-					<div className="d-flex flex-row align-content-start flex-wrap gap-4">
+					<div className="d-flex align-content-start flex-wrap gap-4">
 						{apiData.follows_data.map(follow =>
 							<FollowCard
 								key={follow.username}

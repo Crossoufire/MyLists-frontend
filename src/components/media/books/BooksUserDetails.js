@@ -57,7 +57,7 @@ export default function BooksUserDetails({ userData, userMetric, totalPages, upd
             {status === "Completed" &&
                 <RedoDrop
                     name="Re-read"
-                    redo={redo}
+                    initRedo={redo}
                     updateRedo={updatesAPI.redo}
                 />
             }

@@ -924,9 +924,6 @@ table td {
 
 
 /* --- PROFILE FOLLOWS -------------------------------------------------------------------------------- */
-.follow-margin {
-    margin-left: 36px;
-}
 .follow-img {
     background-color: grey;
     height: 50px;
@@ -935,12 +932,6 @@ table td {
 .follow-div {
     padding: 5px 20px 15px 20px;
     border-radius: 8px;
-}
-
-@media (max-width: 490px) {
-    .follow-margin {
-        margin-left: 2px;
-    }
 }
 
 

@@ -12,7 +12,7 @@ export default function ShowSearch({ query, results, activePage, resetSearch, se
     if (results === undefined && query) {
         return (
             <Dropdown className="search-autocomplete p-2">
-                <Loading/>
+                <Loading style={null}/>
             </Dropdown>
         );
     }
@@ -55,7 +55,7 @@ export default function ShowSearch({ query, results, activePage, resetSearch, se
             <HLine mtop={15} mbot={5}/>
             {isLoading ?
                 <div style={{height: 500}}>
-                    <Loading />
+                    <Loading style={null}/>
                 </div>
                 :
                 results.items.map(media => (

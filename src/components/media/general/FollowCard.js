@@ -12,7 +12,7 @@ export default function FollowCard({ follow, mediaType }) {
     const [toggleComment, setToggleComment] = useState(false);
 
     return (
-        <Card className="bg-card text-light" style={{width: 320}}>
+        <Card className="bg-card text-light" style={{width: 333}}>
             <Card.Body className="p-3">
                 <Card.Title>
                     <Row className="gx-0">

@@ -37,7 +37,7 @@ export default function MoviesUserDetails({ userData, userMetric, updatesAPI }) 
                     />
                     <RedoDrop
                         name="Re-watched"
-                        redo={redo}
+                        initRedo={redo}
                         updateRedo={updatesAPI.redo}
                     />
                 </>
