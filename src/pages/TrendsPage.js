@@ -1,12 +1,13 @@
-import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 import {Col, Row, Tab, Tabs} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 import {useApi} from "../contexts/ApiProvider";
 import {useFlash} from "../contexts/FlashProvider";
 import {useFetchData} from "../hooks/FetchDataHook";
+import TrendItem from "../components/trends/TrendItem";
 import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
-import TrendItem from "../components/trends/TrendItem";
 
 
 export default function TrendsPage() {
@@ -25,13 +26,8 @@ export default function TrendsPage() {
         navigate(`/details/${mediaType}/${response.body.media_id}`);
     };
 
-    if (error?.status) {
-        return <ErrorPage {...error}/>
-    }
-
-    if (loading) {
-        return <Loading />;
-    }
+    if (error) return <ErrorPage error={error}/>
+    if (loading) return <Loading />;
 
 
     return (

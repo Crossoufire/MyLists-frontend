@@ -7,7 +7,7 @@ import UserUpdate from "../reused/UserUpdate";
 import HLine from "../primitives/HLine";
 
 
-export default function UserUpdates({ username, userUpdates, followers=false }) {
+export default function UserUpdates({ username, updates, followers=false }) {
     const [isOpen, setIsOpen] = useState(true);
     const [caret, setCaret] = useState(FaCaretDown);
 
@@ -23,7 +23,7 @@ export default function UserUpdates({ username, userUpdates, followers=false }) 
                     <div>{caret} &nbsp;{followers ? "Follows Updates" : "Updates"}</div>
                     {!followers &&
                         <div>
-                            <Link className="text-grey fs-16" to={"/profile/"+username+"/history"}>
+                            <Link className="text-grey fs-16" to={`/profile/${username}/history`}>
                                 <i><u>All</u></i>
                             </Link>
                         </div>
@@ -32,10 +32,10 @@ export default function UserUpdates({ username, userUpdates, followers=false }) 
                 <HLine/>
                 {isOpen &&
                     <>
-                        {userUpdates.length === 0 ?
+                        {updates.length === 0 ?
                             <div className="text-grey"><i>No updates to display</i></div>
                             :
-                            userUpdates.map(update =>
+                            updates.map(update =>
                                 <UserUpdate
                                     key={update.date}
                                     username={followers && update.username}

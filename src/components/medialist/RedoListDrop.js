@@ -4,7 +4,7 @@ import {Tooltip} from "react-tooltip";
 import {getRedoValues} from "../../utils/functions";
 import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 import LoadingIcon from "../primitives/LoadingIcon";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
 
 
 export default function RedoListDrop({ mediaId, isEnabled, initRedo, updateRedo }) {

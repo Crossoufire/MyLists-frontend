@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 export default function StatusDrop({ initStatus, allStatus, updateStatus, callbackStatus }) {

@@ -4,7 +4,7 @@ import {FaRegEdit} from "react-icons/fa";
 import {Tooltip} from "react-tooltip";
 
 import HLine2 from "../../primitives/HLine2";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 export default function Commentary({ showComment, initComment, updateComment, toggleComment }) {

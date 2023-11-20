@@ -3,13 +3,13 @@ import {Card, Col, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 import {getUserMetric} from "../../utils/functions";
-import {useApiUpdater} from "../../hooks/UserUpdateAPI";
+import useApiUpdater from "../../hooks/UserUpdateAPI";
 import StatusAndDelete from "./StatusAndDelete";
 import UserMediaInfo from "./UserMediaInfo";
 import AddFromOtherList from "./AddFromOtherList";
 import SuppMediaInfo from "./SuppMediaInfo";
 import LoadingIcon from "../primitives/LoadingIcon";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
 
 
 export default function MediaItem({ isCurrent, mediaType, userData, mediaData, isCommon, activeStatus }) {

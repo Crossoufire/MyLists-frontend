@@ -18,28 +18,25 @@ export default function MediaEditPage() {
     const navigate = useNavigate();
     const {mediaId, mediaType} = useParams();
     const {register, handleSubmit} = useForm();
-    const {apiData, loading, error} = useFetchData("/details/form/" + mediaType + "/" + mediaId);
+    const {apiData, loading, error} = useFetchData(`/details/form/${mediaType}/${mediaId}`);
 
     const onSubmit = async (data) => {
-        const response = await api.post("/details/form/" + mediaType + "/" + mediaId, data)
+        const response = await api.post(`/details/form/${mediaType}/${mediaId}`, data)
 
         if (!response.ok) {
-            return flash("An error occured while updating the media info.", "warning");
+            return flash("An error occurred while updating the media info.", "warning");
         }
 
         flash("Media successfully updated.", "success");
-        return navigate("/details/" + mediaType + "/" + mediaId);
+
+        return navigate(`/details/${mediaType}/${mediaId}`);
     };
 
-    if (error?.status) {
-        return <ErrorPage {...error}/>
-    }
-
-    if (loading) {
-        return <Loading/>;
-    }
+    if (error) return <ErrorPage error={error}/>
+    if (loading) return <Loading/>;
 
 
+    // noinspection JSValidateTypes
     return (
         <div className="m-b-40">
             <h2 className="m-t-40">Edit media info</h2>
@@ -78,9 +75,7 @@ export default function MediaEditPage() {
                     }
                 </Row>
                 <div className="d-flex justify-content-center">
-                    <Button className="m-t-40" variant="primary" type="submit">
-                        Update
-                    </Button>
+                    <Button className="m-t-40" variant="primary" type="submit">Update</Button>
                 </div>
             </Form>
         </div>

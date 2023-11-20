@@ -12,13 +12,13 @@ export default function FollowCard({ follow, mediaType }) {
     const [toggleComment, setToggleComment] = useState(false);
 
     return (
-        <Card className="bg-card text-light" style={{width: 320}}>
+        <Card className="bg-card text-light" style={{width: 334}}>
             <Card.Body className="p-3">
                 <Card.Title>
                     <Row className="gx-0">
                         <Col className="col-3">
                             <Link to={`/profile/${follow.username}`}>
-                                <div className="d-flex justify-content-center align-items-center">
+                                <div className="d-flex justify-content-center">
                                     <Image
                                         roundedCircle
                                         className="follow-img"

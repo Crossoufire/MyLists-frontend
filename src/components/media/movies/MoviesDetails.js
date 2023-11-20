@@ -51,13 +51,15 @@ export default function MoviesDetails({ mediaData, mediaType }) {
                                     <li>
                                         <GenericDetails
                                             name={"Budget"}
-                                            value={parseFloat(mediaData.budget).toLocaleString("fr") + " $"}
+                                            value={parseFloat(mediaData.budget) === 0 ? "--" :
+                                                `${parseFloat(mediaData.budget).toLocaleString("fr")} $`}
                                         />
                                     </li>
                                     <li>
                                         <GenericDetails
                                             name={"Revenue"}
-                                            value={parseFloat(mediaData.revenue).toLocaleString("fr") + " $"}
+                                            value={parseFloat(mediaData.revenue) === 0 ? "--" :
+                                                `${parseFloat(mediaData.revenue).toLocaleString("fr")} $`}
                                         />
                                     </li>
                                 </ul>
@@ -79,7 +81,7 @@ export default function MoviesDetails({ mediaData, mediaType }) {
                                     <li>
                                         <GenericDetails
                                             name={"Origin"}
-                                            value={mediaData.original_language}
+                                            value={mediaData.original_language.toUpperCase()}
                                         />
                                     </li>
                                     <li>

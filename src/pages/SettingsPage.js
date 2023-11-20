@@ -1,12 +1,12 @@
 import React from "react";
-import { Form, Button} from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import {Form, Button} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import {Tooltip} from "react-tooltip";
+import {FaQuestionCircle} from "react-icons/fa";
 
 import {useUser} from "../contexts/UserProvider";
 import {useFlash} from "../contexts/FlashProvider";
 import HLine from "../components/primitives/HLine";
-import {FaQuestionCircle} from "react-icons/fa";
-import {Tooltip} from "react-tooltip";
 
 
 export default function SettingsForm() {
@@ -48,6 +48,7 @@ export default function SettingsForm() {
             body: response.status !== 204 ? await response.json() : null,
         }
     }
+
     async function onSubmit(data) {
         const formData = new FormData();
 
@@ -71,6 +72,7 @@ export default function SettingsForm() {
     }
 
 
+    // noinspection JSValidateTypes
     return (
         <>
             <h3 className="m-t-30">Settings</h3>

@@ -105,3 +105,20 @@ export function changeValueFormat(value, label="") {
         return `${value} ${label}`;
     }
 }
+
+export function getStatusColor(status) {
+    const colors = {
+        "Reading": "#334d5c",
+        "Watching": "#334d5c",
+        "Completed": "#45b29d",
+        "On Hold": "#efc94c",
+        "Random": "#e27a3f",
+        "Multiplayer": "#efc94c",
+        "Dropped": "#df5a49",
+        "Endless": "#48792c",
+        "Plan to Watch": "#962d3e",
+        "Plan to Read": "#962d3e",
+        "Plan to Play": "#962d3e",
+    }
+    return colors[status];
+}

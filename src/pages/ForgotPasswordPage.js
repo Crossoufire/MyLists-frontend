@@ -10,7 +10,7 @@ import HLine from "../components/primitives/HLine";
 export default function ForgotPasswordPage() {
     const api = useApi();
     const flash = useFlash();
-    const { register, handleSubmit, getValues, formState: {errors} } = useForm();
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm();
 
     async function onSubmit() {
         // noinspection JSCheckFunctionSignatures
@@ -23,10 +23,11 @@ export default function ForgotPasswordPage() {
             return flash(response.body.message, "danger");
         }
 
-        flash(response.body.message, "success");
+        return flash(response.body.message, "success");
     }
 
 
+    // noinspection JSValidateTypes
     return (
         <div className="m-t-30 m-b-50">
             <h4>Forgot password</h4>

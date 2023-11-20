@@ -4,7 +4,7 @@ import {FaCommentAlt, FaRegCommentAlt} from "react-icons/fa";
 import {Button, Modal} from "react-bootstrap";
 import {Tooltip} from "react-tooltip";
 import LoadingIcon from "../primitives/LoadingIcon";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
 
 
 export default function CommentModal({ mediaId, isCurrent, mediaName, initContent, updateComment }) {

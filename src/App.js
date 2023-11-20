@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {SWRConfig} from "swr";
 
 import ApiProvider from "./contexts/ApiProvider";
 import FlashProvider from "./contexts/FlashProvider";
@@ -31,8 +32,16 @@ import ErrorPage from "./pages/ErrorPage";
 import RegisterTokenPage from "./pages/RegisterTokenPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+
 import "./css/utils.css";
 import "./css/main.css";
+
+
+
+const optionsSWR = {
+	revalidateOnFocus: false,
+	revalidateOnReconnect: false,
+}
 
 
 export default function App() {
@@ -41,19 +50,23 @@ export default function App() {
 			<FlashProvider>
 				<ApiProvider>
 					<UserProvider>
-						<Header/>
-						<Content>
-							<Routes>
-								<Route path="/" element={<PublicRoute><HomePage/></PublicRoute>}/>
-								<Route path="/about" element={<PublicRoute><AboutPage/></PublicRoute>}/>
-								<Route path="/register_token" element={<PublicRoute><RegisterTokenPage/></PublicRoute>}/>
-								<Route path="/forgot_password" element={<PublicRoute><ForgotPasswordPage/></PublicRoute>}/>
-								<Route path="/reset_password" element={<PublicRoute><ResetPasswordPage/></PublicRoute>}/>
-								<Route path="/privacy_policy" element={<PublicRoute><PrivacyPolicyPage/></PublicRoute>}/>
-								<Route path="*" element={<PrivateRoute><DefinedPrivateRoutes/></PrivateRoute>}/>
-							</Routes>
-						</Content>
-						<Footer/>
+						<SWRConfig value={optionsSWR}>
+							<Header/>
+							<Content>
+								<Routes>
+									<Route path="/" element={<PublicRoute><HomePage/></PublicRoute>}/>
+									<Route path="/about" element={<PublicRoute><AboutPage/></PublicRoute>}/>
+									<Route path="/register_token" element={<PublicRoute><RegisterTokenPage/></PublicRoute>}/>
+									<Route path="/forgot_password" element={<PublicRoute><ForgotPasswordPage/></PublicRoute>}/>
+									<Route path="/reset_password" element={<PublicRoute><ResetPasswordPage/></PublicRoute>}/>
+									<Route path="/privacy_policy" element={<PublicRoute><PrivacyPolicyPage/></PublicRoute>}/>
+									<Route path="/levels/media_levels" element={<MediaLevelsPage/>}/>
+									<Route path="/levels/profile_levels" element={<ProfileLevelsPage/>}/>
+									<Route path="*" element={<PrivateRoute><DefinedPrivateRoutes/></PrivateRoute>}/>
+								</Routes>
+							</Content>
+							<Footer/>
+						</SWRConfig>
 					</UserProvider>
 				</ApiProvider>
 			</FlashProvider>
@@ -69,8 +82,6 @@ function DefinedPrivateRoutes() {
 			<Route path="/current_trends" element={<TrendsPage/>}/>
 			<Route path="/hall_of_fame" element={<HallOfFamePage/>}/>
 			<Route path="/stats" element={<GlobalStatsPage/>}/>
-			<Route path="/levels/media_levels" element={<MediaLevelsPage/>}/>
-			<Route path="/levels/profile_levels" element={<ProfileLevelsPage/>}/>
 			<Route path="/profile/:username" element={<ProfilePage/>}/>
 			<Route path="/profile/:username/:extension?" element={<ProfilePage/>}/>
 			<Route path="/settings" element={<SettingsPage/>}/>

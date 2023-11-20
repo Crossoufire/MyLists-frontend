@@ -13,7 +13,7 @@ export default function ProfileHeader({ user, initFollow, followId }) {
     const isCurrent = currentUser.id === user.id;
 
     return (
-        <div className="profile-header-back-container" style={{backgroundImage: "url("+user.back_image+")"}}>
+        <div className="profile-header-back-container" style={{backgroundImage: `url(${user.back_image})`}}>
             {isCurrent &&
                 <Link id="background-picture" className="profile-header-back-pen" to={"/settings"}>
                     <FaPen size="20"/>
@@ -63,7 +63,7 @@ export default function ProfileHeader({ user, initFollow, followId }) {
                 </h2>
                 <div className="profile-header-shadow fw-6">
                     <div>Joined: {user.registered_on}</div>
-                    <Link className="text-light" to={"/profile/"+user.username+"/followers"}>
+                    <Link className="text-light" to={`/profile/${user.username}/followers`}>
                         <div>Followers: {user.followers_count}</div>
                     </Link>
                 </div>

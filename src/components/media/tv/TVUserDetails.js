@@ -33,7 +33,6 @@ export default function TVUserDetails({ userData, userMetric, updatesAPI }) {
         setMetric(value);
     }
 
-
     return (
         <>
             <StatusDrop
@@ -63,7 +62,7 @@ export default function TVUserDetails({ userData, userMetric, updatesAPI }) {
             {status === "Completed" &&
                 <RedoDrop
                     name="Re-watched"
-                    redo={redo}
+                    initRedo={redo}
                     updateRedo={updatesAPI.redo}
                 />
             }

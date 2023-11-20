@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 
 import {getRedoValues} from "../../../utils/functions";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 export default function RedoDrop({ name, initRedo, updateRedo }) {
-    const redoVals = getRedoValues();
+    const redoValues = getRedoValues();
     const [redo, setRedo] = useState(initRedo);
     const [isLoading, handleLoading] = useLoading();
 
@@ -22,11 +22,7 @@ export default function RedoDrop({ name, initRedo, updateRedo }) {
         <div className="d-flex justify-content-between">
             <div className="fw-5">{name}</div>
             <select className="details-drop bg-card" value={redo} onChange={handleRedo}>
-                {isLoading ?
-                    <option>...</option>
-                    :
-                    redoVals.map(val => <option key={val}>{val}</option>)
-                }
+                {isLoading ? <option>...</option> : redoValues.map(val => <option key={val}>{val}</option>)}
             </select>
         </div>
     )

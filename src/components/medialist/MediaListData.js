@@ -8,9 +8,7 @@ import {Row} from "react-bootstrap";
 
 
 export default function MediaListData({ loading, apiData, mediaType, isCurrent, updatePagination }) {
-    if (loading) {
-        return <Loading/>;
-    }
+    if (loading) return <Loading/>;
 
     if (apiData.pagination.status === "Stats") {
         return (

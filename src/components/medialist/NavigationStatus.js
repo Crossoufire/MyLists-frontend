@@ -13,7 +13,7 @@ export default function NavigationStatus({ allStatus, activeStatus, updateStatus
 
     return (
         <div id="medialist-tabs">
-            <Tabs className="bg-card m-t-30 justify-content-center gap-3" activeKey={activeStatus}
+            <Tabs className="bg-card justify-content-center gap-3 m-t-30" activeKey={activeStatus}
                   onSelect={handleStatus} data-bs-theme="dark">
                 {allStatus.map(status =>
                     <Tab key={status} eventKey={status} title={status.toUpperCase()}/>

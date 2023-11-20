@@ -4,7 +4,7 @@ import {Tooltip} from "react-tooltip";
 import {FaUserMinus, FaUserPlus} from "react-icons/fa";
 
 import LoadingIcon from "../primitives/LoadingIcon";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
 import {useApi} from "../../contexts/ApiProvider";
 import {useFlash} from "../../contexts/FlashProvider";
 

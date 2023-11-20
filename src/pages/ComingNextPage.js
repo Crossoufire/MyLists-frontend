@@ -1,55 +1,18 @@
 import React from "react";
-import {Col, Row, Tab, Image, Tabs, Card} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Col, Row, Tab, Tabs} from "react-bootstrap";
 
 import {useFetchData} from "../hooks/FetchDataHook";
-import {capitalize, zeroPad} from "../utils/functions";
+import {capitalize} from "../utils/functions";
 import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
-
-
-function NextMedia({ mediaType, media }) {
-    const rmCorner = mediaType !== "movies" && "rm-round-corner";
-
-    return (
-        <>
-            <Card className="bg-transparent border-0">
-                <div className="overlay-container">
-                    <Image
-                        className={"medialist-img " + rmCorner}
-                        src={media.media_cover}
-                        height={300}
-                        width={200}
-                        style={{height: "auto"}}
-                        alt={media.name}
-                    />
-                    <Link className="overlay" to={`/details/${mediaType}/${media.id}`}>
-                        <span className="overlay-text text-light fs-24">{media.name}</span>
-                    </Link>
-                </div>
-                {(mediaType === "anime" || mediaType === "series") &&
-                    <div className="text-center user-media-container rm-round-corner">
-                        S{zeroPad(media.season_to_air)}&nbsp;-&nbsp;E{zeroPad(media.episode_to_air)}
-                    </div>
-                }
-            </Card>
-            <div className="supp-drop-container">{media.date}</div>
-        </>
-    )
-}
+import NextMedia from "../components/comingNext/nextMedia";
 
 
 export default function ComingNext() {
     const { apiData, loading, error } = useFetchData("/coming_next")
 
-    if (error?.status) {
-        return <ErrorPage {...error}/>
-    }
-
-    if (loading) {
-        return <Loading/>;
-    }
-
+    if (error) return <ErrorPage error={error}/>;
+    if (loading) return <Loading/>;
 
     return (
         <div id="list-tabs">
@@ -74,6 +37,5 @@ export default function ComingNext() {
                 )}
             </Tabs>
         </div>
-
     )
 }

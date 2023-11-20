@@ -28,6 +28,7 @@ export default function RegisterForm() {
 		flash(response.body.message, "success");
 	};
 	
+	// noinspection JSValidateTypes
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)} className="text-center">
 			<Form.Group className="mb-4">

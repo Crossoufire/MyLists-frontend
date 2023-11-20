@@ -16,7 +16,7 @@ const componentToLoad = (extension) => {
 		follows: FollowsFollowers,
 		followers: FollowsFollowers,
 		undefined: ProfileData,
-		default: ErrorPage
+		default: ErrorPage,
 	};
 
 	return components[extension] || components.default;
@@ -25,15 +25,10 @@ const componentToLoad = (extension) => {
 
 export default function ProfilePage() {
 	const { username, extension } = useParams();
-	const { apiData, loading, error } = useFetchData("/profile/"+username)
+	const { apiData, loading, error } = useFetchData(`/profile/${username}`)
 
-	if (error?.status) {
-		return <ErrorPage {...error}/>;
-	}
-
-	if (loading) {
-		return <Loading/>;
-	}
+	if (error) return <ErrorPage error={error}/>;
+	if (loading) return <Loading/>;
 
 	const ProfileComponent = componentToLoad(extension);
 

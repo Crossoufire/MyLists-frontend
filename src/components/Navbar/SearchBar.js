@@ -1,5 +1,6 @@
 import React, {useRef, useState} from "react";
 import {FaTimes} from "react-icons/fa";
+import {Form} from "react-bootstrap";
 
 import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 import {useDebounce} from "../../hooks/DebouceHook";
@@ -67,11 +68,9 @@ export default function SearchBar() {
                     value={query}
                     onChange={onChangeHandler}
                 />
-                {query &&
-                    <span className="search-close-icon" onClick={resetSearch}>
-                        <FaTimes/>
-                    </span>
-                }
+
+                {query && <span className="search-close-icon" onClick={resetSearch}><FaTimes/></span>}
+
                 <select className="search-bar-select cu-p" value={selectDrop} onChange={changeSelect}>
                     <option className="search-option" value="TMDB">Media</option>
                     {currentUser.add_games && <option className="search-option" value="IGDB">Games</option>}

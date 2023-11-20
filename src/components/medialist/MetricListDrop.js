@@ -5,7 +5,7 @@ import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 import LoadingIcon from "../primitives/LoadingIcon";
 import {Tooltip} from "react-tooltip";
 import {FeelingDropdown} from "../reused/FeelingDropdown";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
 
 
 export default function MetricListDrop({ mediaId, isEnabled, name, initMetric, updateMetric }) {

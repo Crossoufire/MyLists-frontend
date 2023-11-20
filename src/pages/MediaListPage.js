@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useParams, useSearchParams} from "react-router-dom";
 import {Form} from "react-bootstrap";
 
-import {useFetchData} from "../hooks/FetchDataHook";
+import {useFetchData2} from "../hooks/FetchDataHook";
 import {useUser} from "../contexts/UserProvider";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
@@ -20,7 +20,7 @@ export default function MediaListPage() {
 	const { mediaType, username } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [showCommon, setShowCommon] = useState(true);
-	const { apiData, loading, error } = useFetchData(`/list/${mediaType}/${username}`,
+	const { apiData, loading, error } = useFetchData2(`/list/${mediaType}/${username}`,
 		{...Object.fromEntries(searchParams)});
 
 
@@ -85,23 +85,15 @@ export default function MediaListPage() {
 		setShowCommon(!showCommon);
 	};
 
-	if (error?.status) {
-		return <ErrorPage {...error}/>
-	}
-
-	if (apiData === undefined || mediaType !== apiData.media_type) {
-		return <Loading/>;
-	}
+	if (error) return <ErrorPage error={error}/>
+	if (apiData === undefined || mediaType !== apiData.media_type) return <Loading/>;
 
 
 	return (
 		<>
 			<div className="d-flex media-navigation gap-4 m-t-35">
 				<NavigationMedia
-					username={apiData.user_data.username}
-					addAnime={apiData.user_data.add_anime}
-					addBooks={apiData.user_data.add_books}
-					addGames={apiData.user_data.add_games}
+					userData={apiData.user_data}
 					mediaType={mediaType}
 				/>
 				<SearchListMedia
@@ -126,6 +118,7 @@ export default function MediaListPage() {
 				activeStatus={apiData.pagination.status}
 				updateStatus={(value) => updateSearchParams(updateStatus, value)}
 			/>
+
 			<div className="d-flex justify-content-between m-t-35">
 				<TitleStatus
 					status={apiData.pagination.status}
@@ -140,6 +133,7 @@ export default function MediaListPage() {
 				/>
 			</div>
 			<HLine mtop={2}/>
+
 			<MediaListData
 				loading={loading}
 				apiData={apiData}

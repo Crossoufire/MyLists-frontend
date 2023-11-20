@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import LoadingIcon from "../primitives/LoadingIcon";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
 
 
 export default function EpsAndSeasons({ isEnabled, initSeason, initEpisode, epsPerSeason, updateSeas, updateEps }) {

@@ -9,10 +9,10 @@ import {useUser} from "../../contexts/UserProvider";
 
 export default function LoginForm() {
 	const flash = useFlash()
-	const {login} = useUser()
+	const { login } = useUser()
 	const navigate = useNavigate();
 	const location = useLocation();
-	const {register, handleSubmit, formState: {errors}} = useForm();
+	const { register, handleSubmit, formState: { errors } } = useForm();
 
 	async function onSubmit(data) {
 		const isLogged = await login(data.username, data.password);
@@ -29,6 +29,7 @@ export default function LoginForm() {
 	}
 
 
+	// noinspection JSValidateTypes
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
 			<Form.Group className="mb-4">

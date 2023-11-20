@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export function useLoading() {
+export default function useLoading() {
     const [isLoading, setLoading] = useState(false);
 
     const handleLoading = async (asyncFunction, ...args) => {

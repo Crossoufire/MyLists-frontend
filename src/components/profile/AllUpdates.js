@@ -28,7 +28,7 @@ export default function AllUpdates({ username }) {
 
 
     const fetchData = useCallback(async (params) => {
-        const response = await api.get("/profile/"+username+"/history", {
+        const response = await api.get(`/profile/${username}/history`, {
             search: params.search,
             page: params.page,
         });

@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Card} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {FaCaretDown, FaCaretRight, FaExternalLinkAlt} from "react-icons/fa";
+import {FaCaretDown, FaCaretRight} from "react-icons/fa";
 
+import {capitalize} from "../../utils/functions";
 import HLine from "../primitives/HLine";
 
 
@@ -23,35 +23,18 @@ export default function ProfileMiscInfo({ user, mediaData }) {
                 </Card.Title>
                 <HLine/>
                 {isOpen &&
-                    <div className="m-l-15 w-75">
-                        <div>Views</div>
-                        <div className="d-flex flex-column m-l-25">
+                    <div style={{width: "85%"}}>
+                        <div className="d-flex flex-column m-l-30">
                             <div className="d-flex justify-content-between">
-                                <div>Profile</div>
+                                <div>Profile views</div>
                                 <div>{user.profile_views}</div>
                             </div>
-                            {mediaData.map((data, idx) =>
-                                <div key={idx} className="d-flex justify-content-between">
-                                    <div>{`${data.media_name}List`}</div>
+                            {mediaData.map(data =>
+                                <div key={data.media_type} className="d-flex justify-content-between">
+                                    <div>{`${capitalize(data.media_type)}List`} views</div>
                                     <div>{user[`${data.media_type}_views`]}</div>
                                 </div>
                             )}
-                        </div>
-
-                        <div>Extra data</div>
-                        <div className="d-flex flex-column m-l-25">
-                            <Link className="text-light" to="/levels/media_levels" target="_blank" rel="noreferrer">
-                                <div className="d-flex flex-row justify-content-between">
-                                    <div><u>Media levels data</u></div>
-                                    <div><FaExternalLinkAlt className="text-grey"/></div>
-                                </div>
-                            </Link>
-                            <Link className="text-light" to="/levels/profile_levels" target="_blank" rel="noreferrer">
-                                <div className="d-flex justify-content-between">
-                                    <div><u>Profile borders data</u></div>
-                                    <div><FaExternalLinkAlt className="text-grey"/></div>
-                                </div>
-                            </Link>
                         </div>
                     </div>
                 }

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import {getMetricValues} from "../../../utils/functions";
 import {FeelingDropdown} from "../../reused/FeelingDropdown";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 export default function MetricDrop({ name, initMetric, updateMetric, callbackMetric }) {

@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Col, Container, Image, Row} from "react-bootstrap";
-import {FaEnvelope} from "react-icons/fa";
+import {FaEnvelope, FaExternalLinkAlt} from "react-icons/fa";
 
 import HLine from "../primitives/HLine";
 import {mail} from "../../utils/constants";
@@ -43,6 +43,8 @@ export default function Footer() {
                             <li><a href="https://github.com/Crossoufire/MyLists" className="text-light" rel="noreferrer" target="_blank">Github</a></li>
                             <li><Link to="/about" className="text-light" rel="noreferrer" target="_blank">About</Link></li>
                             <li><Link to="/privacy_policy" className="text-light" rel="noreferrer" target="_blank">Privacy Policy</Link></li>
+                            <li><Link className="text-light" to="/levels/media_levels">Media levels data</Link></li>
+                            <li><Link className="text-light" to="/levels/profile_levels">Profile borders data</Link></li>
                         </ul>
                     </Col>
                 </Row>

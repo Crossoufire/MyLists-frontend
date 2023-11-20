@@ -8,18 +8,18 @@ import {zeroPad, capitalize} from "../../utils/functions";
 import HLine from "../primitives/HLine";
 
 
-function MediaLevelBar({ mediaType, username, levelImage, levelName, level, percent }) {
+function MediaLevelBar({ mediaType, username, rankName, rankImage, level, percent }) {
     return (
         <div className="d-flex gap-3 align-items-center">
             <div>
                 <Image
                     id={`img-${mediaType}`}
-                    src={levelImage}
+                    src={rankImage}
                     height={38}
                     width={38}
-                    alt={levelName}
+                    alt={rankName}
                 />
-                <Tooltip anchorId={`img-${mediaType}`} content={levelName}/>
+                <Tooltip anchorId={`img-${mediaType}`} content={rankName}/>
             </div>
             <div className="w-100">
                 <Row>
@@ -31,8 +31,8 @@ function MediaLevelBar({ mediaType, username, levelImage, levelName, level, perc
                     <Col className="col-8"><div>Level {zeroPad(level)}</div></Col>
                 </Row>
                 <div id={mediaType} className="xp-bar">
-                    <div className={`xp-bar-fill bg-${mediaType}`} style={{width: percent+"%"}}/>
-                    <Tooltip anchorId={mediaType} content={percent+"%"}/>
+                    <div className={`xp-bar-fill bg-${mediaType}`} style={{width: `${percent}%`}}/>
+                    <Tooltip anchorId={mediaType} content={`${percent}%`}/>
                 </div>
                 <span>&nbsp;&nbsp;{zeroPad(level + 1)}</span>
             </div>
@@ -64,10 +64,10 @@ export default function MediaLevels({ username, mediaLevels }) {
                                 key={data.media_type}
                                 username={username}
                                 mediaType={data.media_type}
-                                levelName={data.grade_title}
-                                levelImage={data.grade_image}
-                                level={data.media_level}
-                                percent={data.media_level_percent}
+                                rankName={data.rank_name}
+                                rankImage={data.rank_image}
+                                level={data.level}
+                                percent={data.level_percent}
                             />
                         )}
                     </>

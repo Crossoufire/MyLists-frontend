@@ -3,7 +3,7 @@ import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {Tooltip} from "react-tooltip";
 
 import LoadingIcon from "../../primitives/LoadingIcon";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 export default function FavoriteIcon({ mediaId, isEnabled=true, initFav, updateFavorite }) {

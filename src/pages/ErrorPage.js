@@ -1,18 +1,19 @@
 import {Image} from "react-bootstrap";
 
-
-export default function ErrorPage({status=404, message="Not Found", description="This page was not found"}) {
+export default function ErrorPage({ error }) {
     return (
-        <div className="d-flex flex-column m-t-30">
-            <h1>{message} ({status})</h1>
-            <p className="m-t-20">{description}</p>
-            <Image
-                className="m-t-40"
-                src={require("../images/error.jpg")}
-                height={300}
-                width={300}
-                alt="error"
-            />
+        <div className="d-flex flex-column text-center m-t-35">
+            <h2>{error.message} ({error.status})</h2>
+            <div className="fs-20 m-t-10">{error.description}</div>
+            <div className="justify-content-center m-t-50">
+                <Image
+                    className="m-t-20"
+                    src={require("../images/error.jpg")}
+                    height={300}
+                    width={300}
+                    alt={"error"}
+                />
+            </div>
         </div>
     );
 }
