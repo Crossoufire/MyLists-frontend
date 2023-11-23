@@ -1,26 +1,24 @@
 import React, {useState} from "react";
-import {Card, Col, Image, Row} from "react-bootstrap";
+import {Anchor, Card, Col, Image, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {Tooltip} from "react-tooltip";
 import {FaCaretDown, FaCaretRight} from "react-icons/fa";
 
 import {zeroPad, capitalize} from "../../utils/functions";
 import HLine from "../primitives/HLine";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 function MediaLevelBar({ mediaType, username, rankName, rankImage, level, percent }) {
     return (
         <div className="d-flex gap-3 align-items-center">
-            <div>
+            <AddTooltip title={rankName}>
                 <Image
-                    id={`img-${mediaType}`}
                     src={rankImage}
                     height={38}
                     width={38}
                     alt={rankName}
                 />
-                <Tooltip anchorId={`img-${mediaType}`} content={rankName}/>
-            </div>
+            </AddTooltip>
             <div className="w-100">
                 <Row>
                     <Col className="col-4">
@@ -28,12 +26,15 @@ function MediaLevelBar({ mediaType, username, rankName, rankImage, level, percen
                             {capitalize(mediaType)}
                         </Link>
                     </Col>
-                    <Col className="col-8"><div>Level {zeroPad(level)}</div></Col>
+                    <Col className="col-8">
+                        <div>Level {zeroPad(level)}</div>
+                    </Col>
                 </Row>
-                <div id={mediaType} className="xp-bar">
-                    <div className={`xp-bar-fill bg-${mediaType}`} style={{width: `${percent}%`}}/>
-                    <Tooltip anchorId={mediaType} content={`${percent}%`}/>
-                </div>
+                <AddTooltip title={`${percent.toFixed(0)}%`}>
+                    <div id={mediaType} className="xp-bar">
+                        <div className={`xp-bar-fill bg-${mediaType}`} style={{width: `${percent}%`}}/>
+                    </div>
+                </AddTooltip>
                 <span>&nbsp;&nbsp;{zeroPad(level + 1)}</span>
             </div>
         </div>

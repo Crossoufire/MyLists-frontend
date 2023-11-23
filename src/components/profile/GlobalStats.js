@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import {FaCaretDown, FaCaretRight} from "react-icons/fa";
-import {Cell, Tooltip, Pie, PieChart, ResponsiveContainer} from "recharts";
+import {Cell, Pie, PieChart, ResponsiveContainer} from "recharts";
 
 import {getMetricValues} from "../../utils/functions";
 import HLine from "../primitives/HLine";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function GlobalStats({ userData, global }) {
@@ -65,26 +66,22 @@ export default function GlobalStats({ userData, global }) {
                                 {userData.add_feeling ?
                                     <>
                                         <div className="d-flex row-cols-3 fw-5 fs-18">
-                                            <div id="global-total-time">
-                                                <div style={{color: "rgb(138, 138, 138)"}}>Total time</div>
-                                                <div>{global.total_hours} h</div>
-                                                <Tooltip
-                                                    anchorId="global-total-time"
-                                                    content={`${global.total_days} days`}
-                                                />
-                                            </div>
+                                            <AddTooltip title={`${global.total_days} days`}>
+                                                <div>
+                                                    <div className="text-gloom">Total time</div>
+                                                    <div>{global.total_hours} h</div>
+                                                </div>
+                                            </AddTooltip>
                                             <div>
-                                                <div style={{color: "rgb(138, 138, 138)"}}>Total Media</div>
+                                                <div className="text-gloom">Total Media</div>
                                                 <div>{global.total_media}</div>
                                             </div>
-                                            <div>
-                                                <div id={"global-scored"} style={{color: "rgb(138, 138, 138)"}}>Scored</div>
-                                                <div>{global.percent_scored.toFixed(1)} %</div>
-                                                <Tooltip
-                                                    anchorId={"global-scored"}
-                                                    content={`${global.total_scored}/${global.total_media}`}
-                                                />
-                                            </div>
+                                            <AddTooltip title={`${global.total_scored}/${global.total_media}`}>
+                                                <div>
+                                                    <div className="text-gloom">Scored</div>
+                                                    <div>{global.percent_scored.toFixed(1)} %</div>
+                                                </div>
+                                            </AddTooltip>
                                         </div>
                                         <div className="d-flex fw-5 fs-18 justify-content-center" style={{gap: 35}}>
                                             {getMetricValues("Feeling").slice(1).reverse().map((f, idx) =>
@@ -97,28 +94,24 @@ export default function GlobalStats({ userData, global }) {
                                     :
                                     <>
                                         <div className="d-flex row-cols-2 fw-5 fs-18">
-                                            <div id="global-total-time">
-                                                <div style={{color: "rgb(138, 138, 138)"}}>Total time</div>
-                                                <div>{global.total_hours} h</div>
-                                                <Tooltip
-                                                    anchorId={"global-total-time"}
-                                                    content={`${global.total_days} days`}
-                                                />
-                                            </div>
+                                            <AddTooltip title={`${global.total_days} days`}>
+                                                <div>
+                                                    <div className="text-gloom">Total time</div>
+                                                    <div>{global.total_hours} h</div>
+                                                </div>
+                                            </AddTooltip>
                                             <div>
                                                 <div style={{color: "rgb(138, 138, 138)"}}>Total Media</div>
                                                 <div>{global.total_media}</div>
                                             </div>
                                         </div>
                                         <div className="d-flex row-cols-2 fw-5 fs-18">
-                                            <div id="global-scored">
-                                                <div style={{color: "rgb(138, 138, 138)"}}>Percent Scored</div>
-                                                <div>{global.percent_scored.toFixed(1)} %</div>
-                                                <Tooltip
-                                                    anchorId={"global-scored"}
-                                                    content={`${global.total_scored}/${global.total_media}`}
-                                                />
-                                            </div>
+                                            <AddTooltip title={`${global.total_scored}/${global.total_media}`}>
+                                                <div>
+                                                    <div className="text-gloom">Percent Scored</div>
+                                                    <div>{global.percent_scored.toFixed(1)} %</div>
+                                                </div>
+                                            </AddTooltip>
                                             <div>
                                                 <div style={{color: "rgb(138, 138, 138)"}}>Mean Score</div>
                                                 <div>{global.mean_score.toFixed(2)}/10</div>

@@ -1,11 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Tooltip} from "react-tooltip";
 import {Image} from "react-bootstrap";
 import {FaPen} from "react-icons/fa";
 
 import {useUser} from "../../contexts/UserProvider";
 import FollowIcon from "./FollowIcon";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function ProfileHeader({ user, initFollow, followId }) {
@@ -16,27 +16,22 @@ export default function ProfileHeader({ user, initFollow, followId }) {
         <div className="profile-header-back-container" style={{backgroundImage: `url(${user.back_image})`}}>
             {isCurrent &&
                 <Link id="background-picture" className="profile-header-back-pen" to={"/settings"}>
-                    <FaPen size="20"/>
-                    <Tooltip anchorId="background-picture" content="Change background image" place="bottom"/>
+                    <AddTooltip title={"Change background image"} addSpan place={"bottom"}>
+                        <FaPen size={20}/>
+                    </AddTooltip>
                 </Link>
             }
             <div className="profile-header-container">
                 {isCurrent ?
-                    <>
-                        <Link to={"/settings"}>
+                    <Link to={"/settings"}>
+                        <AddTooltip title={"Change profile image"}>
                             <Image
-                                id="profile-picture"
                                 className="profile-header-img profile-header-hover"
                                 src={user.profile_image}
-                                alt="profile-picture"
+                                alt={"profile-picture"}
                             />
-                        </Link>
-                        <Tooltip
-                            anchorId="profile-picture"
-                            style={{zIndex: 1}}
-                            content="Change profile image"
-                        />
-                    </>
+                        </AddTooltip>
+                    </Link>
                     :
                     <Image
                         className="profile-header-img"

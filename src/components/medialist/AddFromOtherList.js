@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import {FaPlus} from "react-icons/fa";
-import {Tooltip} from "react-tooltip";
 import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function AddFromOtherList({ mediaId, allStatus, activeStatus, handleAddFromOtherList }) {
@@ -12,13 +12,11 @@ export default function AddFromOtherList({ mediaId, allStatus, activeStatus, han
 
     return (
         <>
-            <FaPlus
-                id={"add-to-"+mediaId}
-                size={20}
-                className="img-btn-top-left"
-                onClick={() => setToggleStatus(!toggleStatus)}
-            />
-            <Tooltip anchorId={"add-to-"+mediaId} content="Add to your list"/>
+            <AddTooltip title={"Add to your list"}>
+                <span>
+                    <FaPlus size={20} className="img-btn-top-left" onClick={() => setToggleStatus(!toggleStatus)}/>
+                </span>
+            </AddTooltip>
 
             {toggleStatus &&
                 <div ref={ref} className={activeStatus === "All" ? "edit-status-all" : "edit-status"}>

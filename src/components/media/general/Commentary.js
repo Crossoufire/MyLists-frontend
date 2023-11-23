@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import {Button} from "react-bootstrap";
+import {Button, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {FaRegEdit} from "react-icons/fa";
-import {Tooltip} from "react-tooltip";
 
 import HLine2 from "../../primitives/HLine2";
 import useLoading from "../../../hooks/LoadingHook";
+import AddTooltip from "../../primitives/AddTooltip";
 
 
 export default function Commentary({ showComment, initComment, updateComment, toggleComment }) {
@@ -29,8 +29,9 @@ export default function Commentary({ showComment, initComment, updateComment, to
         <>
             <h4 className="d-flex justify-content-between m-t-20 fw-5">
                 Comment
-                <FaRegEdit id="comment" className="cu-p m-t-4" onClick={() => toggleComment()}/>
-                <Tooltip anchorId="comment" content="Edit comment" className="fs-15"/>
+                <AddTooltip title={"Edit comment"} addSpan>
+                    <FaRegEdit className="cu-p" onClick={() => toggleComment()}/>
+                </AddTooltip>
             </h4>
             <HLine2/>
             {!showComment ?

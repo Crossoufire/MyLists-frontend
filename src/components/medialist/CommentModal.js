@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-
 import {FaCommentAlt, FaRegCommentAlt} from "react-icons/fa";
 import {Button, Modal} from "react-bootstrap";
-import {Tooltip} from "react-tooltip";
+
 import LoadingIcon from "../primitives/LoadingIcon";
 import useLoading from "../../hooks/LoadingHook";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function CommentModal({ mediaId, isCurrent, mediaName, initContent, updateComment }) {
@@ -29,24 +29,22 @@ export default function CommentModal({ mediaId, isCurrent, mediaName, initConten
     return (
         <>
             {contents ?
-                <>
+                <AddTooltip title={"Comment"} addSpan>
                     <FaCommentAlt
                         id={"comment-"+mediaId}
                         className="cu-p"
                         style={{color: "darkgoldenrod"}}
                         onClick={handleShow}
                     />
-                    <Tooltip anchorId={"comment-"+mediaId} content={"Comment"}/>
-                </>
+                </AddTooltip>
                 :
-                <>
+                <AddTooltip title={"Comment"} addSpan>
                     <FaRegCommentAlt
                         id={"comment-empty-"+mediaId}
                         className={isCurrent && "cu-p"}
                         onClick={isCurrent && handleShow}
                     />
-                    <Tooltip anchorId={"comment-empty-"+mediaId} content={"Comment"}/>
-                </>
+                </AddTooltip>
             }
 
             <Modal centered show={showModal} onHide={handleClose}>

@@ -1,12 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Tooltip} from "react-tooltip";
 import {Col, Image, Row} from "react-bootstrap";
 import {FaExternalLinkAlt} from "react-icons/fa";
 
 import {capitalize, getStatusColor} from "../../utils/functions";
 import MetricDistribution from "./MetricDistribution";
 import HLine from "../primitives/HLine";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 // export default function MediaStats({ user, media }) {
@@ -335,17 +335,10 @@ export default function MediaStats({ user, media }) {
                         <span className="block" style={{backgroundColor: "black"}}/>
                         :
                         media.status_count.map(status =>
-                            <React.Fragment key={`${status.status}-${media.media_type}`}>
-                            <span
-                                id={`${status.status}-${media.media_type}`}
-                                className="block"
-                                style={{width: `${status.percent}%`, backgroundColor: getStatusColor(status.status)}}
-                            />
-                                <Tooltip
-                                    anchorId={`${status.status}-${media.media_type}`}
-                                    content={status.status}
-                                />
-                            </React.Fragment>
+                            <AddTooltip key={`${status.status}-${media.media_type}`} title={status.status}>
+                                <span className="block" style={{width: `${status.percent}%`,
+                                    backgroundColor: getStatusColor(status.status)}}/>
+                            </AddTooltip>
                         )
                     }
                 </div>
@@ -374,16 +367,14 @@ export default function MediaStats({ user, media }) {
                     <div className="d-flex flex-wrap justify-content-start gap-2 m-t-5">
                         {media.favorites.map(m =>
                             <Link key={m.media_name} to={`/details/${media.media_type}/${m.media_id}`}>
-                                <Image
-                                    id={`${media.media_type}_${m.media_id}`}
-                                    style={{borderRadius: 4}}
-                                    height={81}
-                                    src={m.media_cover}
-                                />
-                                <Tooltip
-                                    anchorId={`${media.media_type}_${m.media_id}`}
-                                    content={m.media_name}
-                                />
+                                <AddTooltip title={m.media_name}>
+                                    <Image
+                                        id={`${media.media_type}_${m.media_id}`}
+                                        style={{borderRadius: 4}}
+                                        height={81}
+                                        src={m.media_cover}
+                                    />
+                                </AddTooltip>
                             </Link>
                         )}
                     </div>

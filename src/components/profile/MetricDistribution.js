@@ -1,6 +1,6 @@
 import React from "react";
-import {Tooltip} from "react-tooltip";
 import {getMetricValues} from "../../utils/functions";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function MetricDistribution({ isFeeling, metricCount, mediaType }) {
@@ -28,18 +28,10 @@ export default function MetricDistribution({ isFeeling, metricCount, mediaType }
                     :
                     <ul className="histogram">
                         {metricCount.map((val, idx) =>
-                            <React.Fragment key={idx + mediaType}>
-                                <li
-                                    id={idx + mediaType}
-                                    className={`histogram-item bg-${mediaType}`}
-                                    style={{height: `calc(${(val / maxValue) * 100}% + 1px)`}}
-                                />
-                                <Tooltip
-                                    style={{zIndex: 5}}
-                                    anchorId={idx + mediaType}
-                                    content={`${(idx / 2)}/10: ${val} ${mediaType}`}
-                                />
-                            </React.Fragment>
+                            <AddTooltip key={idx + mediaType} title={`${(idx / 2)}/10: ${val} ${mediaType}`}>
+                                <li className={`histogram-item bg-${mediaType}`}
+                                    style={{height: `calc(${(val / maxValue) * 100}% + 1px)`}}/>
+                            </AddTooltip>
                         )}
                     </ul>
             }

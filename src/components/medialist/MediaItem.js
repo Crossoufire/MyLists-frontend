@@ -88,7 +88,7 @@ export default function MediaItem({ isCurrent, mediaType, userData, mediaData, i
 						</>
 					}
 				</div>
-				{activeStatus === "All" || activeStatus === "Search" &&
+				{(activeStatus === "All" || activeStatus === "Search") &&
 					<div className="all-status-info">{mediaData.status}</div>
 				}
 				<UserMediaInfo

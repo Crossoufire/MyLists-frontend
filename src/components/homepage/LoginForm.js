@@ -24,8 +24,7 @@ export default function LoginForm() {
 			return flash(isLogged.body.message, "warning");
 		}
 
-		const next = (location.state && location.state.next) ? location.state.next : "/profile/"+data.username;
-		navigate(next);
+		navigate((location.state && location.state.next) ? location.state.next : `/profile/${data.username}`);
 	}
 
 

@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {Tooltip} from "react-tooltip";
 import {FaUserMinus, FaUserPlus} from "react-icons/fa";
 
 import LoadingIcon from "../primitives/LoadingIcon";
 import useLoading from "../../hooks/LoadingHook";
 import {useApi} from "../../contexts/ApiProvider";
 import {useFlash} from "../../contexts/FlashProvider";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function FollowIcon({ initFollow, followId }) {
@@ -45,15 +45,9 @@ export default function FollowIcon({ initFollow, followId }) {
                 <LoadingIcon loading={true} size={10} cssOverride={{marginBottom: 10}}/>
                 :
                 <Link to={"#"} onClick={handleFollow}>
-                    <FaIcon
-                        id="follow-button"
-                        style={{color: color}}
-                    />
-                    <Tooltip
-                        className="fs-15"
-                        anchorId="follow-button"
-                        content={content}
-                    />
+                    <AddTooltip title={content} addSpan>
+                        <FaIcon style={{color: color}}/>
+                    </AddTooltip>
                 </Link>
             }
         </>
