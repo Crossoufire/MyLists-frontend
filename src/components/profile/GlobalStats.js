@@ -1,26 +1,21 @@
 import React, {useEffect, useState} from "react";
 import {Card, Col, Row} from "react-bootstrap";
-import {FaCaretDown, FaCaretRight} from "react-icons/fa";
 import {Cell, Pie, PieChart, ResponsiveContainer} from "recharts";
 
 import {getMetricValues} from "../../utils/functions";
 import HLine from "../primitives/HLine";
 import AddTooltip from "../primitives/AddTooltip";
+import useCollapse from "../../hooks/CollapseHook";
 
 
 export default function GlobalStats({ userData, global }) {
-    const [caret, setCaret] = useState(FaCaretDown);
-    const [isOpen, setIsOpen] = useState(true);
     const [chartPie, setChartPie] = useState([]);
+    const { isOpen, caret, toggleCollapse } = useCollapse();
+
 
     useEffect(() => {
         setChartPie(global.time_per_media.map(value => ({ value })));
     }, [global]);
-
-    const toggleCollapse = () => {
-        setIsOpen(!isOpen);
-        setCaret(isOpen ? FaCaretDown : FaCaretRight);
-    }
 
     const customLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.65;

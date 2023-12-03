@@ -8,7 +8,9 @@ import CustomPagination from "../primitives/CustomPagination";
 
 
 export default function MediaListData({ loading, apiData, mediaType, isCurrent, updatePagination }) {
-    if (loading) return <Loading style={null}/>;
+    if (loading) {
+        return <Loading style={null}/>;
+    }
 
     if (apiData.pagination.status === "Stats") {
         return (

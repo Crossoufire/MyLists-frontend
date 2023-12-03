@@ -5,15 +5,18 @@ import {Link} from "react-router-dom";
 import useLoading from "../../../hooks/LoadingHook";
 import LoadingIcon from "../../primitives/LoadingIcon";
 import AddTooltip from "../../primitives/AddTooltip";
+import {useFlash} from "../../../contexts/FlashProvider";
 
 
-export default function RefreshMedia({ updateRefresh, reloadPage }) {
+export default function RefreshMedia({ updateRefresh, reloadByMutate }) {
     const [isLoading, handleLoading] = useLoading();
+    const flash = useFlash();
 
     const handleRefresh = async () => {
         const response = await handleLoading(updateRefresh);
         if (response) {
-            await reloadPage();
+            await reloadByMutate();
+            flash("Media data successfully updated!", "success");
         }
     };
 

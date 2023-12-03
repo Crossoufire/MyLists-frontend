@@ -14,7 +14,7 @@ export default function useApiUpdater(mediaId, mediaType) {
         });
 
         if (!response.ok) {
-            flash(response.body.message, "danger");
+            flash(response.body.description, "danger");
             return false;
         }
 

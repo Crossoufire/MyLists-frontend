@@ -41,6 +41,8 @@ export default function AllUpdates({ username }) {
             nodes: response.body.data.history,
             totalPages: response.body.data.pages,
         });
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Col, Container, Image, Row} from "react-bootstrap";
-import {FaEnvelope, FaExternalLinkAlt} from "react-icons/fa";
+import {FaEnvelope} from "react-icons/fa";
 
 import HLine from "../primitives/HLine";
 import {mail} from "../../utils/constants";

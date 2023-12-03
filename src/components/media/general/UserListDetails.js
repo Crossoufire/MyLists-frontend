@@ -27,7 +27,6 @@ const mediaComponentMap = {
 
 export default function UserListDetails({ mediaId, mediaType, userData, totalPages, deleteMedia, callbackDelete, show }) {
 	const { currentUser } = useUser();
-	const [showComment, setShowComment] = useState(false);
 	const [isLoading, handleLoading] = useLoading();
 	const MediaUserDetails = mediaComponentMap[mediaType];
 	const userMetric = getUserMetric(currentUser.add_feeling, userData);
@@ -40,7 +39,7 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 				await callbackDelete();
 			}
 		});
-	}
+	};
 
 
 	return (
@@ -66,10 +65,8 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 					updatesAPI={updatesAPI}
 				/>
 				<Commentary
-					showComment={showComment}
-					initComment={userData.comment}
+					initContent={userData.comment}
 					updateComment={updatesAPI.comment}
-					toggleComment={() => setShowComment(!showComment)}
 				/>
 			</Card.Body>
 			<Card.Footer>

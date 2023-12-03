@@ -4,7 +4,7 @@ import {Bar, BarChart, XAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend} 
 import HLine from "../primitives/HLine";
 
 
-function BarGraph({ data, formatter }) {
+const BarGraph = ({ data, formatter }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
 
     const customLabel = ({ x, y, width, height, value }) => {
@@ -29,9 +29,9 @@ function BarGraph({ data, formatter }) {
             </BarChart>
         </ResponsiveContainer>
     );
-}
+};
 
-function PieGraph({ data }) {
+const PieGraph = ({ data }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
 
     const customLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, value }) => {
@@ -66,35 +66,32 @@ function PieGraph({ data }) {
             </PieChart>
         </ResponsiveContainer>
     )
-}
+};
 
-function StatsCard({ name, data, graphType, formatter, leftVal=70 }) {
-    return (
-        <Card className="bg-card text-light">
-            <Card.Body>
-                {name &&
-                    <Card.Title>
-                        <h5>{name}</h5>
-                        <HLine/>
-                    </Card.Title>
-                }
-                {graphType === "bar" ?
-                    <BarGraph
-                        data={data}
-                        formatter={formatter}
-                    />
-                    :
-                    <PieGraph
-                        data={data}
-                        formatter={formatter}
-                        leftVal={leftVal}
-                    />
-                }
-            </Card.Body>
-        </Card>
-    )
-}
-
+const StatsCard = ({ name, data, graphType, formatter, leftVal=70 }) => (
+    <Card className="bg-card text-light">
+        <Card.Body>
+            {name &&
+                <Card.Title>
+                    <h5>{name}</h5>
+                    <HLine/>
+                </Card.Title>
+            }
+            {graphType === "bar" ?
+                <BarGraph
+                    data={data}
+                    formatter={formatter}
+                />
+                :
+                <PieGraph
+                    data={data}
+                    formatter={formatter}
+                    leftVal={leftVal}
+                />
+            }
+        </Card.Body>
+    </Card>
+);
 
 const graphColors = [
     "#ff4d4d",
@@ -109,36 +106,35 @@ const graphColors = [
     "#66b2b2",
 ];
 
-
-export default function MediaListStats({ mediaType, graphData }) {
-    const mediaStats = {
-        movies: {
-            graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
-            formatter: [(value) => `${value} min`, null, null, null, null, null],
-            lefVal: [null, null, 50, 50, 50, -10],
-        },
-        series: {
-            graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
-            formatter: [(value) => `${value}`, null, null, null, null, null],
-            lefVal: [null, null, 50, 50, 50, -10],
-        },
-        anime: {
-            graphType: ["bar", "bar", "pie", "pie", "pie"],
-            formatter: [(value) => `${value} eps`, null, null, null, null],
-            lefVal: [null, null, 50, 50, 50],
-        },
-        games: {
-            graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
-            formatter: [null, null, null, null, null, null],
-            lefVal: [null, null, 50, 50, 40, 40],
-        },
-        books: {
-            graphType: ["bar", "bar", "pie", "pie", "pie"],
-            formatter: [(value) => `${value} p.`, null, null, null, null],
-            lefVal: [null, null, 50, 50, 40],
-        }
+const mediaStats = {
+    movies: {
+        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
+        formatter: [(value) => `${value} min`, null, null, null, null, null],
+        lefVal: [null, null, 50, 50, 50, -10],
+    },
+    series: {
+        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
+        formatter: [(value) => `${value}`, null, null, null, null, null],
+        lefVal: [null, null, 50, 50, 50, -10],
+    },
+    anime: {
+        graphType: ["bar", "bar", "pie", "pie", "pie"],
+        formatter: [(value) => `${value} eps`, null, null, null, null],
+        lefVal: [null, null, 50, 50, 50],
+    },
+    games: {
+        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
+        formatter: [null, null, null, null, null, null],
+        lefVal: [null, null, 50, 50, 40, 40],
+    },
+    books: {
+        graphType: ["bar", "bar", "pie", "pie", "pie"],
+        formatter: [(value) => `${value} p.`, null, null, null, null],
+        lefVal: [null, null, 50, 50, 40],
     }
+}
 
+const MediaListStats = ({ mediaType, graphData }) => {
     const stats = mediaStats[mediaType]
 
     return (
@@ -158,4 +154,7 @@ export default function MediaListStats({ mediaType, graphData }) {
             </Row>
         </div>
     )
-}
+};
+
+
+export default MediaListStats

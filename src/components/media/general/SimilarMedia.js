@@ -7,8 +7,6 @@ import AddTooltip from "../../primitives/AddTooltip";
 
 
 export default function SimilarMedia({ mediaType, similarMedia }) {
-    console.log(similarMedia);
-
     return (
         <div className="m-t-30">
             <h4>Similar {mediaType}</h4>

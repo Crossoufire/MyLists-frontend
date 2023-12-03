@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import {Anchor, Card, Col, Image, Row} from "react-bootstrap";
+import React from "react";
+import {Card, Col, Image, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {FaCaretDown, FaCaretRight} from "react-icons/fa";
 
 import {zeroPad, capitalize} from "../../utils/functions";
 import HLine from "../primitives/HLine";
 import AddTooltip from "../primitives/AddTooltip";
+import useCollapse from "../../hooks/CollapseHook";
 
 
-function MediaLevelBar({ mediaType, username, rankName, rankImage, level, percent }) {
+const MediaLevelBar = ({ mediaType, username, rankName, rankImage, level, percent }) => {
     return (
         <div className="d-flex gap-3 align-items-center">
             <AddTooltip title={rankName}>
@@ -39,23 +39,17 @@ function MediaLevelBar({ mediaType, username, rankName, rankImage, level, percen
             </div>
         </div>
     );
-}
+};
 
 
-export default function MediaLevels({ username, mediaLevels }) {
-    const [isOpen, setIsOpen] = useState(true);
-    const [caret, setCaret] = useState(FaCaretDown);
-
-    const toggleCollapse = () => {
-        setIsOpen(!isOpen);
-        !isOpen ? setCaret(FaCaretDown) : setCaret(FaCaretRight);
-    };
+const MediaLevels = ({ username, mediaLevels }) => {
+    const { isOpen, caret, toggleCollapse } = useCollapse();
 
     return (
         <Card className="bg-card text-light">
             <Card.Body className="p-3">
                 <Card.Title className="cu-p" onClick={toggleCollapse}>
-                    {caret} List Levels
+                    <div>{caret} &nbsp;List Levels</div>
                 </Card.Title>
                 <HLine/>
                 {isOpen &&
@@ -76,5 +70,8 @@ export default function MediaLevels({ username, mediaLevels }) {
             </Card.Body>
         </Card>
     );
-}
+};
+
+
+export default MediaLevels;
 

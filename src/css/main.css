@@ -130,7 +130,7 @@ table td {
 }
 
 @media (max-width: 991px) {
-    .nav-collapsed {
+    .nav-mobile {
         margin-top: 5px;
     }
 }
@@ -536,6 +536,7 @@ table td {
     border-bottom-right-radius: 7px;
 }
 .supp-drop {
+    height: 95%;
     cursor: pointer;
     background: transparent;
     border: none;
@@ -624,10 +625,6 @@ table td {
 .media-navigation {
     justify-content: space-between;
     align-items: baseline;
-}
-
-.hide-active-mobile {
-    display: block;
 }
 
 @media (max-width: 490px) {

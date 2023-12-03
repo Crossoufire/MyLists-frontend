@@ -37,7 +37,6 @@ import "./css/utils.css";
 import "./css/main.css";
 
 
-
 const optionsSWR = {
 	revalidateOnFocus: false,
 	revalidateOnReconnect: false,

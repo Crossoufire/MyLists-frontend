@@ -22,7 +22,9 @@ export default function Notifications() {
         (async () => {
             await countNotifications();
         })();
-    }, [location.pathname, fetchNotifications]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname]);
 
     async function fetchNotifications() {
         setLoading(true);

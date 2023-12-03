@@ -1,4 +1,4 @@
-import {BounceLoader, ClipLoader} from "react-spinners";
+import {ClipLoader} from "react-spinners";
 
 
 export default function Loading({ style="loading-spinner", size=40 }) {

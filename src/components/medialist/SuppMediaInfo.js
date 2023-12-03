@@ -6,7 +6,8 @@ import EpsAndSeasons from "./EpsAndSeasons";
 
 
 export default function SuppMediaInfo({ isCurrent, mediaType, mediaData, updateUserAPI }) {
-    if (mediaType === "series" || mediaType === "anime") {
+
+    if (["series", "anime"].includes(mediaType)) {
         return (
             <EpsAndSeasons
                 isEnabled={isCurrent}
