@@ -1,10 +1,11 @@
 import React from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {Button, Col, Image, Row} from "react-bootstrap";
 import {FaPlus} from "react-icons/fa";
 
 import {useUser} from "../contexts/UserProvider";
 import {useFetchData} from "../hooks/FetchDataHook";
+import useConfirmation from "../hooks/ConfirmationHook";
 import useApiUpdater from "../hooks/UserUpdateAPI";
 import useLoading from "../hooks/LoadingHook";
 import MediaDataDetails from "../components/media/general/MediaDataDetails";
@@ -15,16 +16,18 @@ import RefreshMedia from "../components/media/general/RefreshMedia";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
-import useConfirmation from "../hooks/ConfirmationHook";
 
 
 export default function MediaDetailsPage() {
+	const navigate = useNavigate();
 	const { currentUser } = useUser();
 	const { mediaId, mediaType } = useParams();
+	const [searchParams, _] = useSearchParams();
 	const [isLoading, handleLoading] = useLoading();
-	const { refresh, addMedia, deleteMedia } = useApiUpdater(mediaId, mediaType);
-	const { apiData, loading, error, mutate } = useFetchData(`/details/${mediaType}/${mediaId}`);
 	const { show, ConfirmationModal } = useConfirmation();
+	const { refresh, addMedia, deleteMedia } = useApiUpdater(mediaId, mediaType);
+	const { apiData, loading, error, mutate } = useFetchData(`/details/${mediaType}/${mediaId}`,
+		{...Object.fromEntries(searchParams)});
 
 	const handleAddMediaUser = async () => {
 		const response = await handleLoading(addMedia);
@@ -38,6 +41,7 @@ export default function MediaDetailsPage() {
 
 	if (error) return <ErrorPage error={error}/>
 	if (loading) return <Loading/>;
+	if (apiData.redirect) return navigate(`/details/${mediaType}/${apiData.media.id}`, { replace: true });
 
 
 	return (
@@ -47,7 +51,7 @@ export default function MediaDetailsPage() {
 				{currentUser.role !== "user" &&
 					<RefreshMedia
 						updateRefresh={refresh}
-						reloadPage={mutate}
+						reloadByMutate={mutate}
 					/>
 				}
 			</h3>
@@ -119,7 +123,7 @@ export default function MediaDetailsPage() {
 					</div>
 				</div>
 			}
-			{mediaType === "books" || currentUser.role !== "user" &&
+			{(mediaType === "books" || currentUser.role !== "user") &&
 				<div className="d-flex justify-content-end m-t-50">
 					<Link to={`/details/form/${mediaType}/${mediaId}`}>
 						<Button variant="warning" className="text-dark">Edit Media</Button>

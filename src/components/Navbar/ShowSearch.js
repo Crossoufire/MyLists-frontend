@@ -9,7 +9,7 @@ import HLine from "../primitives/HLine";
 export default function ShowSearch({ query, results, activePage, resetSearch, searchMedia }) {
     const [isLoading, setIsLoading] = useState(false);
 
-    if (results === undefined && query) {
+    if (query.length > 1 && results === undefined) {
         return (
             <Dropdown className="search-autocomplete p-2">
                 <Loading style={null}/>
@@ -55,7 +55,7 @@ export default function ShowSearch({ query, results, activePage, resetSearch, se
             <HLine mtop={15} mbot={5}/>
             {isLoading ?
                 <div style={{height: 500}}>
-                    <Loading />
+                    <Loading/>
                 </div>
                 :
                 results.items.map(media => (

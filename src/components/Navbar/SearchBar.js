@@ -1,6 +1,5 @@
 import React, {useRef, useState} from "react";
 import {FaTimes} from "react-icons/fa";
-import {Form} from "react-bootstrap";
 
 import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 import {useDebounce} from "../../hooks/DebouceHook";
@@ -10,32 +9,36 @@ import {useUser} from "../../contexts/UserProvider";
 import ShowSearch from "./ShowSearch";
 
 
-export default function SearchBar() {
-    const [query, setQuery] = useState("");
+export default function SearchBar({ handleExpansion }) {
+    const api = useApi()
+    const ref = useRef();
+    const flash = useFlash()
+    const { currentUser } = useUser();
     const [results, setResults] = useState();
+    const [query, setQuery] = useState("");
     const [activePage, setActivePage] = useState(1);
     const [selectDrop, setSelectDrop] = useState("TMDB");
-    const { currentUser } = useUser();
-    const flash = useFlash()
-    const ref = useRef();
-    const api = useApi()
 
     const changeSelect = (ev) => setSelectDrop(ev.target.value);
 
-    function onChangeHandler(ev) {
+    const onChangeHandler = (ev) => {
         if (query.length >= 1) {
             resetSearch();
         }
 
         setQuery(ev.target.value);
-    }
+    };
 
-    function resetSearch() {
+    const resetSearch = (collapseHamburger=false) => {
         setQuery("");
         setResults(undefined);
-    }
 
-    async function searchMedia(page=1) {
+        if (collapseHamburger) {
+            handleExpansion();
+        }
+    };
+
+    const searchMedia = async (page=1) => {
         if (!query || query.trim() === "" || query.length < 2) {
             return;
         }
@@ -53,7 +56,7 @@ export default function SearchBar() {
 
         setResults(response.body.data);
         setActivePage(page);
-    }
+    };
 
     useDebounce(query, 300, searchMedia);
     useOnClickOutside(ref, () => resetSearch());
@@ -69,7 +72,7 @@ export default function SearchBar() {
                     onChange={onChangeHandler}
                 />
 
-                {query && <span className="search-close-icon" onClick={resetSearch}><FaTimes/></span>}
+                {query && <span className="close-icon" onClick={resetSearch}><FaTimes/></span>}
 
                 <select className="search-bar-select cu-p" value={selectDrop} onChange={changeSelect}>
                     <option className="search-option" value="TMDB">Media</option>
