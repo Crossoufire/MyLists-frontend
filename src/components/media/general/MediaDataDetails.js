@@ -2,7 +2,6 @@ import TVDetails from "../tv/TVDetails";
 import MoviesDetails from "../movies/MoviesDetails";
 import GamesDetails from "../games/GamesDetails";
 import BooksDetails from "../books/BooksDetails";
-import Synopsis from "./Synopsis";
 import React from "react";
 
 

@@ -2,6 +2,7 @@ import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import {Bar, BarChart, XAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend} from "recharts";
 import HLine from "../primitives/HLine";
+import {formatTime} from "../../utils/functions";
 
 
 const BarGraph = ({ data, formatter }) => {
@@ -12,8 +13,8 @@ const BarGraph = ({ data, formatter }) => {
         const labelYOnTop = y - 6;
 
         return (
-            <text x={x+width/2} y={(height>20) ? labelYInside : labelYOnTop} textAnchor="middle" className="fw-5"
-                  fill={(height>20) ? "#000000" : "#e2e2e2"}>
+            <text x={x + width / 2} y={(height > 20) ? labelYInside : labelYOnTop} textAnchor="middle" className="fw-5"
+                  fill={(height > 20) ? "#000000" : "#e2e2e2"}>
                 {value}
             </text>
         );
@@ -22,14 +23,20 @@ const BarGraph = ({ data, formatter }) => {
     return (
         <ResponsiveContainer width="100%" height={300}>
             <BarChart data={convertedData} margin={{ bottom: -5 }}>
-                <Bar dataKey="count" label={customLabel} isAnimationActive={false}>
+                <Bar dataKey="count" label={customLabel} isAnimationActive={false} radius={[7, 7, 0, 0]}>
                     {convertedData.map((entry, idx) => <Cell fill={graphColors[idx % graphColors.length]}/>)}
                 </Bar>
-                <XAxis dataKey="name" stroke="#e2e2e2" tickFormatter={formatter}/>
+                <XAxis
+                    dataKey="name"
+                    stroke="#e2e2e2"
+                    tickFormatter={formatter}
+                    scale={"band"}
+                />
             </BarChart>
         </ResponsiveContainer>
     );
 };
+
 
 const PieGraph = ({ data }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
@@ -38,7 +45,7 @@ const PieGraph = ({ data }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
         const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
         const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
-        const displayLabel = percent > 15 / 360;
+        const displayLabel = percent > 12 / 360;
 
         return (
             <>
@@ -68,30 +75,16 @@ const PieGraph = ({ data }) => {
     )
 };
 
-const StatsCard = ({ name, data, graphType, formatter, leftVal=70 }) => (
+
+const StatsCard = ({ name, data, graphType, fmt }) => (
     <Card className="bg-card text-light">
         <Card.Body>
-            {name &&
-                <Card.Title>
-                    <h5>{name}</h5>
-                    <HLine/>
-                </Card.Title>
-            }
-            {graphType === "bar" ?
-                <BarGraph
-                    data={data}
-                    formatter={formatter}
-                />
-                :
-                <PieGraph
-                    data={data}
-                    formatter={formatter}
-                    leftVal={leftVal}
-                />
-            }
+            {name && <Card.Title><h5>{name}</h5><HLine/></Card.Title>}
+            {graphType === "bar" ? <BarGraph data={data} formatter={fmt}/> : <PieGraph data={data} formatter={fmt}/>}
         </Card.Body>
     </Card>
 );
+
 
 const graphColors = [
     "#ff4d4d",
@@ -106,33 +99,30 @@ const graphColors = [
     "#66b2b2",
 ];
 
+
 const mediaStats = {
-    movies: {
-        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
-        formatter: [(value) => `${value} min`, null, null, null, null, null],
-        lefVal: [null, null, 50, 50, 50, -10],
-    },
     series: {
         graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
-        formatter: [(value) => `${value}`, null, null, null, null, null],
-        lefVal: [null, null, 50, 50, 50, -10],
+        formatter: [null, null, null, null, null, null],
     },
     anime: {
         graphType: ["bar", "bar", "pie", "pie", "pie"],
-        formatter: [(value) => `${value} eps`, null, null, null, null],
-        lefVal: [null, null, 50, 50, 50],
+        formatter: [null, null, null, null, null],
     },
-    games: {
+    movies: {
         graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
-        formatter: [null, null, null, null, null, null],
-        lefVal: [null, null, 50, 50, 40, 40],
+        formatter: [(value) => formatTime(value), null, null, null, null, null],
     },
     books: {
         graphType: ["bar", "bar", "pie", "pie", "pie"],
-        formatter: [(value) => `${value} p.`, null, null, null, null],
-        lefVal: [null, null, 50, 50, 40],
-    }
+        formatter: [null, null, null, null, null],
+    },
+    games: {
+        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
+        formatter: [(value) => formatTime(value, true), null, null, null, null, null],
+    },
 }
+
 
 const MediaListStats = ({ mediaType, graphData }) => {
     const stats = mediaStats[mediaType]
@@ -146,8 +136,7 @@ const MediaListStats = ({ mediaType, graphData }) => {
                             name={graph.name}
                             data={graph.values}
                             graphType={stats.graphType[idx]}
-                            formatter={stats.formatter[idx]}
-                            leftVal={stats.lefVal[idx]}
+                            fmt={stats.formatter[idx]}
                         />
                     </Col>
                 )}

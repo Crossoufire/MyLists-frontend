@@ -1,14 +1,4 @@
-import {
-    FaAngry,
-    FaBook, FaFilm,
-    FaFrown,
-    FaGamepad,
-    FaGrinAlt,
-    FaGrinStars,
-    FaPoop,
-    FaSmile,
-    FaToriiGate, FaTv
-} from "react-icons/fa";
+import {FaAngry, FaBook, FaFilm, FaFrown, FaGamepad, FaGrinAlt, FaGrinStars, FaPoop, FaSmile, FaToriiGate, FaTv} from "react-icons/fa";
 
 
 export function zeroPad(value) {
@@ -36,13 +26,15 @@ export function createLocalDate(date_) {
     }
 }
 
-export function formatTime(minutes) {
+export function formatTime(minutes, onlyHours) {
     if (isNaN(minutes)) {
         return "--";
     }
 
     let hours = Math.floor(minutes / 60);
     let remainingMinutes = minutes % 60;
+
+    if (onlyHours) return hours + "h"
 
     return hours + "h" + (remainingMinutes < 10 ? "0" : "") + remainingMinutes.toFixed(0);
 }
