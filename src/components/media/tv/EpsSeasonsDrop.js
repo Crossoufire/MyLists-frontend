@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 export default function EpsSeasonsDrop({ initSeason, initEpisode, epsPerSeason, updateSeason, updateEpisode, isDisabled }) {

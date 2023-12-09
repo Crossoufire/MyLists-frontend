@@ -26,7 +26,6 @@ export default function UserMediaInfo({ isCurrent, mediaType, mediaData, userMet
                     updateMetric={updateUserAPI.metric}
                 />
                 <CommentModal
-                    mediaId={mediaData.media_id}
                     isCurrent={isCurrent}
                     mediaName={mediaData.media_name}
                     initContent={mediaData.comment}

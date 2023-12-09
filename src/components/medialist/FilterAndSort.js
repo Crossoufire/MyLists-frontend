@@ -2,14 +2,13 @@ import React from "react";
 import FilterSortDrop from "./FilterSortDrop";
 
 
-export default function FilterAndSort({ mediaType, paginateData, updateLang, updateGenre, updateSorting }) {
+const FilterAndSort = ({ mediaType, paginateData, updateLang, updateGenre, updateSorting }) => {
     if (["Stats", "Search"].includes(paginateData.status)) {
         return;
     }
 
-
     return (
-        <div className="d-flex gap-4 align-items-center">
+        <div className="d-flex align-items-center gap-4">
             {mediaType === "movies" &&
                 <FilterSortDrop
                     name="Lang"
@@ -32,4 +31,6 @@ export default function FilterAndSort({ mediaType, paginateData, updateLang, upd
             />
         </div>
     );
-}
+};
+
+export default FilterAndSort;

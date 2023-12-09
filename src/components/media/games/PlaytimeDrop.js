@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import {getPlaytimeValues} from "../../../utils/functions";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 export default function PlaytimeDrop({ initPlaytime, updatePlaytime }) {

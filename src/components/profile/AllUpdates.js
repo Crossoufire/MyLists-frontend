@@ -28,7 +28,7 @@ export default function AllUpdates({ username }) {
 
 
     const fetchData = useCallback(async (params) => {
-        const response = await api.get("/profile/"+username+"/history", {
+        const response = await api.get(`/profile/${username}/history`, {
             search: params.search,
             page: params.page,
         });
@@ -41,6 +41,8 @@ export default function AllUpdates({ username }) {
             nodes: response.body.data.history,
             totalPages: response.body.data.pages,
         });
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

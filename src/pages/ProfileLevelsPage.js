@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import {Image, Col, Row, Card} from "react-bootstrap";
 
-import {useApi} from "../contexts/ApiProvider";
+import {useFetchData} from "../hooks/FetchDataHook";
 import HLine from "../components/primitives/HLine";
+import ErrorPage from "./ErrorPage";
+import Loading from "../components/primitives/Loading";
 
 
-function BorderCalcul({ border }) {
+function BorderCalculus({ border }) {
 	if (8 * border.level < 320) {
 		return (
 			<div className="text-center fs-20" style={{marginTop: "-25px"}}>
@@ -20,16 +22,9 @@ function BorderCalcul({ border }) {
 
 
 export default function ProfileLevelsPage() {
-	const [borderData, setBorderData] = useState([]);
-	const api = useApi();
+	const { apiData, loading, error } = useFetchData("/levels/profile_borders")
 
-
-	useEffect(() => {
-		(async () => {
-			const response = await api.get("/levels/profile_borders");
-			setBorderData(response.body.data);
-		})();
-	}, [api]);
+	if (error) return <ErrorPage error={error}/>;
 
 
 	return (
@@ -43,19 +38,22 @@ export default function ProfileLevelsPage() {
 				<li>Level = ((((400+ 80 * <u>totalTime</u>) ** (1/2)) - 20) / 40).</li>
 			</ul>
 			<Row className="gy-4">
-				{borderData.map((border, idx) => {
+				{loading ?
+					<Loading/>
+					:
+					apiData.map((border, idx) => {
 					return (
 						<Col xs={6} md={4} lg={3} xl={2} key={idx} className="text-center fw-5">
 							<Card className="bg-card text-light">
 								<Card.Body className="p-2">
-									<Card.Text as={"div"}>
+									<Card.Text as="div">
 										<Image
 											style={{marginTop: "-25px"}}
 											src={border.image}
 											height={170}
 											width={170}
 										/>
-										<BorderCalcul
+										<BorderCalculus
 											border={border}
 										/>
 									</Card.Text>

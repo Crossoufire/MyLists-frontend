@@ -1,20 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {FaCaretDown, FaCaretRight} from "react-icons/fa";
 
 import UserUpdate from "../reused/UserUpdate";
 import HLine from "../primitives/HLine";
+import useCollapse from "../../hooks/CollapseHook";
 
 
-export default function UserUpdates({ username, userUpdates, followers=false }) {
-    const [isOpen, setIsOpen] = useState(true);
-    const [caret, setCaret] = useState(FaCaretDown);
-
-    const toggleCollapse = () => {
-        setIsOpen(!isOpen);
-        !isOpen ? setCaret(FaCaretDown) : setCaret(FaCaretRight)
-    }
+export default function UserUpdates({ username, updates, followers=false }) {
+    const { isOpen, caret, toggleCollapse } = useCollapse();
 
     return (
         <Card className="bg-card text-light">
@@ -23,7 +17,7 @@ export default function UserUpdates({ username, userUpdates, followers=false }) 
                     <div>{caret} &nbsp;{followers ? "Follows Updates" : "Updates"}</div>
                     {!followers &&
                         <div>
-                            <Link className="text-grey fs-16" to={"/profile/"+username+"/history"}>
+                            <Link className="text-grey fs-16" to={`/profile/${username}/history`}>
                                 <i><u>All</u></i>
                             </Link>
                         </div>
@@ -32,10 +26,10 @@ export default function UserUpdates({ username, userUpdates, followers=false }) 
                 <HLine/>
                 {isOpen &&
                     <>
-                        {userUpdates.length === 0 ?
+                        {updates.length === 0 ?
                             <div className="text-grey"><i>No updates to display</i></div>
                             :
-                            userUpdates.map(update =>
+                            updates.map(update =>
                                 <UserUpdate
                                     key={update.date}
                                     username={followers && update.username}

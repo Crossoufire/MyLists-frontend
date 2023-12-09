@@ -1,12 +1,12 @@
 import React from "react";
-import { Form, Button} from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import {Form, Button} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import {FaQuestionCircle} from "react-icons/fa";
 
 import {useUser} from "../contexts/UserProvider";
 import {useFlash} from "../contexts/FlashProvider";
 import HLine from "../components/primitives/HLine";
-import {FaQuestionCircle} from "react-icons/fa";
-import {Tooltip} from "react-tooltip";
+import AddTooltip from "../components/primitives/AddTooltip";
 
 
 export default function SettingsForm() {
@@ -48,6 +48,7 @@ export default function SettingsForm() {
             body: response.status !== 204 ? await response.json() : null,
         }
     }
+
     async function onSubmit(data) {
         const formData = new FormData();
 
@@ -71,6 +72,7 @@ export default function SettingsForm() {
     }
 
 
+    // noinspection JSValidateTypes
     return (
         <>
             <h3 className="m-t-30">Settings</h3>
@@ -133,15 +135,11 @@ export default function SettingsForm() {
                     <Form.Group controlId="formCheckMetric" className="m-b-40">
                         <Form.Label className="text-light">
                             Score/Feeling &nbsp;
-                            <FaQuestionCircle
-                                id="what-is-feeling"
-                                data-tooltip-html={
-                                    "You can switch from a score based notation from 0 to 10 <br/>" +
-                                    "(steps of 0.5) or a feeling based notation made with <br/>" +
-                                    "emoticons to express if you liked/disliked a media instead <br/>" +
-                                    "of scoring it."}
-                            />
-                            <Tooltip anchorId="what-is-feeling"/>
+                            <AddTooltip title={"Switch between a numerical rating on a scale of 0 to 10 " +
+                                "(steps of 0.5) to an emoticon-based rating to convey your liking or " +
+                                "disliking of a media."} addSpan>
+                                <FaQuestionCircle/>
+                            </AddTooltip>
                         </Form.Label>
                         <Form.Check
                             type="checkbox"

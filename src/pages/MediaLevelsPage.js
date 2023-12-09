@@ -7,7 +7,7 @@ import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
 
 
-function RankCalcul({ rank, loop }) {
+function RankCalculus({ rank, loop }) {
 	if (loop % 3 === 0) {
 		let level, hours;
 
@@ -23,7 +23,7 @@ function RankCalcul({ rank, loop }) {
 			<Col xs={6} md={4} lg={3} xl={2} className="text-center fw-5">
 				<Card className="bg-card h-100 text-light">
 					<Card.Body className="p-2">
-						<Card.Text as={"div"}>
+						<Card.Text as="div">
 							<Image src={rank.image} height={45} width={45}/>
 							<div>{rank.name}</div>
 							<div className="fs-17 text-grey">{level}{hours}</div>
@@ -39,13 +39,8 @@ function RankCalcul({ rank, loop }) {
 export default function MediaLevelsPage() {
 	const { apiData, loading, error } = useFetchData("/levels/media_levels")
 
-	if (error?.status) {
-		return <ErrorPage {...error}/>;
-	}
-
-	if (loading) {
-		return <Loading/>;
-	}
+	if (error) return <ErrorPage error={error}/>;
+	if (loading) return <Loading/>;
 
 
 	return (
@@ -61,7 +56,7 @@ export default function MediaLevelsPage() {
 			</ul>
 			<Row className="m-t-40 gy-4 m-b-50">
 				{apiData.map((rank, idx) =>
-					<RankCalcul
+					<RankCalculus
 						key={idx}
 						rank={rank}
 						loop={idx}

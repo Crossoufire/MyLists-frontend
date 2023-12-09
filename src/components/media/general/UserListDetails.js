@@ -3,8 +3,8 @@ import {Button, Card} from "react-bootstrap";
 import {FaMinus} from "react-icons/fa";
 
 import {useUser} from "../../../contexts/UserProvider";
-import {useApiUpdater} from "../../../hooks/UserUpdateAPI";
 import {getUserMetric} from "../../../utils/functions";
+import useApiUpdater from "../../../hooks/UserUpdateAPI";
 import HistoryModal from "./HistoryModal";
 import FavoriteIcon from "./FavoriteIcon";
 import HLine2 from "../../primitives/HLine2";
@@ -13,7 +13,7 @@ import MoviesUserDetails from "../movies/MoviesUserDetails";
 import GamesUserDetails from "../games/GamesUserDetails";
 import BooksUserDetails from "../books/BooksUserDetails";
 import Commentary from "./Commentary";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
 
 
 const mediaComponentMap = {
@@ -25,24 +25,21 @@ const mediaComponentMap = {
 }
 
 
-export default function UserListDetails({ mediaId, mediaType, userData, totalPages, deleteMedia, callbackDelete }) {
+export default function UserListDetails({ mediaId, mediaType, userData, totalPages, deleteMedia, callbackDelete, show }) {
 	const { currentUser } = useUser();
-	const [showComment, setShowComment] = useState(false);
 	const [isLoading, handleLoading] = useLoading();
 	const MediaUserDetails = mediaComponentMap[mediaType];
 	const userMetric = getUserMetric(currentUser.add_feeling, userData);
 	const updatesAPI = useApiUpdater(mediaId, mediaType);
 
 	const handleDeleteMedia = async () => {
-		if (!window.confirm(`Remove this ${mediaType} from your list?`)) {
-			return;
-		}
-
-		const response = await handleLoading(deleteMedia)
-		if (response) {
-			callbackDelete();
-		}
-	}
+		show(async () => {
+			const response = await handleLoading(deleteMedia)
+			if (response) {
+				await callbackDelete();
+			}
+		});
+	};
 
 
 	return (
@@ -68,10 +65,8 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 					updatesAPI={updatesAPI}
 				/>
 				<Commentary
-					showComment={showComment}
-					initComment={userData.comment}
+					initContent={userData.comment}
 					updateComment={updatesAPI.comment}
-					toggleComment={() => setShowComment(!showComment)}
 				/>
 			</Card.Body>
 			<Card.Footer>
@@ -82,7 +77,6 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 							:
 							<><FaMinus size={13} className="m-b-2"/>&nbsp; Remove from your list</>
 						}
-
 					</Button>
 				</div>
 			</Card.Footer>

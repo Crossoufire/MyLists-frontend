@@ -2,6 +2,7 @@ import TVDetails from "../tv/TVDetails";
 import MoviesDetails from "../movies/MoviesDetails";
 import GamesDetails from "../games/GamesDetails";
 import BooksDetails from "../books/BooksDetails";
+import React from "react";
 
 
 const mediaDetailsMap = {
@@ -19,8 +20,8 @@ export default function MediaDataDetails({ mediaType, mediaData }) {
     return (
         <div className="fs-17">
             <MediaDetails
-                mediaData={mediaData}
                 mediaType={mediaType}
+                mediaData={mediaData}
             />
         </div>
     )

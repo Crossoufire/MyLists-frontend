@@ -1,21 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {Card, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {Tooltip} from "react-tooltip";
-import {FaCaretDown, FaCaretRight} from "react-icons/fa";
 
 import HLine from "../primitives/HLine";
+import AddTooltip from "../primitives/AddTooltip";
+import useCollapse from "../../hooks/CollapseHook";
 
 
 export default function ProfileFollows({ username, follows }) {
-    const [isOpen, setIsOpen] = useState(true);
-    const [caret, setCaret] = useState(FaCaretDown);
-
-    const toggleCollapse = () => {
-        setIsOpen(!isOpen);
-        !isOpen ? setCaret(FaCaretDown) : setCaret(FaCaretRight)
-    }
-
+    const { isOpen, caret, toggleCollapse } = useCollapse();
 
     return (
         <Card className="bg-card text-light">
@@ -38,16 +31,16 @@ export default function ProfileFollows({ username, follows }) {
                             :
                             follows.map(follow =>
                                 <Link key={follow.username} to={"/profile/"+follow.username}>
-                                    <Image
-                                        roundedCircle
-                                        id={follow.username}
-                                        height={55}
-                                        width={55}
-                                        style={{backgroundColor: "grey"}}
-                                        src={follow.profile_image}
-                                        alt={follow.username}
-                                    />
-                                    <Tooltip anchorId={follow.username} content={follow.username} />
+                                    <AddTooltip title={follow.username}>
+                                        <Image
+                                            roundedCircle
+                                            height={55}
+                                            width={55}
+                                            style={{backgroundColor: "grey"}}
+                                            src={follow.profile_image}
+                                            alt={follow.username}
+                                        />
+                                    </AddTooltip>
                                 </Link>
                             )}
                     </div>

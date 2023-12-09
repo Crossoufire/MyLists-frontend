@@ -22,7 +22,9 @@ export default function Notifications() {
         (async () => {
             await countNotifications();
         })();
-    }, [location.pathname, fetchNotifications]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname]);
 
     async function fetchNotifications() {
         setLoading(true);
@@ -58,93 +60,96 @@ export default function Notifications() {
                 {loading ?
                     <Dropdown.Item><Loading style={null} size={25}/></Dropdown.Item>
                     :
-                    notifications.map((data, idx) =>
-                        <div key={data.timestamp}>
-                            <Dropdown.Item as="div">
-                                {data.media_type === "serieslist" &&
-                                    <Link className="text-light" to={`/details/series/${data.media_id}`}>
-                                        <Row className="gx-0">
-                                            <Col className="col-2">
-                                                <FaTv className="text-series m-t-15"/>
-                                            </Col>
-                                            <Col className="col-10">
-                                                <span className="one-line-ellipsis">{data.payload.name}</span>
-                                                <div className="fs-14" style={{color: "darkgrey"}}>
-                                                    S{data.payload.season}.E{data.payload.episode}
-                                                    &nbsp;<FaLongArrowAltRight/>&nbsp;
-                                                    {data.payload.release_date}
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    </Link>
-                                }
-                                {data.media_type === "animelist" &&
-                                    <Link className="text-light" to={`/details/anime/${data.media_id}`}>
-                                        <Row className="gx-0">
-                                            <Col className="col-2">
-                                                <FaToriiGate className="text-anime m-t-15"/>
-                                            </Col>
-                                            <Col className="col-10">
-                                                <span className="one-line-ellipsis">{data.payload.name}</span>
-                                                <div className="fs-14" style={{color: "darkgrey"}}>
-                                                    S{data.payload.season}.E{data.payload.episode}
-                                                    &nbsp;<FaLongArrowAltRight/>&nbsp;
-                                                    {data.payload.release_date}
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    </Link>
-                                }
-                                {data.media_type === "movieslist" &&
-                                    <Link className="text-light" to={`/details/movies/${data.media_id}`}>
-                                        <Row className="gx-0">
-                                            <Col className="col-2">
-                                                <FaFilm className="text-movies m-t-15"/>
-                                            </Col>
-                                            <Col className="col-10">
-                                                <span className="one-line-ellipsis">{data.payload.name}</span>
-                                                <div className="fs-14" style={{color: "darkgrey"}}>
-                                                    Release
-                                                    &nbsp;<FaLongArrowAltRight/>&nbsp;
-                                                    {data.payload.release_date}
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    </Link>
-                                }
-                                {data.media_type === "gameslist" &&
-                                    <Link className="text-light" to={`/details/games/${data.media_id}`}>
-                                        <Row className="gx-0">
-                                            <Col className="col-2">
-                                                <FaGamepad className="text-games m-t-15"/>
-                                            </Col>
-                                            <Col className="col-10">
-                                                <span className="one-line-ellipsis">{data.payload.name}</span>
-                                                <div className="fs-14" style={{color: "darkgrey"}}>
-                                                    Release
-                                                    &nbsp;<FaLongArrowAltRight/>&nbsp;
-                                                    {data.payload.release_date}
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    </Link>
-                                }
-                                {!data.media_type &&
-                                    <Link className="text-light" to={`/profile/${data.payload.username}`}>
-                                        <Row className="gx-0">
-                                            <Col className="col-2">
-                                                <FaUser className="text-grey"/>
-                                            </Col>
-                                            <Col className="col-10">
-                                                <span className="one-line-ellipsis">{data.payload.message}</span>
-                                            </Col>
-                                        </Row>
-                                    </Link>
-                                }
-                            </Dropdown.Item>
-                            {idx !== notifications.length -1 && <HLine mtop={0} mbot={0} color="white"/>}
-                        </div>
-                    )
+                    notifications.length === 0 ?
+                        <i className="m-l-10 fw-4">No notifications found.</i>
+                        :
+                        notifications.map((data, idx) =>
+                            <div key={data.timestamp}>
+                                <Dropdown.Item as="div">
+                                    {data.media_type === "serieslist" &&
+                                        <Link className="text-light" to={`/details/series/${data.media_id}`}>
+                                            <Row className="gx-0">
+                                                <Col className="col-2">
+                                                    <FaTv className="text-series m-t-15"/>
+                                                </Col>
+                                                <Col className="col-10">
+                                                    <span className="one-line-ellipsis">{data.payload.name}</span>
+                                                    <div className="fs-14" style={{color: "darkgrey"}}>
+                                                        S{data.payload.season}.E{data.payload.episode}
+                                                        &nbsp;<FaLongArrowAltRight/>&nbsp;
+                                                        {data.payload.release_date}
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </Link>
+                                    }
+                                    {data.media_type === "animelist" &&
+                                        <Link className="text-light" to={`/details/anime/${data.media_id}`}>
+                                            <Row className="gx-0">
+                                                <Col className="col-2">
+                                                    <FaToriiGate className="text-anime m-t-15"/>
+                                                </Col>
+                                                <Col className="col-10">
+                                                    <span className="one-line-ellipsis">{data.payload.name}</span>
+                                                    <div className="fs-14" style={{color: "darkgrey"}}>
+                                                        S{data.payload.season}.E{data.payload.episode}
+                                                        &nbsp;<FaLongArrowAltRight/>&nbsp;
+                                                        {data.payload.release_date}
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </Link>
+                                    }
+                                    {data.media_type === "movieslist" &&
+                                        <Link className="text-light" to={`/details/movies/${data.media_id}`}>
+                                            <Row className="gx-0">
+                                                <Col className="col-2">
+                                                    <FaFilm className="text-movies m-t-15"/>
+                                                </Col>
+                                                <Col className="col-10">
+                                                    <span className="one-line-ellipsis">{data.payload.name}</span>
+                                                    <div className="fs-14" style={{color: "darkgrey"}}>
+                                                        Release
+                                                        &nbsp;<FaLongArrowAltRight/>&nbsp;
+                                                        {data.payload.release_date}
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </Link>
+                                    }
+                                    {data.media_type === "gameslist" &&
+                                        <Link className="text-light" to={`/details/games/${data.media_id}`}>
+                                            <Row className="gx-0">
+                                                <Col className="col-2">
+                                                    <FaGamepad className="text-games m-t-15"/>
+                                                </Col>
+                                                <Col className="col-10">
+                                                    <span className="one-line-ellipsis">{data.payload.name}</span>
+                                                    <div className="fs-14" style={{color: "darkgrey"}}>
+                                                        Release
+                                                        &nbsp;<FaLongArrowAltRight/>&nbsp;
+                                                        {data.payload.release_date}
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </Link>
+                                    }
+                                    {!data.media_type &&
+                                        <Link className="text-light" to={`/profile/${data.payload.username}`}>
+                                            <Row className="gx-0">
+                                                <Col className="col-2">
+                                                    <FaUser className="text-grey"/>
+                                                </Col>
+                                                <Col className="col-10">
+                                                    <span className="one-line-ellipsis">{data.payload.message}</span>
+                                                </Col>
+                                            </Row>
+                                        </Link>
+                                    }
+                                </Dropdown.Item>
+                                {idx !== notifications.length -1 && <HLine mtop={0} mbot={0} color="white"/>}
+                            </div>
+                        )
                 }
             </Dropdown.Menu>
         </Dropdown>

@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-
 import {FaCommentAlt, FaRegCommentAlt} from "react-icons/fa";
 import {Button, Modal} from "react-bootstrap";
-import {Tooltip} from "react-tooltip";
+
 import LoadingIcon from "../primitives/LoadingIcon";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
+import AddTooltip from "../primitives/AddTooltip";
 
 
-export default function CommentModal({ mediaId, isCurrent, mediaName, initContent, updateComment }) {
+export default function CommentModal({ isCurrent, mediaName, initContent, updateComment }) {
     const [initContents, setInitContents] = useState(initContent || "");
     const [contents, setContents] = useState(initContent || "");
     const [showModal, setShowModal] = useState(false);
@@ -21,60 +21,50 @@ export default function CommentModal({ mediaId, isCurrent, mediaName, initConten
         }
 
         await handleLoading(updateComment, contents);
-        setInitContents(contents)
+        setInitContents(contents);
         handleClose();
+    };
+
+    const commentIcon = {
+        icon: contents ? FaCommentAlt : FaRegCommentAlt,
+        props: {
+            className: (isCurrent || contents) ? "cu-p" : "",
+            style: {color: contents && "darkgoldenrod"},
+            onClick: (isCurrent || contents) && handleShow,
+        }
     };
 
 
     return (
         <>
-            {contents ?
-                <>
-                    <FaCommentAlt
-                        id={"comment-"+mediaId}
-                        className="cu-p"
-                        style={{color: "darkgoldenrod"}}
-                        onClick={handleShow}
-                    />
-                    <Tooltip anchorId={"comment-"+mediaId} content={"Comment"}/>
-                </>
-                :
-                <>
-                    <FaRegCommentAlt
-                        id={"comment-empty-"+mediaId}
-                        className={isCurrent && "cu-p"}
-                        onClick={isCurrent && handleShow}
-                    />
-                    <Tooltip anchorId={"comment-empty-"+mediaId} content={"Comment"}/>
-                </>
-            }
+            <AddTooltip title={"Comment"} addSpan>
+                <commentIcon.icon {...commentIcon.props}/>
+            </AddTooltip>
 
             <Modal centered show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton closeVariant="white">
                     <Modal.Title>{mediaName}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Modal.Body>
-                        {isCurrent ?
-                            <div style={{position: "relative"}}>
-                                <textarea
-                                    className="w-100"
-                                    style={{height: 200}}
-                                    value={contents}
-                                    onChange={(ev) => setContents(ev.target.value)}
-                                    placeholder="Enter your comment"
-                                    disabled={isLoading}
-                                />
-                                {isLoading && (
-                                    <div className="remove-media-loading-overlay">
-                                        <LoadingIcon loading={true} size={15}/>
-                                    </div>
-                                )}
-                            </div>
-                            :
-                            <p>{contents}</p>
-                        }
-                    </Modal.Body>
+                    {isCurrent ?
+                        <div style={{position: "relative"}}>
+                            <textarea
+                                className="w-100"
+                                style={{height: 200}}
+                                value={contents}
+                                onChange={(ev) => setContents(ev.target.value)}
+                                placeholder="Enter your comment"
+                                disabled={isLoading}
+                            />
+                            {isLoading &&
+                                <div className="remove-media-loading-overlay">
+                                    <LoadingIcon loading={true} size={15}/>
+                                </div>
+                            }
+                        </div>
+                        :
+                        <p>{contents}</p>
+                    }
                 </Modal.Body>
                 {isCurrent &&
                     <Modal.Footer>

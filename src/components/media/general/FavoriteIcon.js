@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
-import {Tooltip} from "react-tooltip";
 
 import LoadingIcon from "../../primitives/LoadingIcon";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
+import AddTooltip from "../../primitives/AddTooltip";
 
 
 export default function FavoriteIcon({ mediaId, isEnabled=true, initFav, updateFavorite }) {
@@ -25,15 +25,13 @@ export default function FavoriteIcon({ mediaId, isEnabled=true, initFav, updateF
             {isLoading ?
                 <LoadingIcon loading={true} size={6}/>
                 :
-                <>
+                <AddTooltip title={"Favorite"} addSpan>
                     <Icon
-                        id={"fav-icon-" + mediaId}
                         className={isEnabled ? "cu-p" : ""}
                         style={{color: color}}
                         onClick={isEnabled ? handleFavorite : null}
                     />
-                    <Tooltip anchorId={"fav-icon-" + mediaId} content="Favorite" className="fs-15"/>
-                </>
+                </AddTooltip>
             }
         </>
     );

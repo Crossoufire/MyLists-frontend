@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
+import {Col, Row, Tab, Tabs} from "react-bootstrap";
 import {FaClock, FaToriiGate, FaTv, FaFilm, FaUser, FaBook, FaGamepad} from "react-icons/fa";
 import {Bar, BarChart, Cell, ResponsiveContainer, XAxis, YAxis, LabelList} from "recharts";
-import {Col, Row, Tab, Tabs} from "react-bootstrap";
 
 import {maxWidthGlobalStats} from "../utils/constants"
 import {capitalize, changeValueFormat} from "../utils/functions";
@@ -16,30 +16,15 @@ import ErrorPage from "./ErrorPage";
 export default function GlobalStatsPage() {
     const { apiData, loading, error } = useFetchData("/mylists_stats")
 
-    useEffect(() => {
-        if (!loading) {
-            data[0].value = apiData.total_time.series;
-            data[1].value = apiData.total_time.anime;
-            data[2].value = apiData.total_time.movies;
-            data[3].value = apiData.total_time.games;
-            data[4].value = apiData.total_time.books;
-        }
-    }, [loading])
-
-    if (error?.status) {
-        return <ErrorPage {...error}/>;
-    }
-
-    if (loading) {
-        return <Loading/>;
-    }
+    if (error) return <ErrorPage error={error}/>;
+    if (loading) return <Loading/>;
 
     const data = [
-        {name: "series", value: 0, color: "#216e7d"},
-        {name: "anime", value: 0, color: "#945141"},
-        {name: "movies", value: 0, color: "#8c7821"},
-        {name: "games", value: 0, color: "#196219"},
-        {name: "books", value: 0, color: "#584c6e"},
+        {name: "series", value: apiData.total_time.series, color: "#216e7d"},
+        {name: "anime", value: apiData.total_time.anime, color: "#945141"},
+        {name: "movies", value: apiData.total_time.movies, color: "#8c7821"},
+        {name: "games", value: apiData.total_time.games, color: "#196219"},
+        {name: "books", value: apiData.total_time.books, color: "#584c6e"},
     ]
 
     const mediaData = [
@@ -58,9 +43,9 @@ export default function GlobalStatsPage() {
             </div>
 
             <Row className="gy-3">
-                {mediaData.map((media, index) =>
+                {mediaData.map((media, idx) =>
                     <GlobalMediaStats
-                        key={index}
+                        key={idx}
                         icon={media.icon}
                         count={media.count}
                         label={media.label}
@@ -109,17 +94,12 @@ export default function GlobalStatsPage() {
                                 <Bar dataKey="value" barSize={120}>
                                     <LabelList
                                         dataKey="value"
-                                        position="top"
+                                        position="insideTop"
                                         fill="#cccccc"
                                         fontWeight={500}
                                         formatter={(value) => changeValueFormat(value, "h")}
                                     />
-                                    {data.map((val, idx) =>
-                                        <Cell
-                                            key={"cell-"+idx}
-                                            fill={val.color}
-                                        />
-                                    )}
+                                    {data.map((val, idx) => <Cell key={"cell-"+idx} fill={val.color}/>)}
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>

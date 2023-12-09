@@ -21,7 +21,7 @@ const INITIAL_PARAMS = {
 export default function HallOfFamePage() {
     const api = useApi();
     const { currentUser } = useUser();
-    const [error, setError] = useState({});
+    const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState(INITIAL_PARAMS.search);
     const [users, setUsers] = useState({nodes: [], totalPages: 0, page: INITIAL_PARAMS.page});
@@ -36,6 +36,7 @@ export default function HallOfFamePage() {
             setError({
                 status: response.status,
                 message: response.body.message,
+                description: response.body.description,
             });
         }
 
@@ -55,6 +56,8 @@ export default function HallOfFamePage() {
             });
             setLoading(false);
         })();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const resetSearch = async () => {
@@ -89,13 +92,8 @@ export default function HallOfFamePage() {
         page: users.page
     });
 
-    if (error?.status) {
-        return <ErrorPage {...error}/>;
-    }
-
-    if (loading) {
-        return <Loading/>;
-    }
+    if (error) return <ErrorPage error={error}/>;
+    if (loading) return <Loading/>;
 
 
     return (

@@ -9,10 +9,10 @@ import {useUser} from "../../contexts/UserProvider";
 
 export default function LoginForm() {
 	const flash = useFlash()
-	const {login} = useUser()
+	const { login } = useUser()
 	const navigate = useNavigate();
 	const location = useLocation();
-	const {register, handleSubmit, formState: {errors}} = useForm();
+	const { register, handleSubmit, formState: { errors } } = useForm();
 
 	async function onSubmit(data) {
 		const isLogged = await login(data.username, data.password);
@@ -24,11 +24,11 @@ export default function LoginForm() {
 			return flash(isLogged.body.message, "warning");
 		}
 
-		const next = (location.state && location.state.next) ? location.state.next : "/profile/"+data.username;
-		navigate(next);
+		navigate((location.state && location.state.next) ? location.state.next : `/profile/${data.username}`);
 	}
 
 
+	// noinspection JSValidateTypes
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
 			<Form.Group className="mb-4">

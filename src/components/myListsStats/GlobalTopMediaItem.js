@@ -6,8 +6,12 @@ import HLine from "../primitives/HLine";
 export default function GlobalTopMediaItem({ title, textColor, dataToMap }) {
     return (
         <div className="bg-card p-3 rounded-2">
-            <div className="fs-18 fw-5">{title}</div>
-            <HLine color={textColor}/>
+            {title &&
+                <>
+                    <div className="fs-18 fw-5">{title}</div>
+                    <HLine color={textColor}/>
+                </>
+            }
             <Row className="gy-3">
                 {dataToMap.map(media =>
                     <React.Fragment key={media.info}>

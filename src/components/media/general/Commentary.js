@@ -1,27 +1,27 @@
 import React, {useState} from "react";
 import {Button} from "react-bootstrap";
 import {FaRegEdit} from "react-icons/fa";
-import {Tooltip} from "react-tooltip";
 
 import HLine2 from "../../primitives/HLine2";
-import {useLoading} from "../../../hooks/LoadingHook";
+import useLoading from "../../../hooks/LoadingHook";
+import AddTooltip from "../../primitives/AddTooltip";
+import LoadingIcon from "../../primitives/LoadingIcon";
 
 
-export default function Commentary({ showComment, initComment, updateComment, toggleComment }) {
-    const [comment, setComment] = useState(initComment);
+export default function Commentary({ initContent, updateComment }) {
+    const [initContents, setInitContents] = useState(initContent || "");
+    const [contents, setContents] = useState(initContent || "");
+    const [commentInput, setCommentInput] = useState(false);
     const [isLoading, handleLoading] = useLoading();
 
-    const handleFormSubmit = async (ev) => {
-        ev.preventDefault();
-
-        const formData = new FormData(ev.target);
-        const formJson = Object.fromEntries(formData.entries());
-
-        const response = await handleLoading(updateComment, formJson["comment"]);
-        if (response) {
-            setComment(formJson["comment"]);
-            toggleComment();
+    const handleSave = async () => {
+        if (initContent === contents) {
+            return;
         }
+
+        await handleLoading(updateComment, contents);
+        setInitContents(contents);
+        setCommentInput(false);
     }
 
 
@@ -29,35 +29,39 @@ export default function Commentary({ showComment, initComment, updateComment, to
         <>
             <h4 className="d-flex justify-content-between m-t-20 fw-5">
                 Comment
-                <FaRegEdit id="comment" className="cu-p m-t-4" onClick={() => toggleComment()}/>
-                <Tooltip anchorId="comment" content="Edit comment" className="fs-15"/>
+                <AddTooltip title={"Edit comment"} addSpan>
+                    <FaRegEdit className="cu-p" onClick={() => setCommentInput(!commentInput)}/>
+                </AddTooltip>
             </h4>
             <HLine2/>
-            {!showComment ?
-                <p className="text-grey">
-                    {comment === "" || comment === null ?
-                        <span><i>No comment added</i></span>
-                        :
-                        <i>{comment}</i>
-                    }
-                </p>
-                :
-                <form onSubmit={handleFormSubmit} method="POST">
-					<textarea
+            {commentInput ?
+                <>
+                    <textarea
+                        className="w-100"
+                        style={{height: 100}}
+                        value={contents}
+                        onChange={(ev) => setContents(ev.target.value)}
+                        placeholder="Enter your comment"
                         disabled={isLoading}
-                        className="bg-card text-light w-100"
-                        name="comment"
-                        defaultValue={comment}
                     />
-                    <div className="d-flex justify-content-between">
-                        <Button type="reset" variant="danger" size="sm" onClick={toggleComment}>
+                    {isLoading &&
+                        <div className="remove-media-loading-overlay">
+                            <LoadingIcon loading={true} size={15}/>
+                        </div>
+                    }
+                    <div className="d-flex justify-content-end gap-3">
+                        <Button variant="danger" size="sm" onClick={() => setCommentInput(false)}>
                             Cancel
                         </Button>
-                        <Button type="submit" variant="primary" size="sm">
-                            {isLoading ? "Loading..." : "Update"}
+                        <Button variant="primary" size="sm" onClick={handleSave} disabled={contents === initContents}>
+                            {isLoading ? "Loading..." : "Save"}
                         </Button>
                     </div>
-                </form>
+                </>
+                :
+                <p className="text-grey">
+                    {(contents === "" || contents === null) ? <i>No comments added yet.</i> : <i>{contents}</i>}
+                </p>
             }
         </>
     )

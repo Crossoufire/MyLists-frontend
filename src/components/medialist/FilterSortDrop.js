@@ -8,10 +8,10 @@ export default function FilterSortDrop({ name, activeData, allData, updateFuncti
     return (
         <div className="d-flex gap-3">
             <Dropdown drop="down-centered">
-                <Dropdown.Toggle as={"div"} className="cu-p fw-5">
-                    {name}
+                <Dropdown.Toggle as="div" className="cu-p">
+                    <span className="fw-5">{name}</span><span className="hide-active-mobile"> - {activeData}</span>
                 </Dropdown.Toggle>
-                <Dropdown.Menu variant="dark" style={{overflowY: "auto", maxHeight: "385px"}}>
+                <Dropdown.Menu variant="dark" style={{overflowY: "auto", maxHeight: 385}}>
                     {allData.map(data => (
                         <Dropdown.Item key={data} onClick={handleClick} className={activeData === data && "active"}>
                             {data}
@@ -19,7 +19,6 @@ export default function FilterSortDrop({ name, activeData, allData, updateFuncti
                     ))}
                 </Dropdown.Menu>
             </Dropdown>
-            <div className="hide-active-mobile">{activeData}</div>
         </div>
     )
 }

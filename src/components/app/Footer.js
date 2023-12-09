@@ -43,6 +43,8 @@ export default function Footer() {
                             <li><a href="https://github.com/Crossoufire/MyLists" className="text-light" rel="noreferrer" target="_blank">Github</a></li>
                             <li><Link to="/about" className="text-light" rel="noreferrer" target="_blank">About</Link></li>
                             <li><Link to="/privacy_policy" className="text-light" rel="noreferrer" target="_blank">Privacy Policy</Link></li>
+                            <li><Link className="text-light" to="/levels/media_levels">Media levels data</Link></li>
+                            <li><Link className="text-light" to="/levels/profile_levels">Profile borders data</Link></li>
                         </ul>
                     </Col>
                 </Row>

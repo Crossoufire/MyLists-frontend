@@ -21,5 +21,7 @@ export default function RegisterTokenPage() {
             flash(response.body.message);
             navigate("/");
         })();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 }

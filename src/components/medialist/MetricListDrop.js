@@ -3,9 +3,9 @@ import React, {useRef, useState} from "react";
 import {getMetricValues} from "../../utils/functions";
 import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 import LoadingIcon from "../primitives/LoadingIcon";
-import {Tooltip} from "react-tooltip";
 import {FeelingDropdown} from "../reused/FeelingDropdown";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function MetricListDrop({ mediaId, isEnabled, name, initMetric, updateMetric }) {
@@ -63,19 +63,17 @@ export default function MetricListDrop({ mediaId, isEnabled, name, initMetric, u
                     <LoadingIcon loading={true} size={6}/>
                     :
                     name === "Feeling" ?
-                        <>
+                        <AddTooltip title={"Feeling"}>
                             <span id={"feeling-" + mediaId} className={isEnabled && "cu-p"} onClick={isEnabled && (() => setEdit(true))}>
                                 {metric === null ? "---" : metricValues.find(item => item.value === metric)?.icon}
                             </span>
-                            <Tooltip anchorId={"feeling-" + mediaId} content="Feeling"/>
-                        </>
+                        </AddTooltip>
                         :
-                        <>
+                        <AddTooltip title={"Score"}>
                             <span id={"score-" + mediaId} className={isEnabled && "cu-p"} onClick={isEnabled && (() => setEdit(true))}>
                                 {metric === null ? "---" : typeof metric === "number" ? metric.toFixed(1) : metric}
                             </span>
-                            <Tooltip anchorId={"score-" + mediaId} content="Score"/>
-                        </>
+                        </AddTooltip>
             }
         </div>
     );

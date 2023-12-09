@@ -1,7 +1,7 @@
 import React from "react";
 import {useForm} from "react-hook-form";
-import {useNavigate, useSearchParams} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 import {useApi} from "../contexts/ApiProvider";
 import {useFlash} from "../contexts/FlashProvider";
@@ -14,7 +14,7 @@ export default function ResetPasswordPage() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
-    const {register, handleSubmit, getValues, watch, formState: {errors}} = useForm();
+    const { register, handleSubmit, getValues, watch, formState: { errors } } = useForm();
 
     async function onSubmit() {
         // noinspection JSCheckFunctionSignatures
@@ -31,6 +31,7 @@ export default function ResetPasswordPage() {
         navigate("/");
     }
 
+    // noinspection JSValidateTypes
     return (
         <div className="m-t-30 m-b-50">
             <h4>Change your password</h4>

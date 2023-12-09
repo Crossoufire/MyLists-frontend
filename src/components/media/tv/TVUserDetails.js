@@ -33,7 +33,6 @@ export default function TVUserDetails({ userData, userMetric, updatesAPI }) {
         setMetric(value);
     }
 
-
     return (
         <>
             <StatusDrop

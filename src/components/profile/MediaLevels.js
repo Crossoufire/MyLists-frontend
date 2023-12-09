@@ -1,26 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import {Card, Col, Image, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {Tooltip} from "react-tooltip";
-import {FaCaretDown, FaCaretRight} from "react-icons/fa";
 
 import {zeroPad, capitalize} from "../../utils/functions";
 import HLine from "../primitives/HLine";
+import AddTooltip from "../primitives/AddTooltip";
+import useCollapse from "../../hooks/CollapseHook";
 
 
-function MediaLevelBar({ mediaType, username, levelImage, levelName, level, percent }) {
+const MediaLevelBar = ({ mediaType, username, rankName, rankImage, level, percent }) => {
     return (
         <div className="d-flex gap-3 align-items-center">
-            <div>
+            <AddTooltip title={rankName}>
                 <Image
-                    id={`img-${mediaType}`}
-                    src={levelImage}
+                    src={rankImage}
                     height={38}
                     width={38}
-                    alt={levelName}
+                    alt={rankName}
                 />
-                <Tooltip anchorId={`img-${mediaType}`} content={levelName}/>
-            </div>
+            </AddTooltip>
             <div className="w-100">
                 <Row>
                     <Col className="col-4">
@@ -28,33 +26,30 @@ function MediaLevelBar({ mediaType, username, levelImage, levelName, level, perc
                             {capitalize(mediaType)}
                         </Link>
                     </Col>
-                    <Col className="col-8"><div>Level {zeroPad(level)}</div></Col>
+                    <Col className="col-8">
+                        <div>Level {zeroPad(level)}</div>
+                    </Col>
                 </Row>
-                <div id={mediaType} className="xp-bar">
-                    <div className={`xp-bar-fill bg-${mediaType}`} style={{width: percent+"%"}}/>
-                    <Tooltip anchorId={mediaType} content={percent+"%"}/>
-                </div>
+                <AddTooltip title={`${percent.toFixed(0)}%`}>
+                    <div id={mediaType} className="xp-bar">
+                        <div className={`xp-bar-fill bg-${mediaType}`} style={{width: `${percent}%`}}/>
+                    </div>
+                </AddTooltip>
                 <span>&nbsp;&nbsp;{zeroPad(level + 1)}</span>
             </div>
         </div>
     );
-}
+};
 
 
-export default function MediaLevels({ username, mediaLevels }) {
-    const [isOpen, setIsOpen] = useState(true);
-    const [caret, setCaret] = useState(FaCaretDown);
-
-    const toggleCollapse = () => {
-        setIsOpen(!isOpen);
-        !isOpen ? setCaret(FaCaretDown) : setCaret(FaCaretRight);
-    };
+const MediaLevels = ({ username, mediaLevels }) => {
+    const { isOpen, caret, toggleCollapse } = useCollapse();
 
     return (
         <Card className="bg-card text-light">
             <Card.Body className="p-3">
                 <Card.Title className="cu-p" onClick={toggleCollapse}>
-                    {caret} List Levels
+                    <div>{caret} &nbsp;List Levels</div>
                 </Card.Title>
                 <HLine/>
                 {isOpen &&
@@ -64,10 +59,10 @@ export default function MediaLevels({ username, mediaLevels }) {
                                 key={data.media_type}
                                 username={username}
                                 mediaType={data.media_type}
-                                levelName={data.grade_title}
-                                levelImage={data.grade_image}
-                                level={data.media_level}
-                                percent={data.media_level_percent}
+                                rankName={data.rank_name}
+                                rankImage={data.rank_image}
+                                level={data.level}
+                                percent={data.level_percent}
                             />
                         )}
                     </>
@@ -75,5 +70,8 @@ export default function MediaLevels({ username, mediaLevels }) {
             </Card.Body>
         </Card>
     );
-}
+};
+
+
+export default MediaLevels;
 

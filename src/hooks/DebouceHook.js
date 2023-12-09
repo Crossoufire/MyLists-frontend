@@ -13,6 +13,8 @@ export function useDebounce(value, timeout, callback, ...args) {
             }, timeout);
             setTimer(newTimer);
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     const clearTimer = () => {

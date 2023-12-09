@@ -4,18 +4,18 @@ import {mail} from "../utils/constants"
 export default function AboutPage() {
 	return (
 		<div className="m-t-30 m-b-40" style={{maxWidth: "900px"}}>
-			<h5><b>About Mylists.info</b></h5>
+			<h5><b>About MyLists.info</b></h5>
 			<p className="text-justify">
-				I'am only 1 (french) person maintaining this website. It is just a project on my free time to know where
-				I'am on TV shows, movies, games or books for me and my friends. If you have any constructive remarks,
-				find any bugs or want to be involved in the evolution of Mylists.info, please do not hesitate and&nbsp;
+				I'm only 1 (french) person maintaining this website. It is just a project on my free time to know where
+				I'm on TV shows, movies, games or books for me and my friends. If you have any constructive remarks,
+				find any bugs or want to be involved in the evolution of MyLists.info, please do not hesitate and&nbsp;
 				<a className="text-light" href={"mailto:" + mail}>contact me</a>.
 			</p>
 
 			<h5 className="m-t-30"><b>About Flask</b></h5>
 			<p className="text-justify">
 				MyLists.info is powered server side by Flask from:&nbsp;
-				<a href="https://palletsprojects.com/">palletsprojects.com</a>. The license of Flask can be found&nbsp;
+				<a href="https://palletsprojects.com/">pallets-projects.com</a>. The license of Flask can be found&nbsp;
 				<a href="https://flask.palletsprojects.com/en/latest/license/">here</a>.
 			</p>
 

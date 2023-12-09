@@ -1,38 +1,16 @@
-import {useNavigate} from "react-router-dom";
 import {Col, Row, Tab, Tabs} from "react-bootstrap";
 
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
 import {useFetchData} from "../hooks/FetchDataHook";
+import TrendItem from "../components/trends/TrendItem";
 import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
-import TrendItem from "../components/trends/TrendItem";
 
 
-export default function TrendsPage() {
-    const api = useApi();
-    const flash = useFlash();
-    const navigate = useNavigate();
+const TrendsPage = () => {
     const { apiData, loading, error } = useFetchData("/current_trends")
 
-    const addMediaToDb = async (mediaType, apiId) => {
-        const response = await api.post(`/add_media_to_db/${mediaType}/${apiId}`);
-
-        if (!response.ok) {
-            return flash(response.body.message, "danger");
-        }
-
-        navigate(`/details/${mediaType}/${response.body.media_id}`);
-    };
-
-    if (error?.status) {
-        return <ErrorPage {...error}/>
-    }
-
-    if (loading) {
-        return <Loading />;
-    }
-
+    if (error) return <ErrorPage error={error}/>
+    if (loading) return <Loading/>;
 
     return (
         <div id="trends-tabs">
@@ -43,7 +21,6 @@ export default function TrendsPage() {
                             <Col key={media.api_id} xs={12} sm={6} md={4} lg={4} xl={4}>
                                 <TrendItem
                                     media={media}
-                                    addMediaToDb={addMediaToDb}
                                     idx={idx}
                                 />
                             </Col>
@@ -56,7 +33,6 @@ export default function TrendsPage() {
                             <Col key={media.api_id} xs={12} sm={6} md={6} lg={6} xl={4}>
                                 <TrendItem
                                     media={media}
-                                    addMediaToDb={addMediaToDb}
                                     idx={idx}
                                 />
                             </Col>
@@ -66,4 +42,7 @@ export default function TrendsPage() {
             </Tabs>
         </div>
     )
-}
+};
+
+
+export default TrendsPage;

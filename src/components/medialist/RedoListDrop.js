@@ -1,10 +1,10 @@
 import React, {useRef, useState} from "react";
-import {Tooltip} from "react-tooltip";
 
 import {getRedoValues} from "../../utils/functions";
 import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 import LoadingIcon from "../primitives/LoadingIcon";
-import {useLoading} from "../../hooks/LoadingHook";
+import useLoading from "../../hooks/LoadingHook";
+import AddTooltip from "../primitives/AddTooltip";
 
 
 export default function RedoListDrop({ mediaId, isEnabled, initRedo, updateRedo }) {
@@ -40,12 +40,12 @@ export default function RedoListDrop({ mediaId, isEnabled, initRedo, updateRedo 
                 isLoading ?
                     <LoadingIcon loading={true} size={6}/>
                     :
-                    <>
-                        <span id={"redo-"+mediaId} className={isEnabled && "cu-p"} onClick={isEnabled && (() => setEdit(true))}>
+                    <AddTooltip title={"Redo"}>
+                        <span id={"redo-"+mediaId} className={isEnabled && "cu-p"}
+                              onClick={isEnabled && (() => setEdit(true))}>
                             {redo}
                         </span>
-                        <Tooltip anchorId={"redo-"+mediaId} content={"Redo"}/>
-                    </>
+                    </AddTooltip>
             }
         </div>
     );

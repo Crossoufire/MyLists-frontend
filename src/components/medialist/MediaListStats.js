@@ -1,123 +1,149 @@
+import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
-import {Bar, BarChart, YAxis, XAxis, ResponsiveContainer} from "recharts";
+import {Bar, BarChart, XAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend} from "recharts";
 import HLine from "../primitives/HLine";
+import {formatTime} from "../../utils/functions";
 
 
-function HistogramsGraph({ data, fillColor, formatter }) {
+const BarGraph = ({ data, formatter }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
 
-    const customLabel = ({ x, y, width, value }) => (
-        <text x={x+width/2} y={y} fill="#c7c6c6" textAnchor="middle" dy={-6}>{value}</text>
-    );
+    const customLabel = ({ x, y, width, height, value }) => {
+        const labelYInside = y + 16;
+        const labelYOnTop = y - 6;
+
+        return (
+            <text x={x + width / 2} y={(height > 20) ? labelYInside : labelYOnTop} textAnchor="middle" className="fw-5"
+                  fill={(height > 20) ? "#000000" : "#e2e2e2"}>
+                {value}
+            </text>
+        );
+    };
 
     return (
-        <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={convertedData} margin={{ top: 25, bottom: 0 }}>
-                <XAxis dataKey="name" stroke="#c7c6c6" tickFormatter={formatter} />
-                <YAxis stroke="#c7c6c6" width={40}/>
-                <Bar dataKey="count" fill={fillColor} label={customLabel} />
+        <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={convertedData} margin={{ bottom: -5 }}>
+                <Bar dataKey="count" label={customLabel} isAnimationActive={false} radius={[7, 7, 0, 0]}>
+                    {convertedData.map((entry, idx) => <Cell fill={graphColors[idx % graphColors.length]}/>)}
+                </Bar>
+                <XAxis
+                    dataKey="name"
+                    stroke="#e2e2e2"
+                    tickFormatter={formatter}
+                    scale={"band"}
+                />
             </BarChart>
         </ResponsiveContainer>
     );
-}
+};
 
-function Top10Graphs({ data, fillColor, leftVal=70 }) {
+
+const PieGraph = ({ data }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
 
-    const customLabel = ({ x, y, width, height, value }) => (
-        <text x={x + width - 30} y={y+height/2} fill="#c7c6c6" textAnchor="middle" dx={10} dy={5}>{value}</text>
-    );
+    const customLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, value }) => {
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
+        const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
+        const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
+        const displayLabel = percent > 12 / 360;
 
-    return (
-        <ResponsiveContainer width="100%" height={550}>
-            <BarChart data={convertedData} layout="vertical" margin={{ top: 25, left: leftVal, bottom: -10 }}>
-                <XAxis type="number" stroke="#c7c6c6" allowDecimals={false}/>
-                <YAxis type="category" dataKey="name" stroke="#c7c6c6"/>
-                <Bar dataKey="count" fill={fillColor} label={customLabel}/>
-            </BarChart>
-        </ResponsiveContainer>
-    )
-}
-
-function StatsCard({ name, graphType, data, fillColor, formatter, leftVal=70 }) {
-    return (
-        <Card className="bg-card text-light">
-            <Card.Body>
-                <Card.Title><h4>{name}</h4></Card.Title>
-                <HLine/>
-                {graphType === "top" ?
-                    <Top10Graphs
-                        data={data}
-                        fillColor={fillColor}
-                        formatter={formatter}
-                        leftVal={leftVal}
-                    />
-                    :
-                    <HistogramsGraph
-                        data={data}
-                        fillColor={fillColor}
-                        formatter={formatter}
-                    />
+        return (
+            <>
+                {displayLabel &&
+                    <text x={x} y={y} fill="black" className="fw-5" textAnchor="middle" dominantBaseline="middle">
+                        {value}
+                    </text>
                 }
-            </Card.Body>
-        </Card>
+            </>
+        );
+    };
+
+    return (
+        <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+                <Pie data={convertedData} dataKey="count" stroke="black" isAnimationActive={false} label={customLabel}
+                     labelLine={false}>
+                    {convertedData.map((entry, idx) => <Cell fill={graphColors[idx % graphColors.length]}/>)}
+                </Pie>
+                {window.innerWidth <= 490 ?
+                    <Legend align="center" layout="horizontal"/>
+                    :
+                    <Legend align="right" verticalAlign="middle" layout="vertical"/>
+                }
+            </PieChart>
+        </ResponsiveContainer>
     )
-}
+};
+
+
+const StatsCard = ({ name, data, graphType, fmt }) => (
+    <Card className="bg-card text-light">
+        <Card.Body>
+            {name && <Card.Title><h5>{name}</h5><HLine/></Card.Title>}
+            {graphType === "bar" ? <BarGraph data={data} formatter={fmt}/> : <PieGraph data={data} formatter={fmt}/>}
+        </Card.Body>
+    </Card>
+);
+
+
+const graphColors = [
+    "#ff4d4d",
+    "#ff9966",
+    "#ffcc80",
+    "#eed6b5",
+    "#5db85d",
+    "#7fc67f",
+    "#a0dca0",
+    "#00796b",
+    "#4db6ac",
+    "#66b2b2",
+];
 
 
 const mediaStats = {
-    movies: {
-        graphType: ["hist", "hist", "top", "top", "top", "top"],
-        fillColor: "#8c7821",
-        formatter: [(value) => `${value} min`, null, null, null, null, null],
-        lefVal: [null, null, 50, 50, 50, -10],
-    },
     series: {
-        graphType: ["hist", "hist", "top", "top", "top", "top"],
-        fillColor: "#216e7d",
-        formatter: [(value) => `${value} eps`, null, null, null, null, null],
-        lefVal: [null, null, 50, 50, 50, -10],
+        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
+        formatter: [null, null, null, null, null, null],
     },
     anime: {
-        graphType: ["hist", "hist", "top", "top", "top"],
-        fillColor: "#945141",
-        formatter: [(value) => `${value} eps`, null, null, null, null],
-        lefVal: [null, null, 50, 50, 50],
+        graphType: ["bar", "bar", "pie", "pie", "pie"],
+        formatter: [null, null, null, null, null],
     },
-    games: {
-        graphType: ["hist", "hist", "top", "top", "top", "top"],
-        fillColor: "#196219",
-        formatter: [null, null, null, null, null, null],
-        lefVal: [null, null, 50, 50, 40, 40],
+    movies: {
+        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
+        formatter: [(value) => formatTime(value), null, null, null, null, null],
     },
     books: {
-        graphType: ["hist", "hist", "top", "top", "top"],
-        fillColor: "#584c6e",
-        formatter: [(value) => `${value} p.`, null, null, null, null],
-        lefVal: [null, null, 50, 50, 40],
-    }
+        graphType: ["bar", "bar", "pie", "pie", "pie"],
+        formatter: [null, null, null, null, null],
+    },
+    games: {
+        graphType: ["bar", "bar", "pie", "pie", "pie", "pie"],
+        formatter: [(value) => formatTime(value, true), null, null, null, null, null],
+    },
 }
 
 
-export default function MediaListStats({ mediaType, graphData }) {
+const MediaListStats = ({ mediaType, graphData }) => {
     const stats = mediaStats[mediaType]
 
     return (
         <div className="m-t-20">
-            <Row className="m-b-50" style={{gap: "20px 0"}}>
+            <Row className="m-b-50 gy-4">
                 {graphData.map((graph, idx) =>
                     <Col key={graph.name} xs={12} sm={12} md={6}>
                         <StatsCard
                             name={graph.name}
-                            graphType={stats.graphType[idx]}
                             data={graph.values}
-                            fillColor={stats.fillColor}
-                            formatter={stats.formatter[idx]}
-                            leftVal={stats.lefVal[idx]}
+                            graphType={stats.graphType[idx]}
+                            fmt={stats.formatter[idx]}
                         />
                     </Col>
                 )}
             </Row>
         </div>
     )
-}
+};
+
+
+export default MediaListStats

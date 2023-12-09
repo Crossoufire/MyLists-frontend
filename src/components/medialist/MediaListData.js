@@ -1,15 +1,15 @@
 import React from "react";
+import {Row} from "react-bootstrap";
 
 import Loading from "../primitives/Loading";
 import MediaListStats from "./MediaListStats";
 import MediaItem from "./MediaItem";
 import CustomPagination from "../primitives/CustomPagination";
-import {Row} from "react-bootstrap";
 
 
 export default function MediaListData({ loading, apiData, mediaType, isCurrent, updatePagination }) {
     if (loading) {
-        return <Loading/>;
+        return <Loading style={null}/>;
     }
 
     if (apiData.pagination.status === "Stats") {
