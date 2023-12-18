@@ -39,6 +39,9 @@ table td {
 .modal-content {
     background-color: #1a1a1a;
 }
+#modal-info > li:not(:last-child) {
+    margin-bottom: 10px;
+}
 
 
 /* --- SCROLLBAR -------------------------------------------------------------------------------------- */
@@ -53,6 +56,11 @@ table td {
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+@media (max-width: 490px) {
+    .loading-spinner {
+        height: calc(100vh - 553px);
+    }
 }
 
 
@@ -560,10 +568,14 @@ table td {
 
 @media (max-width: 991px) {
     .img-btn-top-left {
+        color: #e2e2e2;
         opacity: 0.8;
+        filter:drop-shadow(2px 2px 1px black)
     }
     .img-btn-top-right {
+        color: #e2e2e2;
         opacity: 0.8;
+        filter:drop-shadow(2px 2px 1px black)
     }
 }
 @media (max-width: 410px) {
@@ -886,10 +898,9 @@ table td {
     color: white;
 }
 .book-input {
-    margin: 0;
+    margin-left: 12px;
     width: 40px;
     border: none;
-    direction: rtl;
     color: lightgray;
     background: transparent;
     cursor: pointer;

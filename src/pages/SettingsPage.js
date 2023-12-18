@@ -3,16 +3,21 @@ import {Form, Button} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {FaQuestionCircle} from "react-icons/fa";
 
+import {maxWidthSettings} from "../utils/constants";
+import AddTooltip from "../components/primitives/AddTooltip";
+import {useApi} from "../contexts/ApiProvider";
 import {useUser} from "../contexts/UserProvider";
 import {useFlash} from "../contexts/FlashProvider";
 import HLine from "../components/primitives/HLine";
-import AddTooltip from "../components/primitives/AddTooltip";
+import useCollapse from "../hooks/CollapseHook";
 
 
-export default function SettingsForm() {
+const SettingsForm = () => {
+    const api = useApi();
     const flash = useFlash();
-    const { currentUser, setCurrentUser } = useUser();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const {currentUser, setCurrentUser, logout} = useUser();
+    const {isOpen, caret, toggleCollapse} = useCollapse(false);
+    const {register, handleSubmit, watch, formState: { errors }} = useForm();
 
     const apiCall = async (formData) => {
         let response;
@@ -48,7 +53,6 @@ export default function SettingsForm() {
             body: response.status !== 204 ? await response.json() : null,
         }
     }
-
     async function onSubmit(data) {
         const formData = new FormData();
 
@@ -70,15 +74,37 @@ export default function SettingsForm() {
         setCurrentUser(response.body.updated_user);
         flash(response.body.message, "success");
     }
+    const handleDeleteAccount = async () => {
+        let secondConfirm;
 
+        const firstConfirm = window.confirm("Are you *REALLY SURE* you want to delete your account? " +
+            "No data will be recoverable. This *CANNOT* be undone.");
+
+        if (firstConfirm) {
+            secondConfirm = window.confirm("Are you *REALLY* sure?");
+        }
+
+        if (secondConfirm) {
+            const response = await api.post("/delete_account");
+
+            if (!response.ok) {
+                return flash(response.body.description, "danger");
+            }
+
+            flash(response.body.message, "info");
+            logout();
+        }
+    };
 
     // noinspection JSValidateTypes
     return (
         <>
             <h3 className="m-t-30">Settings</h3>
             <HLine/>
-            <div className="m-b-40" style={{maxWidth: 400}}>
-                <Form onSubmit={handleSubmit(onSubmit)} data-bs-theme="dark">
+            <div className="m-t-20 m-b-40">
+                <Form onSubmit={handleSubmit(onSubmit)} data-bs-theme="dark" style={{maxWidth: maxWidthSettings}}>
+                    <h5>General</h5>
+                    <HLine/>
                     <Form.Group controlId="formUsername" className="mb-3">
                         <Form.Label>Username</Form.Label>
                         <Form.Control
@@ -106,7 +132,7 @@ export default function SettingsForm() {
                         />
                     </Form.Group>
 
-                    <h5>Activate other List type and metric</h5>
+                    <h5>Activate other List - Change rating</h5>
                     <HLine/>
                     <Form.Group controlId="formCheckAnime">
                         <Form.Check
@@ -149,7 +175,7 @@ export default function SettingsForm() {
                         />
                     </Form.Group>
 
-                    <h5>Change your password</h5>
+                    <h5>Modify your password</h5>
                     <HLine/>
                     <Form.Group controlId="formCurrentPassword" className="mb-3">
                         <Form.Label>Current Password</Form.Label>
@@ -189,11 +215,25 @@ export default function SettingsForm() {
                         }
                     </Form.Group>
 
-                    <div className="text-center">
+                    <div className="m-t-40 text-center">
                         <Button variant="primary" type="submit">Update settings</Button>
                     </div>
                 </Form>
+                <div className="m-t-40" style={{maxWidth: maxWidthSettings}}>
+                    <h5 className="cu-p text-danger" onClick={toggleCollapse}>{caret} &nbsp;Danger Zone</h5>
+                    <HLine/>
+                    {isOpen &&
+                        <div className="text-center">
+                            <Button variant="danger" onClick={handleDeleteAccount}>
+                                DELETE MY ACCOUNT (DEFINITIVE!)
+                            </Button>
+                        </div>
+                    }
+                </div>
             </div>
         </>
     );
-}
+};
+
+
+export default SettingsForm

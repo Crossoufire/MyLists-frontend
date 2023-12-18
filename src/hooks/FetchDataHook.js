@@ -42,14 +42,17 @@ export function useFetchData2(url, query, options) {
 }
 
 
-export function useFetchData(url, query, options) {
+export function useFetchData(url, query, options, addDelay) {
     const api = useApi();
 
-    const fetcher = async (url, query, options) => {
+    const fetcher = async (url, query, options,addDelay = 0) => {
+        await new Promise(resolve => setTimeout(resolve, addDelay));
+
         const response = await api.get(url, query, options);
 
         if (!response.ok) {
             const error = new Error("An error occurred while fetching the data.");
+
             error.message = response.body.message;
             error.status = response.status;
             error.description = response.body.description;
