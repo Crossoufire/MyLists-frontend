@@ -1,12 +1,23 @@
 import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import {Bar, BarChart, XAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend} from "recharts";
-import HLine from "../primitives/HLine";
+
 import {formatTime} from "../../utils/functions";
+import HLine from "../primitives/HLine";
 
 
-const BarGraph = ({ data, formatter }) => {
-    const convertedData = data.map(([name, count]) => ({ name, count }));
+const BarGraph = ({ data, formatter, compareData }) => {
+    try {
+        if (compareData) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].push(compareData[i][1]);
+            }
+        }
+    } catch (e) {}
+
+    const convertedData = data.map(([name, count, count2]) => ({ name, count, count2 }));
+
+    console.log(convertedData);
 
     const customLabel = ({ x, y, width, height, value }) => {
         const labelYInside = y + 16;
@@ -26,17 +37,21 @@ const BarGraph = ({ data, formatter }) => {
                 <Bar dataKey="count" label={customLabel} isAnimationActive={false} radius={[7, 7, 0, 0]}>
                     {convertedData.map((entry, idx) => <Cell fill={graphColors[idx % graphColors.length]}/>)}
                 </Bar>
+                {compareData &&
+                    <Bar dataKey="count2" label={customLabel} isAnimationActive={false} radius={[7, 7, 0, 0]}>
+                        {convertedData.map((entry, idx) => <Cell fill={"gray"}/>)}
+                    </Bar>
+                }
                 <XAxis
                     dataKey="name"
                     stroke="#e2e2e2"
+                    scale="band"
                     tickFormatter={formatter}
-                    scale={"band"}
                 />
             </BarChart>
         </ResponsiveContainer>
     );
 };
-
 
 const PieGraph = ({ data }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
@@ -75,15 +90,20 @@ const PieGraph = ({ data }) => {
     )
 };
 
-
-const StatsCard = ({ name, data, graphType, fmt }) => (
-    <Card className="bg-card text-light">
-        <Card.Body>
-            {name && <Card.Title><h5>{name}</h5><HLine/></Card.Title>}
-            {graphType === "bar" ? <BarGraph data={data} formatter={fmt}/> : <PieGraph data={data} formatter={fmt}/>}
-        </Card.Body>
-    </Card>
-);
+const StatsCard = ({ name, data, graphType, fmt, compareData }) => {
+    return (
+        <Card className="bg-card text-light">
+            <Card.Body>
+                {name && <Card.Title><h5>{name}</h5><HLine/></Card.Title>}
+                {graphType === "bar" ?
+                    <BarGraph data={data} formatter={fmt} compareData={compareData}/>
+                    :
+                    <PieGraph data={data} formatter={fmt}/>
+                }
+            </Card.Body>
+        </Card>
+    );
+};
 
 
 const graphColors = [
@@ -97,6 +117,19 @@ const graphColors = [
     "#00796b",
     "#4db6ac",
     "#66b2b2",
+];
+
+const graphColorsCompare = [
+    "#772525",
+    "#7c4a32",
+    "#59472d",
+    "#595043",
+    "#2c562c",
+    "#314d31",
+    "#3e543e",
+    "#013b35",
+    "#1c423f",
+    "#294848",
 ];
 
 
@@ -124,7 +157,7 @@ const mediaStats = {
 }
 
 
-const MediaListStats = ({ mediaType, graphData }) => {
+const MediaListStats = ({ mediaType, graphData, compareData }) => {
     const stats = mediaStats[mediaType]
 
     return (
@@ -137,6 +170,7 @@ const MediaListStats = ({ mediaType, graphData }) => {
                             data={graph.values}
                             graphType={stats.graphType[idx]}
                             fmt={stats.formatter[idx]}
+                            compareData={compareData && compareData[idx].values}
                         />
                     </Col>
                 )}

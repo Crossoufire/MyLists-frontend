@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {useParams, useSearchParams} from "react-router-dom";
-import {Form} from "react-bootstrap";
+import {Link, useParams, useSearchParams} from "react-router-dom";
+import {Button, Form} from "react-bootstrap";
 
-import {useFetchData2} from "../hooks/FetchDataHook";
 import {useUser} from "../contexts/UserProvider";
-import ErrorPage from "./ErrorPage";
-import Loading from "../components/primitives/Loading";
-import HLine from "../components/primitives/HLine";
+import {useFetchData2} from "../hooks/FetchDataHook";
 import NavigationMedia from "../components/medialist/NavigationMedia";
 import NavigationStatus from "../components/medialist/NavigationStatus";
 import MediaListData from "../components/medialist/MediaListData";
 import TitleStatus from "../components/medialist/TitleStatus";
 import SearchListMedia from "../components/medialist/SearchListMedia";
 import FilterAndSort from "../components/medialist/FilterAndSort";
+import ErrorPage from "./ErrorPage";
+import Loading from "../components/primitives/Loading";
+import HLine from "../components/primitives/HLine";
 
 
-export default function MediaListPage() {
+const MediaListPage = () => {
 	const { currentUser } = useUser();
 	const { mediaType, username } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -111,14 +111,15 @@ export default function MediaListPage() {
 						/>
 					</div>
 				}
+				<Link to={`/stats/${mediaType}/${apiData.user_data.username}`}>
+					<Button>Stats</Button>
+				</Link>
 			</div>
-
 			<NavigationStatus
 				allStatus={apiData.pagination.all_status}
 				activeStatus={apiData.pagination.status}
 				updateStatus={(value) => updateSearchParams(updateStatus, value)}
 			/>
-
 			<div className="d-flex justify-content-between m-t-35">
 				<TitleStatus
 					status={apiData.pagination.status}
@@ -144,3 +145,6 @@ export default function MediaListPage() {
 		</>
 	)
 };
+
+
+export default MediaListPage;
