@@ -4,9 +4,9 @@ import {useFlash} from "../../contexts/FlashProvider";
 
 
 export default function PrivateRoute({ children }) {
-	const { currentUser } = useUser();
-	const location = useLocation();
 	const flash = useFlash();
+	const location = useLocation();
+	const { currentUser } = useUser();
 
 
 	if (currentUser === undefined) {
@@ -18,6 +18,7 @@ export default function PrivateRoute({ children }) {
 	else {
 		flash("You need to log in before accessing this page.", "info");
 		const url = location.pathname + location.search + location.hash;
-		return <Navigate to="/" state={{next: url}} />
+
+		return <Navigate to="/" state={{next: url}}/>
 	}
 }

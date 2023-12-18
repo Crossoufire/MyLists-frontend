@@ -3,16 +3,16 @@ import {Col, Row, Tab, Tabs} from "react-bootstrap";
 
 import {useFetchData} from "../hooks/FetchDataHook";
 import {capitalize} from "../utils/functions";
-import Loading from "../components/primitives/Loading";
-import ErrorPage from "./ErrorPage";
 import NextMedia from "../components/comingNext/nextMedia";
+import ErrorPage from "./ErrorPage";
+import Loading from "../components/primitives/Loading";
 
 
-export default function ComingNext() {
-    const { apiData, loading, error } = useFetchData("/coming_next")
+const ComingNext = () => {
+    const { apiData, loading, error } = useFetchData("/coming_next");
 
     if (error) return <ErrorPage error={error}/>;
-    if (loading) return <Loading/>;
+    if (loading) return <Loading />;
 
     return (
         <div id="list-tabs">
@@ -38,4 +38,7 @@ export default function ComingNext() {
             </Tabs>
         </div>
     )
-}
+};
+
+
+export default ComingNext;

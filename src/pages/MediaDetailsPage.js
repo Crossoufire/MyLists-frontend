@@ -1,6 +1,6 @@
 import React from "react";
-import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {Button, Col, Image, Row} from "react-bootstrap";
+import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {FaPlus} from "react-icons/fa";
 
 import {useUser} from "../contexts/UserProvider";
@@ -18,11 +18,11 @@ import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
 
 
-export default function MediaDetailsPage() {
+const MediaDetailsPage = () => {
 	const navigate = useNavigate();
 	const { currentUser } = useUser();
 	const { mediaId, mediaType } = useParams();
-	const [searchParams, _] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const [isLoading, handleLoading] = useLoading();
 	const { show, ConfirmationModal } = useConfirmation();
 	const { refresh, addMedia, deleteMedia } = useApiUpdater(mediaId, mediaType);
@@ -133,4 +133,7 @@ export default function MediaDetailsPage() {
 			<ConfirmationModal/>
 		</div>
 	);
-}
+};
+
+
+export default MediaDetailsPage

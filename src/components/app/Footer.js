@@ -3,8 +3,8 @@ import {Link} from "react-router-dom";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import {FaEnvelope} from "react-icons/fa";
 
-import HLine from "../primitives/HLine";
 import {mail} from "../../utils/constants";
+import HLine from "../primitives/HLine";
 
 
 export default function Footer() {

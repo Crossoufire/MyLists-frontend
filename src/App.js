@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {SWRConfig} from "swr";
 
 import ApiProvider from "./contexts/ApiProvider";
@@ -35,6 +35,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 import "./css/utils.css";
 import "./css/main.css";
+import MediaStatsPage from "./pages/MediaStatsPage";
 
 
 const optionsSWR = {
@@ -43,7 +44,7 @@ const optionsSWR = {
 }
 
 
-export default function App() {
+const App = () => {
 	return (
 		<BrowserRouter>
 			<FlashProvider>
@@ -71,10 +72,10 @@ export default function App() {
 			</FlashProvider>
 		</BrowserRouter>
 	);
-}
+};
 
 
-function DefinedPrivateRoutes() {
+const DefinedPrivateRoutes = () => {
 	return (
 		<Routes>
 			<Route path="/coming_next" element={<ComingNext/>}/>
@@ -89,7 +90,11 @@ function DefinedPrivateRoutes() {
 			<Route path="/details/:mediaType/:job/:person" element={<PersonsPage/>}/>
 			<Route path="/list/:mediaType/:username?" element={<MediaListPage/>}/>
 			<Route path="/list/stats/:mediaType/:username" element={<MediaListStats/>}/>
+			<Route path="/stats/:mediaType/:username" element={<MediaStatsPage/>}/>
 			<Route path="*" element={<ErrorPage/>}/>
 		</Routes>
 	);
 }
+
+
+export default App;

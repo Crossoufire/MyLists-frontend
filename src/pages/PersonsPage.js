@@ -9,7 +9,7 @@ import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
 
 
-export default function PersonsPage() {
+const PersonsPage = () => {
     const navigate = useNavigate();
     const { mediaType, job, person } = useParams();
     const { apiData, loading, error } = useFetchData(`/details/${mediaType}/${job}/${person}`)
@@ -49,4 +49,7 @@ export default function PersonsPage() {
             </Row>
         </>
     );
-}
+};
+
+
+export default PersonsPage

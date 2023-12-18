@@ -1,7 +1,7 @@
 import React from "react";
 import {Col, Row, Tab, Tabs} from "react-bootstrap";
-import {FaClock, FaToriiGate, FaTv, FaFilm, FaUser, FaBook, FaGamepad} from "react-icons/fa";
 import {Bar, BarChart, Cell, ResponsiveContainer, XAxis, YAxis, LabelList} from "recharts";
+import {FaBook, FaClock, FaFilm, FaGamepad, FaToriiGate, FaTv, FaUser} from "react-icons/fa";
 
 import {maxWidthGlobalStats} from "../utils/constants"
 import {capitalize, changeValueFormat} from "../utils/functions";
@@ -13,7 +13,7 @@ import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
 
 
-export default function GlobalStatsPage() {
+const GlobalStatsPage = () => {
     const { apiData, loading, error } = useFetchData("/mylists_stats")
 
     if (error) return <ErrorPage error={error}/>;
@@ -39,7 +39,7 @@ export default function GlobalStatsPage() {
     return (
         <div className="d-flex flex-column gap-4 m-t-30 m-l-r-auto" style={{maxWidth: maxWidthGlobalStats}}>
             <div className="text-center bg-card rounded-2 p-2 fs-50">
-                <FaClock size={40} className="m-b-5"/> {apiData.total_time.total}
+                <span><FaClock size={40}/></span> {apiData.total_time.total}
             </div>
 
             <Row className="gy-3">
@@ -261,4 +261,7 @@ export default function GlobalStatsPage() {
             <div className="m-b-50"/>
         </div>
     );
-}
+};
+
+
+export default GlobalStatsPage

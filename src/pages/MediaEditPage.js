@@ -12,7 +12,7 @@ import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
 
 
-export default function MediaEditPage() {
+const MediaEditPage = () => {
     const api = useApi();
     const flash = useFlash();
     const navigate = useNavigate();
@@ -80,4 +80,7 @@ export default function MediaEditPage() {
             </Form>
         </div>
     );
-}
+};
+
+
+export default MediaEditPage

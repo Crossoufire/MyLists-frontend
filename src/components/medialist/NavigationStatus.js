@@ -2,12 +2,11 @@ import React from "react";
 import {Tabs, Tab} from "react-bootstrap";
 
 
-export default function NavigationStatus({ allStatus, activeStatus, updateStatus }) {
+const NavigationStatus = ({ allStatus, activeStatus, updateStatus }) => {
     const handleStatus = (val) => {
         if (activeStatus === val) {
             return;
         }
-
         updateStatus(val);
     }
 
@@ -21,4 +20,7 @@ export default function NavigationStatus({ allStatus, activeStatus, updateStatus
             </Tabs>
         </div>
     )
-}
+};
+
+
+export default NavigationStatus

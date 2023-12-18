@@ -1,6 +1,6 @@
 import {Image} from "react-bootstrap";
 
-export default function ErrorPage({ error }) {
+const ErrorPage = ({ error }) => {
     return (
         <div className="d-flex flex-column text-center m-t-35">
             <h2>{error.message} ({error.status})</h2>
@@ -11,9 +11,12 @@ export default function ErrorPage({ error }) {
                     src={require("../images/error.jpg")}
                     height={300}
                     width={300}
-                    alt={"error"}
+                    alt="error"
                 />
             </div>
         </div>
     );
-}
+};
+
+
+export default ErrorPage;

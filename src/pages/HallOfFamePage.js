@@ -18,7 +18,7 @@ const INITIAL_PARAMS = {
 };
 
 
-export default function HallOfFamePage() {
+const HallOfFamePage = () => {
     const api = useApi();
     const { currentUser } = useUser();
     const [error, setError] = useState();
@@ -126,4 +126,7 @@ export default function HallOfFamePage() {
             </div>
         </div>
     )
-}
+};
+
+
+export default HallOfFamePage

@@ -8,7 +8,7 @@ import {useFlash} from "../contexts/FlashProvider";
 import HLine from "../components/primitives/HLine";
 
 
-export default function ResetPasswordPage() {
+const ResetPasswordPage = () => {
     const api = useApi();
     const flash = useFlash();
     const navigate = useNavigate();
@@ -69,4 +69,7 @@ export default function ResetPasswordPage() {
             </div>
         </div>
     );
-}
+};
+
+
+export default ResetPasswordPage

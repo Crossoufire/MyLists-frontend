@@ -9,9 +9,9 @@ import ProfileFollows from "./ProfileFollows";
 import MediaDetails from "./MediaDetails";
 
 
-export default function ProfileData({ username, apiData }) {
-    return (
-        <Row className="gx-3 m-t-15 m-b-20">
+const ProfileData = ({ username, apiData }) => (
+    <>
+        <Row id="profile-info" className="gx-3 m-t-15 m-b-20">
             <Col md={5} lg xl={3}>
                 <MediaLevels
                     username={username}
@@ -55,5 +55,8 @@ export default function ProfileData({ username, apiData }) {
                 />
             </Col>
         </Row>
-    );
-}
+    </>
+);
+
+
+export default ProfileData;

@@ -46,7 +46,7 @@ const MediaLevels = ({ username, mediaLevels }) => {
     const { isOpen, caret, toggleCollapse } = useCollapse();
 
     return (
-        <Card className="bg-card text-light">
+        <Card id="media-levels" className="bg-card text-light">
             <Card.Body className="p-3">
                 <Card.Title className="cu-p" onClick={toggleCollapse}>
                     <div>{caret} &nbsp;List Levels</div>

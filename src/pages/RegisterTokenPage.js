@@ -5,7 +5,7 @@ import {useApi} from "../contexts/ApiProvider";
 import {useFlash} from "../contexts/FlashProvider";
 
 
-export default function RegisterTokenPage() {
+const RegisterTokenPage = () => {
     const api = useApi();
     const flash = useFlash();
     const navigate = useNavigate();
@@ -24,4 +24,5 @@ export default function RegisterTokenPage() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-}
+};
+export default RegisterTokenPage

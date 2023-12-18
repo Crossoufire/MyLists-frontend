@@ -23,7 +23,7 @@ const componentToLoad = (extension) => {
 };
 
 
-export default function ProfilePage() {
+const ProfilePage = () => {
 	const { username, extension } = useParams();
 	const { apiData, loading, error } = useFetchData(`/profile/${username}`)
 
@@ -47,4 +47,7 @@ export default function ProfilePage() {
 			/>
 		</>
 	);
-}
+};
+
+
+export default ProfilePage

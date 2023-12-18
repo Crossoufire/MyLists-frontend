@@ -1,9 +1,10 @@
 import React from "react";
+
 import {getMetricValues} from "../../utils/functions";
 import AddTooltip from "../primitives/AddTooltip";
 
 
-export default function MetricDistribution({ isFeeling, metricCount, mediaType }) {
+const MetricDistribution = ({ isFeeling, metricCount, mediaType }) => {
     const maxValue = Math.max(...metricCount);
     const metricName = isFeeling ? "Feeling" : "Score";
 
@@ -37,4 +38,7 @@ export default function MetricDistribution({ isFeeling, metricCount, mediaType }
             }
         </div>
     );
-}
+};
+
+
+export default MetricDistribution

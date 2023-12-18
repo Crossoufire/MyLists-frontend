@@ -7,7 +7,7 @@ import {useFlash} from "../contexts/FlashProvider";
 import HLine from "../components/primitives/HLine";
 
 
-export default function ForgotPasswordPage() {
+const ForgotPasswordPage = () => {
     const api = useApi();
     const flash = useFlash();
     const { register, handleSubmit, getValues, formState: { errors } } = useForm();
@@ -47,4 +47,7 @@ export default function ForgotPasswordPage() {
             </div>
         </div>
     );
-}
+};
+
+
+export default ForgotPasswordPage
