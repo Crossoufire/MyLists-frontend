@@ -15,11 +15,11 @@ const styles = {
 
 export function FeelingDropdown({ value, options, onSelect, size=140 }) {
     const ref = useRef();
+    const refDrop = useRef();
     const [isOpen, setIsOpen] = useState(false);
-    useOnClickOutside(ref, () => setIsOpen(false));
+    useOnClickOutside(ref, () => setIsOpen(false), refDrop);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
-
     const handleOptionSelect = (value) => {
         onSelect(value);
         setIsOpen(false);
@@ -28,7 +28,7 @@ export function FeelingDropdown({ value, options, onSelect, size=140 }) {
 
     return (
         <div className="cu-p position-relative" style={{width: size}}>
-            <div className="d-flex justify-content-between align-items-baseline" onClick={toggleDropdown}>
+            <div className="d-flex justify-content-between align-items-baseline" ref={refDrop} onClick={toggleDropdown}>
                 <div>&nbsp;{options.filter(item => item.value === value)[0]?.icon}</div>
                 <span><FaCaretDown className="m-b-5"/></span>
             </div>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {NavLink} from "react-router-dom";
 import {FaCog, FaSignOutAlt, FaUser} from "react-icons/fa";
 import {Col, Container, Image, Nav, Navbar, NavDropdown, Row} from "react-bootstrap";
@@ -9,11 +9,15 @@ import SearchBar from "./SearchBar";
 import Notifications from "./Notifications";
 import NavMediaDrop from "./NavMediaDrop";
 import NavMediaItem from "./NavMediaItem";
+import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 
 
 export default function Header() {
+    const ref = useRef();
+    const hamRef = useRef();
     const { currentUser, logout } = useUser();
     const [expanded, setExpanded] = useState(false);
+    useOnClickOutside(ref, () => handleExpansion(), hamRef)
 
     const username = currentUser?.username;
     const image = <Image src={currentUser?.profile_image} className="navbar-picture"/>
@@ -45,8 +49,8 @@ export default function Header() {
                         <NavMediaDrop
                             currentUser={currentUser}
                         />
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)}/>
-                        <Navbar.Collapse aria-controls="responsive-navbar-nav">
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)} ref={hamRef}/>
+                        <Navbar.Collapse aria-controls="responsive-navbar-nav" ref={ref}>
                             <Nav className="nav-mobile">
                                 <SearchBar handleExpansion={handleExpansion}/>
                             </Nav >
@@ -60,7 +64,7 @@ export default function Header() {
                                 <Nav.Link className="nav-mobile"><Notifications/></Nav.Link>
                             </Nav>
                             <Nav className="nav-mobile">
-                                <NavDropdown title={image} data-bs-theme="dark">
+                                <NavDropdown title={image} data-bs-theme="dark" align={{lg: "end"}}>
                                     <NavMediaItem
                                         to={`/profile/${username}`}
                                         icon={<FaUser className="text-grey"/>}
