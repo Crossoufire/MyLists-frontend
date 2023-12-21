@@ -16,6 +16,7 @@ import RefreshMedia from "../components/media/general/RefreshMedia";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const MediaDetailsPage = () => {
@@ -136,4 +137,4 @@ const MediaDetailsPage = () => {
 };
 
 
-export default MediaDetailsPage
+export default withPrivateRoute(MediaDetailsPage);

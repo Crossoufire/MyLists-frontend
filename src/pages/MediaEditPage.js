@@ -10,6 +10,7 @@ import {useFetchData} from "../hooks/FetchDataHook";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const MediaEditPage = () => {
@@ -83,4 +84,4 @@ const MediaEditPage = () => {
 };
 
 
-export default MediaEditPage
+export default withPrivateRoute(MediaEditPage);

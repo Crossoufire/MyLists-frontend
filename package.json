@@ -13,7 +13,6 @@
 		"react-hook-form": "^7.43.0",
 		"react-icons": "^4.7.1",
 		"react-router-dom": "^6.7.0",
-		"react-scripts": "5.0.1",
 		"react-spinners": "^0.13.8",
 		"recharts": "^2.4.3",
 		"swr": "^2.2.4"
@@ -24,6 +23,7 @@
 		"@testing-library/user-event": "^13.5.0",
 		"eslint": "^8.33.0",
 		"eslint-plugin-react": "^7.32.2",
+		"react-scripts": "5.0.1",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {

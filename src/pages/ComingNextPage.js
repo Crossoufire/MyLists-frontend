@@ -3,6 +3,7 @@ import {Col, Row, Tab, Tabs} from "react-bootstrap";
 
 import {useFetchData} from "../hooks/FetchDataHook";
 import {capitalize} from "../utils/functions";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 import NextMedia from "../components/comingNext/nextMedia";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
@@ -41,4 +42,4 @@ const ComingNext = () => {
 };
 
 
-export default ComingNext;
+export default withPrivateRoute(ComingNext);

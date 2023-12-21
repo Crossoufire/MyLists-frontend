@@ -1,5 +1,6 @@
 import React from "react";
 import HLine from "../components/primitives/HLine";
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
 
 
 const PrivacyPolicyPage = () => (
@@ -161,5 +162,5 @@ const PrivacyPolicyPage = () => (
 );
 
 
-export default PrivacyPolicyPage;
+export default withPublicRoute(PrivacyPolicyPage);
 

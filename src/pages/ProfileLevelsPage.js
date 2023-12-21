@@ -68,5 +68,5 @@ const ProfileLevelsPage = () => {
 };
 
 
-export default ProfileLevelsPage
+export default ProfileLevelsPage;
 

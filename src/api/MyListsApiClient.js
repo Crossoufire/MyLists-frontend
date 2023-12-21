@@ -51,10 +51,9 @@ export default class MyListsApiClient {
 					"Authorization": "Bearer " + localStorage.getItem("accessToken"),
 					...data.headers,
 				},
-				credentials: data.url === "/tokens" ? "include" : "omit",
+				credentials: "include",
 				body: data.body ? JSON.stringify(data.body) : null,
 			}
-
 			response = await fetch(this.base_url + data.url + query, body);
 		}
 		catch (error) {
@@ -76,6 +75,14 @@ export default class MyListsApiClient {
 			status: response.status,
 			body: response.status !== 204 ? await response.json() : null,
 		}
+	}
+
+	async adminLogin(password) {
+		return await this.post("/admin/auth", {password}, {
+			headers: {
+				Authorization: "Bearer " + localStorage.getItem("accessToken"),
+			}
+		});
 	}
 
 	async login(username, password) {

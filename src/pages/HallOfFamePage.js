@@ -10,6 +10,7 @@ import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 import CustomPagination from "../components/primitives/CustomPagination";
 import HoFCard from "../components/HoF/HoFCard";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const INITIAL_PARAMS = {
@@ -129,4 +130,4 @@ const HallOfFamePage = () => {
 };
 
 
-export default HallOfFamePage
+export default withPrivateRoute(HallOfFamePage);

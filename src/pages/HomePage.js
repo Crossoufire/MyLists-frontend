@@ -3,6 +3,7 @@ import {Card, Col, Row, Tab, Tabs} from "react-bootstrap";
 import {FaBootstrap, FaCode, FaComments, FaDollarSign, FaGithub, FaSmile} from "react-icons/fa";
 
 import {maxWidthHomePage, mail} from "../utils/constants";
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
 import LoginForm from "../components/homepage/LoginForm";
 import RegisterForm from "../components/homepage/RegisterForm";
 import HLine from "../components/primitives/HLine";
@@ -162,5 +163,5 @@ const HomePage = () => (
 );
 
 
-export default HomePage;
+export default withPublicRoute(HomePage);
 

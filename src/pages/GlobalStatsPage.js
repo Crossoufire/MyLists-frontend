@@ -11,6 +11,7 @@ import GlobalTopMediaItem from "../components/myListsStats/GlobalTopMediaItem";
 import HLine from "../components/primitives/HLine";
 import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const GlobalStatsPage = () => {
@@ -264,4 +265,4 @@ const GlobalStatsPage = () => {
 };
 
 
-export default GlobalStatsPage
+export default withPrivateRoute(GlobalStatsPage);

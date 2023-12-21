@@ -68,5 +68,5 @@ const MediaLevelsPage = () => {
 };
 
 
-export default MediaLevelsPage
+export default MediaLevelsPage;
 

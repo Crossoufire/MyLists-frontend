@@ -10,6 +10,7 @@ import Loading from "../components/primitives/Loading";
 import MediaListStats from "../components/medialist/MediaListStats";
 import HLine from "../components/primitives/HLine";
 import NavigationMedia from "../components/medialist/NavigationMedia";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const MediaStatsPage = () => {
@@ -68,4 +69,4 @@ const MediaStatsPage = () => {
 };
 
 
-export default MediaStatsPage;
+export default withPrivateRoute(MediaStatsPage);

@@ -3,6 +3,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 
 import {useApi} from "../contexts/ApiProvider";
 import {useFlash} from "../contexts/FlashProvider";
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
 
 
 const RegisterTokenPage = () => {
@@ -25,4 +26,5 @@ const RegisterTokenPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 };
-export default RegisterTokenPage
+export default withPublicRoute(RegisterTokenPage);
+

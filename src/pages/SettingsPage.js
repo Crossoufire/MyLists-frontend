@@ -10,6 +10,7 @@ import {useUser} from "../contexts/UserProvider";
 import {useFlash} from "../contexts/FlashProvider";
 import HLine from "../components/primitives/HLine";
 import useCollapse from "../hooks/CollapseHook";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const SettingsForm = () => {
@@ -236,4 +237,4 @@ const SettingsForm = () => {
 };
 
 
-export default SettingsForm
+export default withPrivateRoute(SettingsForm);

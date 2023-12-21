@@ -5,6 +5,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 
 import {useApi} from "../contexts/ApiProvider";
 import {useFlash} from "../contexts/FlashProvider";
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
 import HLine from "../components/primitives/HLine";
 
 
@@ -72,4 +73,4 @@ const ResetPasswordPage = () => {
 };
 
 
-export default ResetPasswordPage
+export default withPublicRoute(ResetPasswordPage);

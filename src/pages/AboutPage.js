@@ -1,4 +1,5 @@
 import {mail, maxWidthAboutPage} from "../utils/constants"
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
 
 
 const AboutPage = () => (
@@ -53,4 +54,4 @@ const AboutPage = () => (
 	</div>
 );
 
-export default AboutPage;
+export default withPublicRoute(AboutPage);

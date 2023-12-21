@@ -13,6 +13,7 @@ import FilterAndSort from "../components/medialist/FilterAndSort";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const MediaListPage = () => {
@@ -147,4 +148,4 @@ const MediaListPage = () => {
 };
 
 
-export default MediaListPage;
+export default withPrivateRoute(MediaListPage);

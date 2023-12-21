@@ -7,6 +7,7 @@ import Loading from "../components/primitives/Loading";
 import Return from "../components/primitives/Return";
 import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const PersonsPage = () => {
@@ -52,4 +53,4 @@ const PersonsPage = () => {
 };
 
 
-export default PersonsPage
+export default withPrivateRoute(PersonsPage);

@@ -3,6 +3,7 @@ import {Card, Col, Row} from "react-bootstrap";
 import {Bar, BarChart, XAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend} from "recharts";
 
 import {formatTime} from "../../utils/functions";
+import {withPrivateRoute} from "../HigherOrderComp/hocs";
 import HLine from "../primitives/HLine";
 
 
@@ -52,7 +53,6 @@ const BarGraph = ({ data, formatter, compareData }) => {
         </ResponsiveContainer>
     );
 };
-
 const PieGraph = ({ data }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
 
@@ -89,7 +89,6 @@ const PieGraph = ({ data }) => {
         </ResponsiveContainer>
     )
 };
-
 const StatsCard = ({ name, data, graphType, fmt, compareData }) => {
     return (
         <Card className="bg-card text-light">
@@ -105,7 +104,6 @@ const StatsCard = ({ name, data, graphType, fmt, compareData }) => {
     );
 };
 
-
 const graphColors = [
     "#ff4d4d",
     "#ff9966",
@@ -118,20 +116,6 @@ const graphColors = [
     "#4db6ac",
     "#66b2b2",
 ];
-
-const graphColorsCompare = [
-    "#772525",
-    "#7c4a32",
-    "#59472d",
-    "#595043",
-    "#2c562c",
-    "#314d31",
-    "#3e543e",
-    "#013b35",
-    "#1c423f",
-    "#294848",
-];
-
 
 const mediaStats = {
     series: {
@@ -180,4 +164,4 @@ const MediaListStats = ({ mediaType, graphData, compareData }) => {
 };
 
 
-export default MediaListStats
+export default withPrivateRoute(MediaListStats);
