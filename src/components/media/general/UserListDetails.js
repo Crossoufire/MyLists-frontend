@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Card} from "react-bootstrap";
 import {FaMinus} from "react-icons/fa";
 
-import {useUser} from "../../../contexts/UserProvider";
+import {useUser} from "../../../providers/UserProvider";
 import {getUserMetric} from "../../../utils/functions";
 import useApiUpdater from "../../../hooks/UserUpdateAPI";
 import HistoryModal from "./HistoryModal";

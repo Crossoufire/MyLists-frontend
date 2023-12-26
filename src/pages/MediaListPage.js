@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams, useSearchParams} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 
-import {useUser} from "../contexts/UserProvider";
+import {useUser} from "../providers/UserProvider";
 import {useFetchData2} from "../hooks/FetchDataHook";
 import NavigationMedia from "../components/medialist/NavigationMedia";
 import NavigationStatus from "../components/medialist/NavigationStatus";

@@ -3,7 +3,7 @@
 const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
 
 
-export default class MyListsApiClient {
+export default class MyApiClient {
 	constructor() {
 		this.base_url =  `${BASE_API_URL}/api`;
 	}

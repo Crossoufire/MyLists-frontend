@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import {FaCog, FaSignOutAlt, FaUser} from "react-icons/fa";
 import {Col, Container, Image, Nav, Navbar, NavDropdown, Row} from "react-bootstrap";
 
-import {useUser} from "../../contexts/UserProvider";
+import {useUser} from "../../providers/UserProvider";
 import Loading from "../primitives/Loading";
 import SearchBar from "./SearchBar";
 import Notifications from "./Notifications";

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {Image} from "react-bootstrap";
 import {FaPen} from "react-icons/fa";
 
-import {useUser} from "../../contexts/UserProvider";
+import {useUser} from "../../providers/UserProvider";
 import FollowIcon from "./FollowIcon";
 import AddTooltip from "../primitives/AddTooltip";
 

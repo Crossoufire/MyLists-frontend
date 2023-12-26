@@ -5,9 +5,9 @@ import {FaQuestionCircle} from "react-icons/fa";
 
 import {maxWidthSettings} from "../utils/constants";
 import AddTooltip from "../components/primitives/AddTooltip";
-import {useApi} from "../contexts/ApiProvider";
-import {useUser} from "../contexts/UserProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {useApi} from "../providers/ApiProvider";
+import {useUser} from "../providers/UserProvider";
+import {useFlash} from "../providers/FlashProvider";
 import HLine from "../components/primitives/HLine";
 import useCollapse from "../hooks/CollapseHook";
 import {withPrivateRoute} from "../components/HigherOrderComp/hocs";

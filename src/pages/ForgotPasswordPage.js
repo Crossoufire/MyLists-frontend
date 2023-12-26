@@ -3,8 +3,8 @@ import {Button, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 
 import {withPublicRoute} from "../components/HigherOrderComp/hocs";
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {useApi} from "../providers/ApiProvider";
+import {useFlash} from "../providers/FlashProvider";
 import HLine from "../components/primitives/HLine";
 
 

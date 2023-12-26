@@ -2,9 +2,9 @@ import React from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {SWRConfig} from "swr";
 
-import ApiProvider from "./contexts/ApiProvider";
-import FlashProvider from "./contexts/FlashProvider";
-import UserProvider from "./contexts/UserProvider";
+import ApiProvider from "./providers/ApiProvider";
+import FlashProvider from "./providers/FlashProvider";
+import UserProvider from "./providers/UserProvider";
 
 import Header from "./components/Navbar/Header";
 import Footer from "./components/app/Footer";

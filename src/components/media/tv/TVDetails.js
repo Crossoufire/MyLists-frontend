@@ -101,6 +101,8 @@ export default function TVDetails({ mediaData, mediaType }) {
                                 <li>
                                     <MapDetails
                                         name={"Networks"}
+                                        job={"network"}
+                                        mediaType={mediaType}
                                         valueList={mediaData.networks}
                                     />
                                 </li>

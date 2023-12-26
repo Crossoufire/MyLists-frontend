@@ -3,8 +3,8 @@ import {Badge, Col, Dropdown, Row} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 import {FaBell, FaFilm, FaGamepad, FaLongArrowAltRight, FaToriiGate, FaTv, FaUser} from "react-icons/fa";
 
-import {useApi} from "../../contexts/ApiProvider";
-import {useFlash} from "../../contexts/FlashProvider";
+import {useApi} from "../../providers/ApiProvider";
+import {useFlash} from "../../providers/FlashProvider";
 import Loading from "../primitives/Loading";
 import HLine from "../primitives/HLine";
 

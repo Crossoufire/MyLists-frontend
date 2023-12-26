@@ -5,8 +5,8 @@ import {useNavigate} from "react-router-dom";
 
 import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 import HLine from "../components/primitives/HLine";
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {useApi} from "../providers/ApiProvider";
+import {useFlash} from "../providers/FlashProvider";
 
 
 const AdminPage = () => {

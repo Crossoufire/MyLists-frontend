@@ -3,9 +3,9 @@ import {FaTimes} from "react-icons/fa";
 
 import {useOnClickOutside} from "../../hooks/ClickedOutsideHook";
 import {useDebounce} from "../../hooks/DebouceHook";
-import {useApi} from "../../contexts/ApiProvider";
-import {useFlash} from "../../contexts/FlashProvider";
-import {useUser} from "../../contexts/UserProvider";
+import {useApi} from "../../providers/ApiProvider";
+import {useFlash} from "../../providers/FlashProvider";
+import {useUser} from "../../providers/UserProvider";
 import ShowSearch from "./ShowSearch";
 
 

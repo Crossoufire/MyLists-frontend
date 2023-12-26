@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import useSWR from "swr";
 
-import {useApi} from "../contexts/ApiProvider";
+import {useApi} from "../providers/ApiProvider";
 
 
 export function useFetchData2(url, query, options) {

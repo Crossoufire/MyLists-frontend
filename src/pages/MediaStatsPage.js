@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 
-import {useUser} from "../contexts/UserProvider";
-import {useApi} from "../contexts/ApiProvider";
+import {useUser} from "../providers/UserProvider";
+import {useApi} from "../providers/ApiProvider";
 import {useFetchData} from "../hooks/FetchDataHook";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";

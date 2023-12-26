@@ -1,6 +1,6 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {useFlash} from "../../contexts/FlashProvider";
-import {useUser} from "../../contexts/UserProvider";
+import {useFlash} from "../../providers/FlashProvider";
+import {useUser} from "../../providers/UserProvider";
 
 
 export const withPrivateRoute = (Component) => {

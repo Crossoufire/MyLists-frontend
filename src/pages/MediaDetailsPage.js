@@ -3,7 +3,7 @@ import {Button, Col, Image, Row} from "react-bootstrap";
 import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {FaPlus} from "react-icons/fa";
 
-import {useUser} from "../contexts/UserProvider";
+import {useUser} from "../providers/UserProvider";
 import {useFetchData} from "../hooks/FetchDataHook";
 import useConfirmation from "../hooks/ConfirmationHook";
 import useApiUpdater from "../hooks/UserUpdateAPI";

@@ -3,12 +3,12 @@ import {useNavigate} from "react-router-dom";
 import {Button, Row, Col, Form} from "react-bootstrap";
 
 import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
+import {useFlash} from "../providers/FlashProvider";
+import {useFetchData} from "../hooks/FetchDataHook";
 import HLine from "../components/primitives/HLine";
 import Loading from "../components/primitives/Loading";
-import {useFetchData} from "../hooks/FetchDataHook";
-import ErrorPage from "./ErrorPage";
-import {useFlash} from "../contexts/FlashProvider";
 import useAdminApi from "../hooks/AdminUpdateAPI";
+import ErrorPage from "./ErrorPage";
 
 
 function PopulateUsers({ users }) {

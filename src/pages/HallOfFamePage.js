@@ -3,8 +3,8 @@ import {Button} from "react-bootstrap";
 
 import {maxWidthHoF} from "../utils/constants";
 import {useDebounce} from "../hooks/DebouceHook";
-import {useUser} from "../contexts/UserProvider";
-import {useApi} from "../contexts/ApiProvider";
+import {useUser} from "../providers/UserProvider";
+import {useApi} from "../providers/ApiProvider";
 import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";

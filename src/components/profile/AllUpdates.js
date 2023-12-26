@@ -4,8 +4,8 @@ import {Body, Cell, Header, HeaderCell, HeaderRow, Row, Table, useCustom} from "
 import {usePagination} from "@table-library/react-table-library/pagination";
 import {Link} from "react-router-dom";
 
-import {useApi} from "../../contexts/ApiProvider";
-import {useFlash} from "../../contexts/FlashProvider";
+import {useApi} from "../../providers/ApiProvider";
+import {useFlash} from "../../providers/FlashProvider";
 import {createLocalDate, getMediaIcon} from "../../utils/functions";
 import Payload from "../primitives/Payload";
 import HLine from "../primitives/HLine";
