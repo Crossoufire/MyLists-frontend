@@ -499,6 +499,15 @@ table td {
     cursor: pointer;
     transition: .3s ease-in;
 }
+.img-btn-top-right-2 {
+    color: #e2e2e2;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: .3s ease-in;
+}
 .overlay-container:hover .img-btn-top-right {
     opacity: 1;
     color: #e2e2e2;
@@ -632,7 +641,7 @@ table td {
 /* --- NAVIGATION MEDIA ------------------------------------------------------------------------------- */
 .active-left {
     border-bottom: 4px solid rgb(128, 128, 128);
-    padding-bottom: 8px;
+    padding-bottom: 5px;
 }
 .media-navigation {
     justify-content: space-between;

@@ -37,6 +37,7 @@ import "./css/utils.css";
 import "./css/main.css";
 import AdminPage from "./pages/AdminPage";
 import AdminDashBoardPage from "./pages/AdminDashboardPage";
+import PersonalMediaListPage from "./pages/PersonalMediaListPage";
 
 
 const optionsSWR = {
@@ -93,6 +94,7 @@ const PrivateRoutes = () => {
 			<Route path="/details/:mediaType/:job/:person" element={<PersonsPage/>}/>
 			<Route path="/list/:mediaType/:username?" element={<MediaListPage/>}/>
 			<Route path="/list/stats/:mediaType/:username" element={<MediaListStats/>}/>
+			<Route path="/list/personal/:mediaType/:username" element={<PersonalMediaListPage/>}/>
 			<Route path="/stats/:mediaType/:username" element={<MediaStatsPage/>}/>
 			<Route path="*" element={<ErrorPage/>}/>
 		</Routes>

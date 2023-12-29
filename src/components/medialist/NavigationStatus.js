@@ -13,14 +13,14 @@ const NavigationStatus = ({ allStatus, activeStatus, updateStatus }) => {
     return (
         <div id="medialist-tabs">
             <Tabs className="bg-card justify-content-center gap-3 m-t-30" activeKey={activeStatus}
-                  onSelect={handleStatus} data-bs-theme="dark">
+                onSelect={handleStatus} data-bs-theme="dark">
                 {allStatus.map(status =>
                     <Tab key={status} eventKey={status} title={status.toUpperCase()}/>
                 )}
             </Tabs>
         </div>
-    )
+    );
 };
 
 
-export default NavigationStatus
+export default NavigationStatus;

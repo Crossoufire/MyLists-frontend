@@ -3,9 +3,7 @@ import {Link} from "react-router-dom";
 import {FaBook, FaFilm, FaGamepad, FaToriiGate, FaTv, FaUser} from "react-icons/fa";
 
 
-const NavigationMedia = ({ userData, mediaType, isStats }) => {
-    const path = isStats ? "stats" : "list";
-
+const NavigationMedia = ({ userData, mediaType, path }) => {
     const menuItems = [
         {url: "/profile", media: "user", icon: FaUser},
         {url: `/${path}/series`, media: "series", icon: FaTv},
@@ -25,7 +23,7 @@ const NavigationMedia = ({ userData, mediaType, isStats }) => {
                 </Link>
             )}
         </div>
-    )
+    );
 };
 
 

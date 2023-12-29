@@ -33,7 +33,7 @@ export function useFetchData2(url, query, options) {
     };
 
     useEffect(() => {
-        fetchAPI();
+        void fetchAPI();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [api, url, JSON.stringify(query)]);

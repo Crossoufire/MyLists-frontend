@@ -22,8 +22,8 @@ import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 const MediaDetailsPage = () => {
 	const navigate = useNavigate();
 	const { currentUser } = useUser();
-	const { mediaId, mediaType } = useParams();
 	const [searchParams] = useSearchParams();
+	const { mediaId, mediaType } = useParams();
 	const [isLoading, handleLoading] = useLoading();
 	const { show, ConfirmationModal } = useConfirmation();
 	const { refresh, addMedia, deleteMedia } = useApiUpdater(mediaId, mediaType);
@@ -92,7 +92,7 @@ const MediaDetailsPage = () => {
 								userData={apiData.user_data}
 								totalPages={apiData.media.pages}
 								deleteMedia={deleteMedia}
-								callbackDelete={callbackDeleteMedia}
+								deleteCallback={callbackDeleteMedia}
 								show={show}
 							/>
 						}

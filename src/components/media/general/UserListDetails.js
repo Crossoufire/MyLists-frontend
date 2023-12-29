@@ -14,6 +14,7 @@ import GamesUserDetails from "../games/GamesUserDetails";
 import BooksUserDetails from "../books/BooksUserDetails";
 import Commentary from "./Commentary";
 import useLoading from "../../../hooks/LoadingHook";
+import PersonalLists from "./PersonalLists";
 
 
 const mediaComponentMap = {
@@ -25,8 +26,9 @@ const mediaComponentMap = {
 }
 
 
-export default function UserListDetails({ mediaId, mediaType, userData, totalPages, deleteMedia, callbackDelete, show }) {
-	const { currentUser } = useUser();
+export default function UserListDetails(props) {
+	const {mediaId, mediaType, userData, totalPages, deleteMedia, deleteCallback, show} = props;
+	const {currentUser} = useUser();
 	const [isLoading, handleLoading] = useLoading();
 	const MediaUserDetails = mediaComponentMap[mediaType];
 	const userMetric = getUserMetric(currentUser.add_feeling, userData);
@@ -36,7 +38,7 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 		show(async () => {
 			const response = await handleLoading(deleteMedia)
 			if (response) {
-				await callbackDelete();
+				await deleteCallback();
 			}
 		});
 	};
@@ -67,6 +69,13 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 				<Commentary
 					initContent={userData.comment}
 					updateComment={updatesAPI.comment}
+				/>
+				<PersonalLists
+					username={userData.username}
+					mediaId={mediaId}
+					mediaType={mediaType}
+					initIn={userData.personal.already_in}
+					initAvailable={userData.personal.available}
 				/>
 			</Card.Body>
 			<Card.Footer>

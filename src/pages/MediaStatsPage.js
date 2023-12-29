@@ -48,7 +48,7 @@ const MediaStatsPage = () => {
                 <NavigationMedia
                     userData={apiData.user_data}
                     mediaType={mediaType}
-                    isStats={true}
+                    path={"stats"}
                 />
                 {currentUser.id !== apiData.user_data.id &&
                     <Button onClick={() => setCompareMode(!compareMode)}>

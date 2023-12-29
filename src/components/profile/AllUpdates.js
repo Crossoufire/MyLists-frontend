@@ -89,7 +89,7 @@ export default function AllUpdates({ username }) {
             <HLine/>
             <div className="m-b-15">
                 <div className="d-flex justify-content-between m-t-20">
-                    <Link className="text-light" to={"/profile/"+username}>
+                    <Link className="text-light" to={`/profile/${username}`}>
                         <Return/>
                     </Link>
                     <Form.Control

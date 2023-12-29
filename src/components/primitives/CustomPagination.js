@@ -25,7 +25,7 @@ export default function CustomPagination({ currentPage, totalPages, onChangePage
 
 
     return (
-        <ul className="pagination">
+        <ul className="pagination m-t-50">
             {pages.map((page, index) => (
                 <li key={index}>
                     {page === "..." ?

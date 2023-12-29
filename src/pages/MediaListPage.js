@@ -1,19 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {Link, useParams, useSearchParams} from "react-router-dom";
-import {Button, Form} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 
 import {useUser} from "../providers/UserProvider";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 import {useFetchData2} from "../hooks/FetchDataHook";
 import NavigationMedia from "../components/medialist/NavigationMedia";
 import NavigationStatus from "../components/medialist/NavigationStatus";
 import MediaListData from "../components/medialist/MediaListData";
 import TitleStatus from "../components/medialist/TitleStatus";
-import SearchListMedia from "../components/medialist/SearchListMedia";
+import SearchMediaList from "../components/medialist/SearchMediaList";
 import FilterAndSort from "../components/medialist/FilterAndSort";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
-import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
+import CommonMedia from "../components/medialist/CommonMedia";
 
 
 const MediaListPage = () => {
@@ -75,7 +76,7 @@ const MediaListPage = () => {
 			status: apiData.pagination.status,
 			genre: apiData.pagination.genre,
 			lang: apiData.pagination.lang,
-			page: apiData.pagination.page,
+			page: 1,
 		}
 
 		await setSearchParams({
@@ -89,31 +90,29 @@ const MediaListPage = () => {
 	if (error) return <ErrorPage error={error}/>
 	if (apiData === undefined || mediaType !== apiData.media_type) return <Loading/>;
 
-
 	return (
 		<>
 			<div className="d-flex media-navigation gap-4 m-t-35">
 				<NavigationMedia
 					userData={apiData.user_data}
 					mediaType={mediaType}
+					path={"list"}
 				/>
-				<SearchListMedia
+				<SearchMediaList
 					search={apiData.pagination.search}
 					updateSearch={(value) => updateSearchParams(updateSearch, value)}
+					mediaType={mediaType}
 				/>
 				{(currentUser.id !== apiData.user_data.id) &&
-					<div className="d-flex gap-3 common-navigation">
-						<div>{apiData.media_data.common_ids.length}/{apiData.media_data.total_media} common {mediaType}</div>
-						<Form.Switch
-							type="switch"
-							value={showCommon}
-							label="Hide common"
-							onChange={updateCommon}
-						/>
-					</div>
+					<CommonMedia
+						apiData={apiData}
+						mediaType={mediaType}
+						showCommon={showCommon}
+						updateCommon={updateCommon}
+					/>
 				}
 				<Link to={`/stats/${mediaType}/${apiData.user_data.username}`}>
-					<Button>Stats</Button>
+					<Button className="p-l-15 p-r-15" variant="success" size="sm">Stats</Button>
 				</Link>
 			</div>
 			<NavigationStatus
@@ -121,7 +120,7 @@ const MediaListPage = () => {
 				activeStatus={apiData.pagination.status}
 				updateStatus={(value) => updateSearchParams(updateStatus, value)}
 			/>
-			<div className="d-flex justify-content-between m-t-35">
+			<div className="d-flex justify-content-between m-t-25">
 				<TitleStatus
 					status={apiData.pagination.status}
 					total={apiData.pagination.total}
@@ -135,7 +134,6 @@ const MediaListPage = () => {
 				/>
 			</div>
 			<HLine mtop={2}/>
-
 			<MediaListData
 				loading={loading}
 				apiData={apiData}

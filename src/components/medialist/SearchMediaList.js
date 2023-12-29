@@ -1,13 +1,11 @@
 import React from "react";
 
 
-export default function SearchListMedia({ search, updateSearch }) {
-
+export default function SearchMediaList({ search, updateSearch, mediaType }) {
     const handleOnKeyUp = (ev) => {
-        if (ev.key !== "Enter") {
+        if (ev.key !== "Enter" || ev.target.value.length < 1) {
             return;
         }
-
         updateSearch(ev.target.value);
     }
 
@@ -16,7 +14,7 @@ export default function SearchListMedia({ search, updateSearch }) {
             <div className="search-input-container">
                 <input
                     className="search-input text-light"
-                    placeholder="Search in this list"
+                    placeholder={`Search in ${mediaType}`}
                     defaultValue={search}
                     onKeyUp={handleOnKeyUp}
                 />
