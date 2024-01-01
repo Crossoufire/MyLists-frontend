@@ -1,8 +1,9 @@
 import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import {Bar, BarChart, XAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend} from "recharts";
-import HLine from "../primitives/HLine";
+
 import {formatTime} from "../../utils/functions";
+import HLine from "../primitives/HLine";
 
 
 const BarGraph = ({ data, formatter }) => {
@@ -26,17 +27,11 @@ const BarGraph = ({ data, formatter }) => {
                 <Bar dataKey="count" label={customLabel} isAnimationActive={false} radius={[7, 7, 0, 0]}>
                     {convertedData.map((entry, idx) => <Cell fill={graphColors[idx % graphColors.length]}/>)}
                 </Bar>
-                <XAxis
-                    dataKey="name"
-                    stroke="#e2e2e2"
-                    tickFormatter={formatter}
-                    scale={"band"}
-                />
+                <XAxis dataKey="name" stroke="#e2e2e2" scale="band" tickFormatter={formatter}/>
             </BarChart>
         </ResponsiveContainer>
     );
 };
-
 
 const PieGraph = ({ data }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
@@ -75,16 +70,20 @@ const PieGraph = ({ data }) => {
     )
 };
 
-
-const StatsCard = ({ name, data, graphType, fmt }) => (
-    <Card className="bg-card text-light">
-        <Card.Body>
-            {name && <Card.Title><h5>{name}</h5><HLine/></Card.Title>}
-            {graphType === "bar" ? <BarGraph data={data} formatter={fmt}/> : <PieGraph data={data} formatter={fmt}/>}
-        </Card.Body>
-    </Card>
-);
-
+const StatsCard = ({ name, data, graphType, fmt }) => {
+    return (
+        <Card className="bg-card text-light">
+            <Card.Body>
+                {name && <Card.Title><h5>{name}</h5><HLine/></Card.Title>}
+                {graphType === "bar" ?
+                    <BarGraph data={data} formatter={fmt}/>
+                    :
+                    <PieGraph data={data} formatter={fmt}/>
+                }
+            </Card.Body>
+        </Card>
+    );
+};
 
 const graphColors = [
     "#ff4d4d",
@@ -98,7 +97,6 @@ const graphColors = [
     "#4db6ac",
     "#66b2b2",
 ];
-
 
 const mediaStats = {
     series: {
@@ -146,4 +144,4 @@ const MediaListStats = ({ mediaType, graphData }) => {
 };
 
 
-export default MediaListStats
+export default MediaListStats;

@@ -3,10 +3,6 @@ import FilterSortDrop from "./FilterSortDrop";
 
 
 const FilterAndSort = ({ mediaType, paginateData, updateLang, updateGenre, updateSorting }) => {
-    if (["Stats", "Search"].includes(paginateData.status)) {
-        return;
-    }
-
     return (
         <div className="d-flex align-items-center gap-4">
             {mediaType === "movies" &&

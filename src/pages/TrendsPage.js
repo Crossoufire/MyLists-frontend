@@ -4,6 +4,7 @@ import {useFetchData} from "../hooks/FetchDataHook";
 import TrendItem from "../components/trends/TrendItem";
 import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const TrendsPage = () => {
@@ -45,4 +46,4 @@ const TrendsPage = () => {
 };
 
 
-export default TrendsPage;
+export default withPrivateRoute(TrendsPage);

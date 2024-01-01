@@ -3,13 +3,14 @@ import {Button} from "react-bootstrap";
 
 import {maxWidthHoF} from "../utils/constants";
 import {useDebounce} from "../hooks/DebouceHook";
-import {useUser} from "../contexts/UserProvider";
-import {useApi} from "../contexts/ApiProvider";
+import {useUser} from "../providers/UserProvider";
+import {useApi} from "../providers/ApiProvider";
 import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 import CustomPagination from "../components/primitives/CustomPagination";
 import HoFCard from "../components/HoF/HoFCard";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
 const INITIAL_PARAMS = {
@@ -18,10 +19,10 @@ const INITIAL_PARAMS = {
 };
 
 
-export default function HallOfFamePage() {
+const HallOfFamePage = () => {
     const api = useApi();
     const { currentUser } = useUser();
-    const [error, setError] = useState();
+    const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState(INITIAL_PARAMS.search);
     const [users, setUsers] = useState({nodes: [], totalPages: 0, page: INITIAL_PARAMS.page});
@@ -50,10 +51,12 @@ export default function HallOfFamePage() {
     useEffect(() => {
         (async () => {
             setLoading(true);
+
             await fetchData({
                 search: INITIAL_PARAMS.search,
                 page: INITIAL_PARAMS.page
             });
+
             setLoading(false);
         })();
 
@@ -75,13 +78,13 @@ export default function HallOfFamePage() {
         })
 
         if (ev.target.value === "") {
-            resetSearch();
+            void resetSearch();
         }
 
         setSearch(ev.target.value);
     }
     const onChangePage = (page) => {
-        fetchData({
+        void fetchData({
             search: search,
             page: page}
         );
@@ -92,7 +95,7 @@ export default function HallOfFamePage() {
         page: users.page
     });
 
-    if (error) return <ErrorPage error={error}/>;
+    if (error?.status) return <ErrorPage error={error}/>;
     if (loading) return <Loading/>;
 
 
@@ -126,4 +129,7 @@ export default function HallOfFamePage() {
             </div>
         </div>
     )
-}
+};
+
+
+export default withPrivateRoute(HallOfFamePage);

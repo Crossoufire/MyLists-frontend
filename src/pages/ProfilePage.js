@@ -1,13 +1,14 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 import {useFetchData} from "../hooks/FetchDataHook";
-import ErrorPage from "./ErrorPage";
 import FollowsFollowers from "../components/profile/FollowsFollowers";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import AllUpdates from "../components/profile/AllUpdates";
 import Loading from "../components/primitives/Loading";
 import ProfileData from "../components/profile/ProfileData";
+import ErrorPage from "./ErrorPage";
 
 
 const componentToLoad = (extension) => {
@@ -23,7 +24,7 @@ const componentToLoad = (extension) => {
 };
 
 
-export default function ProfilePage() {
+const ProfilePage = () => {
 	const { username, extension } = useParams();
 	const { apiData, loading, error } = useFetchData(`/profile/${username}`)
 
@@ -47,4 +48,7 @@ export default function ProfilePage() {
 			/>
 		</>
 	);
-}
+};
+
+
+export default withPrivateRoute(ProfilePage);

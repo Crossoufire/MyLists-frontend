@@ -2,8 +2,8 @@ import React from "react";
 import {Button, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 
-import {useFlash} from "../../contexts/FlashProvider";
-import {useApi} from "../../contexts/ApiProvider";
+import {useFlash} from "../../providers/FlashProvider";
+import {useApi} from "../../providers/ApiProvider";
 
 
 export default function RegisterForm() {

@@ -11,7 +11,7 @@ export default function UserUpdates({ username, updates, followers=false }) {
     const { isOpen, caret, toggleCollapse } = useCollapse();
 
     return (
-        <Card className="bg-card text-light">
+        <Card id="your-updates" className="bg-card text-light">
             <Card.Body className="p-3">
                 <Card.Title className="d-flex justify-content-between cu-p" onClick={toggleCollapse}>
                     <div>{caret} &nbsp;{followers ? "Follows Updates" : "Updates"}</div>

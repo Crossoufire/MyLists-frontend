@@ -1,5 +1,5 @@
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {useApi} from "../providers/ApiProvider";
+import {useFlash} from "../providers/FlashProvider";
 
 
 export default function useApiUpdater(mediaId, mediaType) {
@@ -25,6 +25,8 @@ export default function useApiUpdater(mediaId, mediaType) {
         return true;
     };
 
+    const addMedia = makeUpdateFunction("/add_media");
+    const deleteMedia = makeUpdateFunction("/delete_media");
     const favorite = makeUpdateFunction("/update_favorite");
     const status = makeUpdateFunction("/update_status");
     const metric = makeUpdateFunction("/update_metric");
@@ -34,11 +36,11 @@ export default function useApiUpdater(mediaId, mediaType) {
     const page = makeUpdateFunction("/update_page");
     const playtime = makeUpdateFunction("/update_playtime");
     const comment = makeUpdateFunction("/update_comment");
-    const refresh = makeUpdateFunction(`/refresh/${mediaType}/${mediaId}`);
-    const addMedia = makeUpdateFunction("/add_media");
-    const deleteMedia = makeUpdateFunction("/delete_media");
+    const refresh = makeUpdateFunction(`/details/refresh/${mediaType}/${mediaId}`);
     const addBookCover = makeUpdateFunction("/details/add_book_cover");
+    const removeLabelFromMedia = makeUpdateFunction("/remove_label_from_media");
+    const addMediaToLabel = makeUpdateFunction("/add_media_to_label");
 
-    return {favorite, status, metric, redo, season, episode, page, playtime, comment, refresh, addMedia,
-        deleteMedia, addBookCover};
+    return { favorite, status, metric, redo, season, episode, page, playtime, comment, refresh, addMedia,
+        deleteMedia, addBookCover, removeLabelFromMedia, addMediaToLabel };
 }

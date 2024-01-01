@@ -1,9 +1,9 @@
 import React from "react";
-import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {Button, Col, Image, Row} from "react-bootstrap";
+import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {FaPlus} from "react-icons/fa";
 
-import {useUser} from "../contexts/UserProvider";
+import {useUser} from "../providers/UserProvider";
 import {useFetchData} from "../hooks/FetchDataHook";
 import useConfirmation from "../hooks/ConfirmationHook";
 import useApiUpdater from "../hooks/UserUpdateAPI";
@@ -16,13 +16,14 @@ import RefreshMedia from "../components/media/general/RefreshMedia";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
 import ErrorPage from "./ErrorPage";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
-export default function MediaDetailsPage() {
+const MediaDetailsPage = () => {
 	const navigate = useNavigate();
 	const { currentUser } = useUser();
+	const [searchParams] = useSearchParams();
 	const { mediaId, mediaType } = useParams();
-	const [searchParams, _] = useSearchParams();
 	const [isLoading, handleLoading] = useLoading();
 	const { show, ConfirmationModal } = useConfirmation();
 	const { refresh, addMedia, deleteMedia } = useApiUpdater(mediaId, mediaType);
@@ -91,7 +92,7 @@ export default function MediaDetailsPage() {
 								userData={apiData.user_data}
 								totalPages={apiData.media.pages}
 								deleteMedia={deleteMedia}
-								callbackDelete={callbackDeleteMedia}
+								deleteCallback={callbackDeleteMedia}
 								show={show}
 							/>
 						}
@@ -133,4 +134,7 @@ export default function MediaDetailsPage() {
 			<ConfirmationModal/>
 		</div>
 	);
-}
+};
+
+
+export default withPrivateRoute(MediaDetailsPage);

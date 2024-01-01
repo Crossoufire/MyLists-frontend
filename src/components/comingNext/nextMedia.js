@@ -2,18 +2,16 @@ import React from "react";
 import {Card, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-import {zeroPad} from "../../utils/functions";
+import {getCorner, zeroPad} from "../../utils/functions";
 
 
-export default function NextMedia({ mediaType, media }) {
-    const rmCorner = mediaType !== "movies" && "rm-round-corner";
-
+const NextMedia = ({ mediaType, media }) => {
     return (
         <>
             <Card className="bg-transparent border-0">
                 <div className="overlay-container">
                     <Image
-                        className={"medialist-img " + rmCorner}
+                        className={`medialist-img ${getCorner(mediaType)}`}
                         src={media.media_cover}
                         height={300}
                         width={200}
@@ -33,4 +31,6 @@ export default function NextMedia({ mediaType, media }) {
             <div className="supp-drop-container">{media.date}</div>
         </>
     )
-}
+};
+
+export default NextMedia;

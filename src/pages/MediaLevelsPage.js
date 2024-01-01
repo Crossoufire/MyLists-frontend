@@ -7,7 +7,7 @@ import Loading from "../components/primitives/Loading";
 import ErrorPage from "./ErrorPage";
 
 
-function RankCalculus({ rank, loop }) {
+const RankCalculus = ({ rank, loop }) => {
 	if (loop % 3 === 0) {
 		let level, hours;
 
@@ -33,10 +33,10 @@ function RankCalculus({ rank, loop }) {
 			</Col>
 		)
 	}
-}
+};
 
 
-export default function MediaLevelsPage() {
+const MediaLevelsPage = () => {
 	const { apiData, loading, error } = useFetchData("/levels/media_levels")
 
 	if (error) return <ErrorPage error={error}/>;
@@ -65,5 +65,8 @@ export default function MediaLevelsPage() {
 			</Row>
 		</>
 	);
-}
+};
+
+
+export default MediaLevelsPage;
 

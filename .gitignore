@@ -125,4 +125,3 @@ dist
 .env.development
 build/*
 .env.production
-.env.production

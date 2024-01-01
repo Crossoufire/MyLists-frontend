@@ -1,21 +1,22 @@
-import {FaAngry, FaBook, FaFilm, FaFrown, FaGamepad, FaGrinAlt, FaGrinStars, FaPoop, FaSmile, FaToriiGate, FaTv} from "react-icons/fa";
+import {FaAngry, FaBook, FaFilm, FaFrown, FaGamepad, FaGrinAlt, FaGrinStars, FaPoop, FaSmile, FaToriiGate, FaTv}
+    from "react-icons/fa";
 
 
-export function zeroPad(value) {
+export const zeroPad = value => {
     if (value) {
         return String(value).padStart(2, "0");
     }
 
     return "00"
-}
+};
 
-export function capitalize(str) {
+export const capitalize = str => {
     if (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
-}
+};
 
-export function createLocalDate(date_) {
+export const createLocalDate = date_ => {
     if (date_) {
         let tz = new Intl.DateTimeFormat().resolvedOptions().timeZone;
         let localDate = new Date(date_).toLocaleString("en-GB", {timeZone: tz});
@@ -24,9 +25,9 @@ export function createLocalDate(date_) {
 
         return `${localDate.slice(0, 2)} ${month[d.getMonth()]} ${d.getFullYear()} at ${localDate.slice(11, 17)}`
     }
-}
+};
 
-export function formatTime(minutes, onlyHours) {
+export const formatTime = (minutes, onlyHours) => {
     if (isNaN(minutes)) {
         return "--";
     }
@@ -37,16 +38,16 @@ export function formatTime(minutes, onlyHours) {
     if (onlyHours) return hours + "h"
 
     return hours + "h" + (remainingMinutes < 10 ? "0" : "") + remainingMinutes.toFixed(0);
-}
+};
 
-export function getUserMetric(isFeeling, userData) {
+export const getUserMetric = (isFeeling, userData) => {
     const name = isFeeling ? "Feeling" : "Score";
     const value = isFeeling ? userData.feeling : userData.score;
 
     return {name, value};
-}
+};
 
-export function getMetricValues(name) {
+export const getMetricValues = name => {
     if (name === "Feeling") {
         return [
             {value: null, icon: "---"},
@@ -60,19 +61,15 @@ export function getMetricValues(name) {
     }
 
     return ["---", 0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
-}
+};
 
-export function getPlaytimeValues() {
-    return [0, 2, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200, 225, 250, 275, 300,
-        350, 400, 450, 500, 550, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 8000,
-        9000, 10000]
-}
+export const getPlaytimeValues = () => [0, 2, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200, 225, 250, 275, 300,
+    350, 400, 450, 500, 550, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 8000,
+    9000, 10000];
 
-export function getRedoValues() {
-    return [...Array(11).keys()];
-}
+export const getRedoValues = () => [...Array(11).keys()];
 
-export function getMediaIcon(mediaType, size) {
+export const getMediaIcon = (mediaType, size) => {
     if (mediaType === "series") {
         return <FaTv className="text-series" size={size}/>
     }
@@ -88,17 +85,17 @@ export function getMediaIcon(mediaType, size) {
     else if (mediaType === "books") {
         return <FaBook className="text-books" size={size}/>
     }
-}
+};
 
-export function changeValueFormat(value, label="") {
+export const changeValueFormat = (value, label="") => {
     if (value > 10000) {
         return `${value.toLocaleString().replace(/,/g, " ")} ${label}`;
     } else {
         return `${value} ${label}`;
     }
-}
+};
 
-export function getStatusColor(status) {
+export const getStatusColor = status => {
     const colors = {
         "Reading": "#334d5c",
         "Watching": "#334d5c",
@@ -113,4 +110,14 @@ export function getStatusColor(status) {
         "Plan to Play": "#962d3e",
     }
     return colors[status];
-}
+};
+
+export const getCorner = (mediaType) => {
+    return mediaType !== "movies" && "rm-round-corner";
+};
+
+export const formatDate = dateString => {
+    const originalDate = new Date(dateString);
+    const options = { weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "numeric"};
+    return originalDate.toLocaleString("fr", options);
+};

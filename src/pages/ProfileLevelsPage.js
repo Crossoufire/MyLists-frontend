@@ -8,7 +8,7 @@ import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 
 
-function BorderCalculus({ border }) {
+const BorderCalculus = ({ border }) => {
 	if (8 * border.level < 320) {
 		return (
 			<div className="text-center fs-20" style={{marginTop: "-25px"}}>
@@ -18,10 +18,10 @@ function BorderCalculus({ border }) {
 	}
 
 	return <div className="text-center fs-20" style={{marginTop: "-20px"}}>Lvl {8*(-1+border.level)} +</div>
-}
+};
 
 
-export default function ProfileLevelsPage() {
+const ProfileLevelsPage = () => {
 	const { apiData, loading, error } = useFetchData("/levels/profile_borders")
 
 	if (error) return <ErrorPage error={error}/>;
@@ -65,5 +65,8 @@ export default function ProfileLevelsPage() {
 			</Row>
 		</>
 	);
-}
+};
+
+
+export default ProfileLevelsPage;
 

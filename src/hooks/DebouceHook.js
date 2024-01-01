@@ -14,11 +14,12 @@ export function useDebounce(value, timeout, callback, ...args) {
             setTimer(newTimer);
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     const clearTimer = () => {
         if (timer) {
+            // noinspection JSCheckFunctionSignatures
             clearTimeout(timer);
         }
     };

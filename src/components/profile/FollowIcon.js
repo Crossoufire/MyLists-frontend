@@ -4,8 +4,8 @@ import {FaUserMinus, FaUserPlus} from "react-icons/fa";
 
 import LoadingIcon from "../primitives/LoadingIcon";
 import useLoading from "../../hooks/LoadingHook";
-import {useApi} from "../../contexts/ApiProvider";
-import {useFlash} from "../../contexts/FlashProvider";
+import {useApi} from "../../providers/ApiProvider";
+import {useFlash} from "../../providers/FlashProvider";
 import AddTooltip from "../primitives/AddTooltip";
 
 

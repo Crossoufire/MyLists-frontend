@@ -1,21 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {useParams, useSearchParams} from "react-router-dom";
-import {Form} from "react-bootstrap";
 
+import {useUser} from "../providers/UserProvider";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 import {useFetchData2} from "../hooks/FetchDataHook";
-import {useUser} from "../contexts/UserProvider";
-import ErrorPage from "./ErrorPage";
-import Loading from "../components/primitives/Loading";
-import HLine from "../components/primitives/HLine";
 import NavigationMedia from "../components/medialist/NavigationMedia";
 import NavigationStatus from "../components/medialist/NavigationStatus";
 import MediaListData from "../components/medialist/MediaListData";
 import TitleStatus from "../components/medialist/TitleStatus";
-import SearchListMedia from "../components/medialist/SearchListMedia";
+import SearchMediaList from "../components/medialist/SearchMediaList";
 import FilterAndSort from "../components/medialist/FilterAndSort";
+import ErrorPage from "./ErrorPage";
+import Loading from "../components/primitives/Loading";
+import HLine from "../components/primitives/HLine";
+import CommonMedia from "../components/medialist/CommonMedia";
+import MediaListStats from "../components/medialist/MediaListStats";
+import MediaLabels from "../components/medialist/MediaLabels";
 
 
-export default function MediaListPage() {
+const MediaListPage = () => {
 	const { currentUser } = useUser();
 	const { mediaType, username } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -23,8 +26,7 @@ export default function MediaListPage() {
 	const { apiData, loading, error } = useFetchData2(`/list/${mediaType}/${username}`,
 		{...Object.fromEntries(searchParams)});
 
-
-	useEffect(() =>{
+	useEffect(() => {
 		setShowCommon(true);
 	}, [mediaType]);
 
@@ -59,6 +61,10 @@ export default function MediaListPage() {
 		genre: apiData.pagination.genre,
 		lang: lang,
 	});
+	const updateLabel = (label) => ({
+		status: apiData.pagination.status,
+		label_name: label,
+	});
 	const updatePagination = (page) => ({
 		search: apiData.pagination.search,
 		sorting: apiData.pagination.sorting,
@@ -74,7 +80,7 @@ export default function MediaListPage() {
 			status: apiData.pagination.status,
 			genre: apiData.pagination.genre,
 			lang: apiData.pagination.lang,
-			page: apiData.pagination.page,
+			page: 1,
 		}
 
 		await setSearchParams({
@@ -96,51 +102,69 @@ export default function MediaListPage() {
 					userData={apiData.user_data}
 					mediaType={mediaType}
 				/>
-				<SearchListMedia
+				<SearchMediaList
 					search={apiData.pagination.search}
 					updateSearch={(value) => updateSearchParams(updateSearch, value)}
+					condition={currentUser.username === username ? "your" : username}
 				/>
 				{(currentUser.id !== apiData.user_data.id) &&
-					<div className="d-flex gap-3 common-navigation">
-						<div>{apiData.media_data.common_ids.length}/{apiData.media_data.total_media} common {mediaType}</div>
-						<Form.Switch
-							type="switch"
-							value={showCommon}
-							label="Hide common"
-							onChange={updateCommon}
-						/>
-					</div>
+					<CommonMedia
+						apiData={apiData}
+						mediaType={mediaType}
+						showCommon={showCommon}
+						updateCommon={updateCommon}
+					/>
 				}
 			</div>
-
 			<NavigationStatus
 				allStatus={apiData.pagination.all_status}
 				activeStatus={apiData.pagination.status}
 				updateStatus={(value) => updateSearchParams(updateStatus, value)}
 			/>
-
-			<div className="d-flex justify-content-between m-t-35">
+			<div className="d-flex justify-content-between m-t-25">
 				<TitleStatus
 					status={apiData.pagination.status}
 					total={apiData.pagination.total}
+					title={apiData.pagination.title}
 				/>
-				<FilterAndSort
-					mediaType={mediaType}
-					paginateData={apiData.pagination}
-					updateLang={(value) => updateSearchParams(updateLang, value)}
-					updateGenre={(value) => updateSearchParams(updateGenre, value)}
-					updateSorting={(value) => updateSearchParams(updateSorting, value)}
-				/>
+				{!["Stats", "Search", "Labels"].includes(apiData.pagination.status) &&
+					<FilterAndSort
+						mediaType={mediaType}
+						paginateData={apiData.pagination}
+						updateLang={(value) => updateSearchParams(updateLang, value)}
+						updateGenre={(value) => updateSearchParams(updateGenre, value)}
+						updateSorting={(value) => updateSearchParams(updateSorting, value)}
+					/>
+				}
 			</div>
 			<HLine mtop={2}/>
-
-			<MediaListData
-				loading={loading}
-				apiData={apiData}
-				isCurrent={apiData.user_data.id === currentUser.id}
-				mediaType={mediaType}
-				updatePagination={(value) => updateSearchParams(updatePagination, value)}
-			/>
+			{apiData.pagination.status === "Stats" ?
+				<MediaListStats
+					mediaType={mediaType}
+					graphData={apiData.media_data.graph_data}
+				/>
+				:
+				apiData.pagination.status === "Labels" ?
+					<MediaLabels
+						mediaType={mediaType}
+						labels={apiData.media_data.labels}
+						labelsMedia={apiData.media_data.labels_media}
+						isCurrent={currentUser.username === username}
+						updateLabel={(value) => updateSearchParams(updateLabel, value)}
+						loading={loading}
+					/>
+					:
+					<MediaListData
+						loading={loading}
+						apiData={apiData}
+						isCurrent={apiData.user_data.id === currentUser.id}
+						mediaType={mediaType}
+						updatePagination={(value) => updateSearchParams(updatePagination, value)}
+					/>
+			}
 		</>
-	)
+	);
 };
+
+
+export default withPrivateRoute(MediaListPage);

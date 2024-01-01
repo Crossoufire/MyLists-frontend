@@ -2,12 +2,13 @@ import React from "react";
 import {Button, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
+import {useApi} from "../providers/ApiProvider";
+import {useFlash} from "../providers/FlashProvider";
 import HLine from "../components/primitives/HLine";
 
 
-export default function ForgotPasswordPage() {
+const ForgotPasswordPage = () => {
     const api = useApi();
     const flash = useFlash();
     const { register, handleSubmit, getValues, formState: { errors } } = useForm();
@@ -47,4 +48,7 @@ export default function ForgotPasswordPage() {
             </div>
         </div>
     );
-}
+};
+
+
+export default withPublicRoute(ForgotPasswordPage);

@@ -3,13 +3,13 @@ import {Button, Form} from "react-bootstrap";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-import {useFlash} from "../../contexts/FlashProvider";
-import {useUser} from "../../contexts/UserProvider";
+import {useFlash} from "../../providers/FlashProvider";
+import {useUser} from "../../providers/UserProvider";
 
 
 export default function LoginForm() {
-	const flash = useFlash()
-	const { login } = useUser()
+	const flash = useFlash();
+	const { login } = useUser();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { register, handleSubmit, formState: { errors } } = useForm();

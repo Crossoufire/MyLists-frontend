@@ -1,11 +1,12 @@
 import {useEffect} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {useApi} from "../providers/ApiProvider";
+import {useFlash} from "../providers/FlashProvider";
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
 
 
-export default function RegisterTokenPage() {
+const RegisterTokenPage = () => {
     const api = useApi();
     const flash = useFlash();
     const navigate = useNavigate();
@@ -24,4 +25,6 @@ export default function RegisterTokenPage() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-}
+};
+export default withPublicRoute(RegisterTokenPage);
+

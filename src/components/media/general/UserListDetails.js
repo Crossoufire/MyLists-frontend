@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import {Button, Card} from "react-bootstrap";
 import {FaMinus} from "react-icons/fa";
 
-import {useUser} from "../../../contexts/UserProvider";
+import {useUser} from "../../../providers/UserProvider";
 import {getUserMetric} from "../../../utils/functions";
 import useApiUpdater from "../../../hooks/UserUpdateAPI";
 import HistoryModal from "./HistoryModal";
@@ -14,6 +14,7 @@ import GamesUserDetails from "../games/GamesUserDetails";
 import BooksUserDetails from "../books/BooksUserDetails";
 import Commentary from "./Commentary";
 import useLoading from "../../../hooks/LoadingHook";
+import LabelsList from "./LabelsList";
 
 
 const mediaComponentMap = {
@@ -25,8 +26,9 @@ const mediaComponentMap = {
 }
 
 
-export default function UserListDetails({ mediaId, mediaType, userData, totalPages, deleteMedia, callbackDelete, show }) {
-	const { currentUser } = useUser();
+export default function UserListDetails(props) {
+	const {mediaId, mediaType, userData, totalPages, deleteMedia, deleteCallback, show} = props;
+	const {currentUser} = useUser();
 	const [isLoading, handleLoading] = useLoading();
 	const MediaUserDetails = mediaComponentMap[mediaType];
 	const userMetric = getUserMetric(currentUser.add_feeling, userData);
@@ -36,7 +38,7 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 		show(async () => {
 			const response = await handleLoading(deleteMedia)
 			if (response) {
-				await callbackDelete();
+				await deleteCallback();
 			}
 		});
 	};
@@ -68,14 +70,24 @@ export default function UserListDetails({ mediaId, mediaType, userData, totalPag
 					initContent={userData.comment}
 					updateComment={updatesAPI.comment}
 				/>
+				<LabelsList
+					username={userData.username}
+					mediaId={mediaId}
+					mediaType={mediaType}
+					initIn={userData.labels.already_in}
+					initAvailable={userData.labels.available}
+				/>
 			</Card.Body>
 			<Card.Footer>
-				<div className="text-center">
+				<div className="text-center m-t-5">
 					<Button variant="danger" onClick={handleDeleteMedia} className="shadow-0">
 						{isLoading ?
 							<span>Loading...</span>
 							:
-							<><FaMinus size={13} className="m-b-2"/>&nbsp; Remove from your list</>
+							<>
+								<FaMinus size={13} className="m-b-2"/>
+								&nbsp; Remove from your list
+							</>
 						}
 					</Button>
 				</div>

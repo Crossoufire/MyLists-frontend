@@ -3,16 +3,17 @@ import {Button, Form, Row, Col} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
 
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {useApi} from "../providers/ApiProvider";
+import {useFlash} from "../providers/FlashProvider";
 import {capitalize} from "../utils/functions";
 import {useFetchData} from "../hooks/FetchDataHook";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
+import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 
 
-export default function MediaEditPage() {
+const MediaEditPage = () => {
     const api = useApi();
     const flash = useFlash();
     const navigate = useNavigate();
@@ -80,4 +81,7 @@ export default function MediaEditPage() {
             </Form>
         </div>
     );
-}
+};
+
+
+export default withPrivateRoute(MediaEditPage);

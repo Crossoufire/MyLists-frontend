@@ -3,12 +3,13 @@ import {useForm} from "react-hook-form";
 import {Button, Form} from "react-bootstrap";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
-import {useApi} from "../contexts/ApiProvider";
-import {useFlash} from "../contexts/FlashProvider";
+import {useApi} from "../providers/ApiProvider";
+import {useFlash} from "../providers/FlashProvider";
+import {withPublicRoute} from "../components/HigherOrderComp/hocs";
 import HLine from "../components/primitives/HLine";
 
 
-export default function ResetPasswordPage() {
+const ResetPasswordPage = () => {
     const api = useApi();
     const flash = useFlash();
     const navigate = useNavigate();
@@ -69,4 +70,7 @@ export default function ResetPasswordPage() {
             </div>
         </div>
     );
-}
+};
+
+
+export default withPublicRoute(ResetPasswordPage);

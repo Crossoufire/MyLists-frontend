@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import useLoading from "../../../hooks/LoadingHook";
 import LoadingIcon from "../../primitives/LoadingIcon";
 import AddTooltip from "../../primitives/AddTooltip";
-import {useFlash} from "../../../contexts/FlashProvider";
+import {useFlash} from "../../../providers/FlashProvider";
 
 
 export default function RefreshMedia({ updateRefresh, reloadByMutate }) {

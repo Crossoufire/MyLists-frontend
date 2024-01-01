@@ -2,10 +2,10 @@ import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Image} from "react-bootstrap";
 
+import {useFetchData} from "../../hooks/FetchDataHook";
 import HLine from "../primitives/HLine";
 import Return from "../primitives/Return";
 import Loading from "../primitives/Loading";
-import {useFetchData} from "../../hooks/FetchDataHook";
 import ErrorPage from "../../pages/ErrorPage";
 
 
@@ -14,7 +14,7 @@ export default function FollowsFollowers({ username, extension }) {
     const { apiData, loading, error } = useFetchData(`/profile/${username}/${extension}`)
 
     if (error) return <ErrorPage error={error}/>;
-    if (loading) return <Loading/>;
+    if (loading) return <Loading addStyle={"text-center"}/>;
 
 
     return (

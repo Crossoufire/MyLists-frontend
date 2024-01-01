@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {Collapse, Container, Alert} from "react-bootstrap";
-import {FlashContext} from "../../contexts/FlashProvider";
+import {FlashContext} from "../../providers/FlashProvider";
 
 
 function FlashMessage() {

@@ -13,12 +13,12 @@ import useLoading from "../../hooks/LoadingHook";
 import useConfirmation from "../../hooks/ConfirmationHook";
 
 
-export default function MediaItem({ isCurrent, mediaType, userData, mediaData, isCommon, activeStatus }) {
+const MediaItem = ({ isCurrent, mediaType, userData, mediaData, isCommon, activeStatus }) => {
 	const [hideMedia, setHideMedia] = useState(false);
 	const [stateIsCommon, setStateIsCommon] = useState(isCommon);
 	const [isLoading, handleLoading] = useLoading();
-	const updateUserAPI = useApiUpdater(mediaData.media_id, mediaType);
 	const {show, ConfirmationModal} = useConfirmation();
+	const updateUserAPI = useApiUpdater(mediaData.media_id, mediaType);
 
 	const rmCorner = (mediaType !== "movies") && "rm-round-corner";
 	const userMetric = getUserMetric(userData.add_feeling, mediaData);
@@ -31,15 +31,6 @@ export default function MediaItem({ isCurrent, mediaType, userData, mediaData, i
 				setHideMedia(true);
 			}
 		});
-
-		// if (!window.confirm("Remove this media from your list?")) {
-		// 	return;
-		// }
-		//
-		// const response = await handleLoading(updateUserAPI.deleteMedia);
-		// if (response) {
-		// 	setHideMedia(true);
-		// }
 	};
 	const handleStatus = async (ev) => {
 		await handleLoading(updateUserAPI.status, ev.target.value);
@@ -122,3 +113,6 @@ export default function MediaItem({ isCurrent, mediaType, userData, mediaData, i
 		</>
 	);
 };
+
+
+export default MediaItem;

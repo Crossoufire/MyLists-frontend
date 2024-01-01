@@ -3,8 +3,8 @@ import {Badge, Col, Dropdown, Row} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 import {FaBell, FaFilm, FaGamepad, FaLongArrowAltRight, FaToriiGate, FaTv, FaUser} from "react-icons/fa";
 
-import {useApi} from "../../contexts/ApiProvider";
-import {useFlash} from "../../contexts/FlashProvider";
+import {useApi} from "../../providers/ApiProvider";
+import {useFlash} from "../../providers/FlashProvider";
 import Loading from "../primitives/Loading";
 import HLine from "../primitives/HLine";
 
@@ -38,7 +38,6 @@ export default function Notifications() {
         setNotifications(response.body.data);
         setLoading(false);
     }
-
     async function countNotifications() {
         const response = await api.get("/notifications/count");
 
@@ -51,14 +50,14 @@ export default function Notifications() {
 
 
     return (
-        <Dropdown onClick={async () => await fetchNotifications()} data-bs-theme="dark">
+        <Dropdown onClick={async () => await fetchNotifications()} data-bs-theme="dark" align={{lg: "end"}}>
             <Dropdown.Toggle as="div">
                 <FaBell size={22} className="m-r-5 m-b-5"/>
                 <Badge pill bg={numberUnreadNotif > 0 ? "danger" : "secondary"}>{numberUnreadNotif}</Badge>
             </Dropdown.Toggle>
-            <Dropdown.Menu style={{width: 300, maxHeight: 340, overflowY: "auto"}}>
+            <Dropdown.Menu style={{width: 280, maxHeight: 332, overflowY: "auto"}}>
                 {loading ?
-                    <Dropdown.Item><Loading style={null} size={25}/></Dropdown.Item>
+                    <Dropdown.Item><Loading addStyle={null} size={25}/></Dropdown.Item>
                     :
                     notifications.length === 0 ?
                         <i className="m-l-10 fw-4">No notifications found.</i>

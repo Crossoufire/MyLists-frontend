@@ -39,6 +39,9 @@ table td {
 .modal-content {
     background-color: #1a1a1a;
 }
+#modal-info > li:not(:last-child) {
+    margin-bottom: 10px;
+}
 
 
 /* --- SCROLLBAR -------------------------------------------------------------------------------------- */
@@ -53,6 +56,11 @@ table td {
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+@media (max-width: 490px) {
+    .loading-spinner {
+        height: calc(100vh - 553px);
+    }
 }
 
 
@@ -479,6 +487,15 @@ table td {
     cursor: pointer;
     transition: .3s ease-in;
 }
+.img-btn-top-left-2 {
+    color: #e2e2e2;
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: .3s ease-in;
+}
 .overlay-container:hover .img-btn-top-left {
     opacity: 1;
     color: #e2e2e2;
@@ -488,6 +505,15 @@ table td {
     top: 10px;
     right: 10px;
     opacity: 0;
+    cursor: pointer;
+    transition: .3s ease-in;
+}
+.img-btn-top-right-2 {
+    color: #e2e2e2;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    opacity: 0.4;
     cursor: pointer;
     transition: .3s ease-in;
 }
@@ -560,10 +586,14 @@ table td {
 
 @media (max-width: 991px) {
     .img-btn-top-left {
+        color: #e2e2e2;
         opacity: 0.8;
+        filter:drop-shadow(2px 2px 1px black)
     }
     .img-btn-top-right {
+        color: #e2e2e2;
         opacity: 0.8;
+        filter:drop-shadow(2px 2px 1px black)
     }
 }
 @media (max-width: 410px) {
@@ -620,7 +650,7 @@ table td {
 /* --- NAVIGATION MEDIA ------------------------------------------------------------------------------- */
 .active-left {
     border-bottom: 4px solid rgb(128, 128, 128);
-    padding-bottom: 8px;
+    padding-bottom: 5px;
 }
 .media-navigation {
     justify-content: space-between;
@@ -886,10 +916,9 @@ table td {
     color: white;
 }
 .book-input {
-    margin: 0;
+    margin-left: 12px;
     width: 40px;
     border: none;
-    direction: rtl;
     color: lightgray;
     background: transparent;
     cursor: pointer;
@@ -897,13 +926,13 @@ table td {
 }
 .eps-season-container {
     overflow-y : auto;
-    max-height: 260px;
+    max-height: 240px;
     overflow-x: hidden;
 }
 .eps-season-box {
-    background-color: darkslategray;
-    border-radius: 8px;
-    width: 100px;
+    background-color: #3a5b5b;
+    border-radius: 7px;
+    width: 98px;
 }
 
 

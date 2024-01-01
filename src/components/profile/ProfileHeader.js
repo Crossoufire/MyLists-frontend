@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {Image} from "react-bootstrap";
 import {FaPen} from "react-icons/fa";
 
-import {useUser} from "../../contexts/UserProvider";
+import {useUser} from "../../providers/UserProvider";
 import FollowIcon from "./FollowIcon";
 import AddTooltip from "../primitives/AddTooltip";
 
@@ -15,7 +15,7 @@ export default function ProfileHeader({ user, initFollow, followId }) {
     return (
         <div className="profile-header-back-container" style={{backgroundImage: `url(${user.back_image})`}}>
             {isCurrent &&
-                <Link id="background-picture" className="profile-header-back-pen" to={"/settings"}>
+                <Link id="background-picture" className="profile-header-back-pen" to={"/profile/settings"}>
                     <AddTooltip title={"Change background image"} addSpan place={"bottom"}>
                         <FaPen size={20}/>
                     </AddTooltip>
@@ -23,8 +23,8 @@ export default function ProfileHeader({ user, initFollow, followId }) {
             }
             <div className="profile-header-container">
                 {isCurrent ?
-                    <Link to={"/settings"}>
-                        <AddTooltip title={"Change profile image"}>
+                    <Link to={"/profile/settings"}>
+                        <AddTooltip title="Change profile image">
                             <Image
                                 className="profile-header-img profile-header-hover"
                                 src={user.profile_image}

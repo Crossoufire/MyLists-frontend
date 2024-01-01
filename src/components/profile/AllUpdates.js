@@ -4,8 +4,8 @@ import {Body, Cell, Header, HeaderCell, HeaderRow, Row, Table, useCustom} from "
 import {usePagination} from "@table-library/react-table-library/pagination";
 import {Link} from "react-router-dom";
 
-import {useApi} from "../../contexts/ApiProvider";
-import {useFlash} from "../../contexts/FlashProvider";
+import {useApi} from "../../providers/ApiProvider";
+import {useFlash} from "../../providers/FlashProvider";
 import {createLocalDate, getMediaIcon} from "../../utils/functions";
 import Payload from "../primitives/Payload";
 import HLine from "../primitives/HLine";
@@ -46,7 +46,7 @@ export default function AllUpdates({ username }) {
     }, []);
 
     useEffect(() => {
-        fetchData({
+        void fetchData({
             search: INITIAL_PARAMS.search,
             page: INITIAL_PARAMS.page,
         });
@@ -71,7 +71,7 @@ export default function AllUpdates({ username }) {
     });
 
     function onPaginationChange(action, state) {
-        fetchData({
+        void fetchData({
             search: search,
             page: state.page,
         });
@@ -89,7 +89,7 @@ export default function AllUpdates({ username }) {
             <HLine/>
             <div className="m-b-15">
                 <div className="d-flex justify-content-between m-t-20">
-                    <Link className="text-light" to={"/profile/"+username}>
+                    <Link className="text-light" to={`/profile/${username}`}>
                         <Return/>
                     </Link>
                     <Form.Control
