@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Modal} from "react-bootstrap";
 
 import UserUpdate from "../../reused/UserUpdate";
+import AddTooltip from "../../primitives/AddTooltip";
 
 
 export default function HistoryModal({ history }) {
@@ -14,9 +15,12 @@ export default function HistoryModal({ history }) {
     return (
         <>
             {history.length !== 0 &&
-                <span className="text-grey cu-p fs-16" onClick={handleOpen}><i>History</i></span>
+                <AddTooltip title="Show history">
+                    <span className="text-grey cu-p fs-16" onClick={handleOpen}>
+                        <i>History</i>
+                    </span>
+                </AddTooltip>
             }
-
             <Modal show={showModal} onHide={handleClose} centered={true}>
                 <Modal.Header closeButton closeVariant="white">
                     <Modal.Title>History</Modal.Title>

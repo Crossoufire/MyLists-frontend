@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import {NavLink} from "react-router-dom";
-import {FaCog, FaSignOutAlt, FaUser} from "react-icons/fa";
+import {FaCog, FaFileAlt, FaHistory, FaSignOutAlt, FaUser} from "react-icons/fa";
 import {Col, Container, Image, Nav, Navbar, NavDropdown, Row} from "react-bootstrap";
 
 import {useUser} from "../../providers/UserProvider";
@@ -56,11 +56,11 @@ export default function Header() {
                             </Nav >
                             <Nav className="m-r-auto">
                                 <Nav.Link className="nav-mobile" as={NavLink} to={"/hall_of_fame"} onClick={handleExpansion}>HoF</Nav.Link>
-                                <Nav.Link className="nav-mobile" as={NavLink} to={"/stats"} onClick={handleExpansion}>Stats</Nav.Link>
-                                <Nav.Link className="nav-mobile" as={NavLink} to={"/current_trends"} onClick={handleExpansion}>Trends</Nav.Link>
+                                <Nav.Link className="nav-mobile" as={NavLink} to={"/global_stats"} onClick={handleExpansion}>Stats</Nav.Link>
+                                <Nav.Link className="nav-mobile" as={NavLink} to={"/trends"} onClick={handleExpansion}>Trends</Nav.Link>
                             </Nav>
                             <Nav className="m-r-10">
-                                <Nav.Link className="nav-mobile" as={NavLink} to={"/coming_next"} onClick={handleExpansion}>Coming Next</Nav.Link>
+                                <Nav.Link className="nav-mobile" as={NavLink} to={"/profile/coming_next"} onClick={handleExpansion}>Coming Next</Nav.Link>
                                 <Nav.Link className="nav-mobile"><Notifications/></Nav.Link>
                             </Nav>
                             <Nav className="nav-mobile">
@@ -72,9 +72,15 @@ export default function Header() {
                                         handleExpansion={handleExpansion}
                                     />
                                     <NavMediaItem
-                                        to="/settings"
+                                        to="/profile/settings"
                                         icon={<FaCog className="text-grey"/>}
                                         text="Settings"
+                                        handleExpansion={handleExpansion}
+                                    />
+                                    <NavMediaItem
+                                        to="/changelog"
+                                        icon={<FaFileAlt className="text-grey"/>}
+                                        text="Changelog"
                                         handleExpansion={handleExpansion}
                                     />
                                     <NavDropdown.Item onClick={logout} className="navbar-drop">

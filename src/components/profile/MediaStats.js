@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Col, Image, Row} from "react-bootstrap";
+import {Badge, Col, Image, Row} from "react-bootstrap";
 import {FaExternalLinkAlt} from "react-icons/fa";
 
 import AddTooltip from "../primitives/AddTooltip";
@@ -78,7 +78,7 @@ const MediaStats = ({ user, media }) => (
         </div>
         <div>
             <Link className="text-light fw-5 fs-18" to={`/list/${media.media_type}/${user.username}?status=Favorite`}>
-                Favorites ({media.total_favorites})
+                <u>Favorites ({media.total_favorites})</u>
             </Link>
             {media.total_favorites === 0 ?
                 <div className="text-grey m-t-15"><i>No favorites added yet</i></div>
@@ -104,11 +104,28 @@ const MediaStats = ({ user, media }) => (
             metricCount={media.count_per_metric}
             mediaType={media.media_type}
         />
-        <div className="fw-5 fs-18">
-            <Link className="text-light" to={`/stats/${media.media_type}/${user.username}`}>
-                Detailed stats &nbsp;<FaExternalLinkAlt size={16}/>
+
+        <div>
+            <Link className="text-light fw-5 fs-18" to={`/list/${media.media_type}/${user.username}?status=Labels`}>
+                <u>Labels ({media.labels.count})</u>
             </Link>
+            {media.labels.names.length === 0 ?
+                <div className="text-grey m-t-10"><i>No labels created yet</i></div>
+                :
+                <div className="d-flex flex-wrap justify-content-start gap-3 m-t-10">
+                    {media.labels.names.map(label =>
+                        <Link to={`/list/${media.media_type}/${user.username}?status=Labels&label_name=${label}`}>
+                            <Badge key={label} className="p-t-7 p-b-7 fs-14" bg="success">
+                                <div className="d-flex justify-content-between gap-2">{label}</div>
+                            </Badge>
+                        </Link>
+                    )}
+                </div>
+            }
         </div>
+        <Link className="text-light fw-5 fs-18" to={`/list/${media.media_type}/${user.username}?status=Stats`}>
+            <u>More stats</u>
+        </Link>
     </div>
 );
 

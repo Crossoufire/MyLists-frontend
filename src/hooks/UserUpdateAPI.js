@@ -25,6 +25,8 @@ export default function useApiUpdater(mediaId, mediaType) {
         return true;
     };
 
+    const addMedia = makeUpdateFunction("/add_media");
+    const deleteMedia = makeUpdateFunction("/delete_media");
     const favorite = makeUpdateFunction("/update_favorite");
     const status = makeUpdateFunction("/update_status");
     const metric = makeUpdateFunction("/update_metric");
@@ -34,13 +36,11 @@ export default function useApiUpdater(mediaId, mediaType) {
     const page = makeUpdateFunction("/update_page");
     const playtime = makeUpdateFunction("/update_playtime");
     const comment = makeUpdateFunction("/update_comment");
-    const refresh = makeUpdateFunction(`/refresh/${mediaType}/${mediaId}`);
-    const addMedia = makeUpdateFunction("/add_media");
-    const deleteMedia = makeUpdateFunction("/delete_media");
+    const refresh = makeUpdateFunction(`/details/refresh/${mediaType}/${mediaId}`);
     const addBookCover = makeUpdateFunction("/details/add_book_cover");
-    const removeFromList = makeUpdateFunction("/remove_from_personal_list");
-    const addToList = makeUpdateFunction("/add_to_personal_list");
+    const removeLabelFromMedia = makeUpdateFunction("/remove_label_from_media");
+    const addMediaToLabel = makeUpdateFunction("/add_media_to_label");
 
-    return {favorite, status, metric, redo, season, episode, page, playtime, comment, refresh, addMedia,
-        deleteMedia, addBookCover, removeFromList, addToList};
+    return { favorite, status, metric, redo, season, episode, page, playtime, comment, refresh, addMedia,
+        deleteMedia, addBookCover, removeLabelFromMedia, addMediaToLabel };
 }

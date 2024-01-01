@@ -3,22 +3,11 @@ import {Card, Col, Row} from "react-bootstrap";
 import {Bar, BarChart, XAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend} from "recharts";
 
 import {formatTime} from "../../utils/functions";
-import {withPrivateRoute} from "../HigherOrderComp/hocs";
 import HLine from "../primitives/HLine";
 
 
-const BarGraph = ({ data, formatter, compareData }) => {
-    try {
-        if (compareData) {
-            for (let i = 0; i < data.length; i++) {
-                data[i].push(compareData[i][1]);
-            }
-        }
-    } catch (e) {}
-
-    const convertedData = data.map(([name, count, count2]) => ({ name, count, count2 }));
-
-    console.log(convertedData);
+const BarGraph = ({ data, formatter }) => {
+    const convertedData = data.map(([name, count]) => ({ name, count }));
 
     const customLabel = ({ x, y, width, height, value }) => {
         const labelYInside = y + 16;
@@ -38,21 +27,12 @@ const BarGraph = ({ data, formatter, compareData }) => {
                 <Bar dataKey="count" label={customLabel} isAnimationActive={false} radius={[7, 7, 0, 0]}>
                     {convertedData.map((entry, idx) => <Cell fill={graphColors[idx % graphColors.length]}/>)}
                 </Bar>
-                {compareData &&
-                    <Bar dataKey="count2" label={customLabel} isAnimationActive={false} radius={[7, 7, 0, 0]}>
-                        {convertedData.map((entry, idx) => <Cell fill={"gray"}/>)}
-                    </Bar>
-                }
-                <XAxis
-                    dataKey="name"
-                    stroke="#e2e2e2"
-                    scale="band"
-                    tickFormatter={formatter}
-                />
+                <XAxis dataKey="name" stroke="#e2e2e2" scale="band" tickFormatter={formatter}/>
             </BarChart>
         </ResponsiveContainer>
     );
 };
+
 const PieGraph = ({ data }) => {
     const convertedData = data.map(([name, count]) => ({ name, count }));
 
@@ -89,13 +69,14 @@ const PieGraph = ({ data }) => {
         </ResponsiveContainer>
     )
 };
-const StatsCard = ({ name, data, graphType, fmt, compareData }) => {
+
+const StatsCard = ({ name, data, graphType, fmt }) => {
     return (
         <Card className="bg-card text-light">
             <Card.Body>
                 {name && <Card.Title><h5>{name}</h5><HLine/></Card.Title>}
                 {graphType === "bar" ?
-                    <BarGraph data={data} formatter={fmt} compareData={compareData}/>
+                    <BarGraph data={data} formatter={fmt}/>
                     :
                     <PieGraph data={data} formatter={fmt}/>
                 }
@@ -141,7 +122,7 @@ const mediaStats = {
 }
 
 
-const MediaListStats = ({ mediaType, graphData, compareData }) => {
+const MediaListStats = ({ mediaType, graphData }) => {
     const stats = mediaStats[mediaType]
 
     return (
@@ -154,7 +135,6 @@ const MediaListStats = ({ mediaType, graphData, compareData }) => {
                             data={graph.values}
                             graphType={stats.graphType[idx]}
                             fmt={stats.formatter[idx]}
-                            compareData={compareData && compareData[idx].values}
                         />
                     </Col>
                 )}
@@ -164,4 +144,4 @@ const MediaListStats = ({ mediaType, graphData, compareData }) => {
 };
 
 
-export default withPrivateRoute(MediaListStats);
+export default MediaListStats;

@@ -115,3 +115,9 @@ export const getStatusColor = status => {
 export const getCorner = (mediaType) => {
     return mediaType !== "movies" && "rm-round-corner";
 };
+
+export const formatDate = dateString => {
+    const originalDate = new Date(dateString);
+    const options = { weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "numeric"};
+    return originalDate.toLocaleString("fr", options);
+};

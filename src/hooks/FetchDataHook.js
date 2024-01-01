@@ -63,7 +63,8 @@ export function useFetchData(url, query, options, addDelay) {
         return response.body.data;
     }
 
-    const { data, isLoading, error, mutate } = useSWR([url, query, options, addDelay], () => fetcher(url, query, options, addDelay));
+    const { data, isLoading, error, mutate } = useSWR([url, query, options, addDelay],
+        () => fetcher(url, query, options, addDelay));
 
     return { apiData: data, loading: isLoading, error, mutate };
 }

@@ -487,6 +487,15 @@ table td {
     cursor: pointer;
     transition: .3s ease-in;
 }
+.img-btn-top-left-2 {
+    color: #e2e2e2;
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: .3s ease-in;
+}
 .overlay-container:hover .img-btn-top-left {
     opacity: 1;
     color: #e2e2e2;
@@ -917,13 +926,13 @@ table td {
 }
 .eps-season-container {
     overflow-y : auto;
-    max-height: 260px;
+    max-height: 240px;
     overflow-x: hidden;
 }
 .eps-season-box {
-    background-color: darkslategray;
-    border-radius: 8px;
-    width: 100px;
+    background-color: #3a5b5b;
+    border-radius: 7px;
+    width: 98px;
 }
 
 

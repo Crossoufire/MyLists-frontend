@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Form, Button} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
@@ -7,13 +7,20 @@ import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 import HLine from "../components/primitives/HLine";
 import {useApi} from "../providers/ApiProvider";
 import {useFlash} from "../providers/FlashProvider";
+import {useUser} from "../providers/UserProvider";
+import ErrorPage from "./ErrorPage";
 
 
 const AdminPage = () => {
     const api = useApi();
     const flash = useFlash();
     const navigate = useNavigate();
+    const { currentUser } = useUser();
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    if (currentUser.role === "user") {
+        return <ErrorPage/>
+    }
 
     async function onSubmit(data) {
         const response = await api.adminLogin(data.password);

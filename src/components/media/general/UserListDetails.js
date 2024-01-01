@@ -14,7 +14,7 @@ import GamesUserDetails from "../games/GamesUserDetails";
 import BooksUserDetails from "../books/BooksUserDetails";
 import Commentary from "./Commentary";
 import useLoading from "../../../hooks/LoadingHook";
-import PersonalLists from "./PersonalLists";
+import LabelsList from "./LabelsList";
 
 
 const mediaComponentMap = {
@@ -70,21 +70,24 @@ export default function UserListDetails(props) {
 					initContent={userData.comment}
 					updateComment={updatesAPI.comment}
 				/>
-				<PersonalLists
+				<LabelsList
 					username={userData.username}
 					mediaId={mediaId}
 					mediaType={mediaType}
-					initIn={userData.personal.already_in}
-					initAvailable={userData.personal.available}
+					initIn={userData.labels.already_in}
+					initAvailable={userData.labels.available}
 				/>
 			</Card.Body>
 			<Card.Footer>
-				<div className="text-center">
+				<div className="text-center m-t-5">
 					<Button variant="danger" onClick={handleDeleteMedia} className="shadow-0">
 						{isLoading ?
 							<span>Loading...</span>
 							:
-							<><FaMinus size={13} className="m-b-2"/>&nbsp; Remove from your list</>
+							<>
+								<FaMinus size={13} className="m-b-2"/>
+								&nbsp; Remove from your list
+							</>
 						}
 					</Button>
 				</div>

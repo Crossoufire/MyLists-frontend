@@ -29,8 +29,10 @@ export default function Commentary({ initContent, updateComment }) {
         <>
             <h4 className="d-flex justify-content-between m-t-20 fw-5">
                 Comment
-                <AddTooltip title={"Edit comment"} addSpan>
-                    <FaRegEdit className="cu-p" onClick={() => setCommentInput(!commentInput)}/>
+                <AddTooltip title={contents ? "Edit comment" : "Add comment"}>
+                    <span className="text-grey cu-p fs-16 m-t-8" onClick={() => setCommentInput(!commentInput)}>
+                    <i>{contents ? "Edit" : "Add"}</i>
+                </span>
                 </AddTooltip>
             </h4>
             <HLine2/>

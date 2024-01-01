@@ -1,8 +1,7 @@
 
-# CHANGELOG v1.0.1
-
-
-## Under the Hood
+## CHANGELOG v1.0.1
+---
+### Under the Hood
 - Overhauled (a bit) the code for the stats graphs in `/list/stats`.
 - Standardized `comment` in `/list` and `/details`.
 - Transitioned from an `onClick` to a `Link` for `/trends` and `/search`.
@@ -13,7 +12,7 @@
 - Code refactoring to enhance overall code quality.
 
 
-## UI Modification Desktop
+### UI Modification Desktop
 - Adjusted text and graph colors of the media stats in `/list/stats`
 - Adjusted graph label in `/global_stats` navbar.
 - Enabled middle mouse button to open media in new tab for `/search` and `/trends`.
@@ -22,5 +21,5 @@
 - Added a `confirmationHook` to prompt confirmation before deleting a media in `/list` and `/details`.
 
 
-## UI Modification Mobile
+### UI Modification Mobile
 - Navigation hamburger now retract upon loading a Link.

@@ -1,5 +1,6 @@
 import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
+import {FaStar} from "react-icons/fa";
 
 import {formatTime} from "../../../utils/functions";
 import Synopsis from "../general/Synopsis";
@@ -7,7 +8,6 @@ import MapDetails from "../general/MapDetails";
 import ReleaseDate from "../general/ReleaseDate";
 import GenericDetails from "../general/GenericDetails";
 import EpsPerSeason from "./EpsPerSeason";
-import {FaStar} from "react-icons/fa";
 
 
 export default function TVDetails({ mediaData, mediaType }) {
@@ -17,7 +17,7 @@ export default function TVDetails({ mediaData, mediaType }) {
         <div className="d-flex flex-column gap-4">
             <Card className="bg-card">
                 <Card.Body className="p-3 text-light">
-                    <Row className="gx-0 details-ul-li" style={{marginBottom: "-15px"}}>
+                    <Row className="gx-0 details-ul-li" style={{marginBottom: -15}}>
                         <Col xs={6} md={6} xl={3}>
                             <ul>
                                 <li>
@@ -55,25 +55,25 @@ export default function TVDetails({ mediaData, mediaType }) {
                                 <li>
                                     <GenericDetails
                                         name={"Eps. duration"}
-                                        value={mediaData.duration + " min"}
+                                        value={`${mediaData.duration} min`}
                                     />
                                 </li>
                                 <li>
                                     <GenericDetails
                                         name={"Seasons"}
-                                        value={mediaData.total_seasons + " seasons"}
+                                        value={`${mediaData.total_seasons} seasons`}
                                     />
                                 </li>
                                 <li>
                                     <GenericDetails
                                         name={"Episodes"}
-                                        value={mediaData.total_episodes + " episodes"}
+                                        value={`${mediaData.total_episodes} episodes`}
                                     />
                                 </li>
                                 <li>
                                     <GenericDetails
                                         name={"Completion"}
-                                        value={formatTime(mediaData.total_episodes*mediaData.duration)}
+                                        value={formatTime(mediaData.total_episodes * mediaData.duration)}
                                     />
                                 </li>
                             </ul>

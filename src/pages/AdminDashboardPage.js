@@ -5,6 +5,7 @@ import {Button, Row, Col, Form} from "react-bootstrap";
 import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
 import {useFlash} from "../providers/FlashProvider";
 import {useFetchData} from "../hooks/FetchDataHook";
+import {formatDate} from "../utils/functions";
 import HLine from "../components/primitives/HLine";
 import Loading from "../components/primitives/Loading";
 import useAdminApi from "../hooks/AdminUpdateAPI";
@@ -12,6 +13,7 @@ import ErrorPage from "./ErrorPage";
 
 
 function PopulateUsers({ users }) {
+    const navigate = useNavigate();
     const allRoles = ["user", "manager"];
     const { role, deletion } = useAdminApi();
 
@@ -28,21 +30,29 @@ function PopulateUsers({ users }) {
 
             if (secondConfirm) {
                 await deletion(userId);
+                navigate(0);
             }
         }
     }
 
-
     return (
         <div className="m-t-25">
-            <Row className="fw-5 gy-3 gx-3">
+            <Row className="fw-5 gy-3 gx-3 text-center">
+                <Col xs={3}>USERNAME</Col>
+                <Col xs={2}>NOTIFICATION</Col>
+                <Col xs={2}>PROFILE LEVEL</Col>
+                <Col xs={2}>ROLE</Col>
+                <Col xs={3}>DELETE ACCOUNT</Col>
+                <HLine/>
                 {users.map(user =>
                     <Fragment key={user.id}>
-                        <Col xs={5}>{user.username}</Col>
-                        <Col xs={4}>
+                        <Col xs={3}>{user.username}</Col>
+                        <Col xs={2}>{formatDate(user.notif)}</Col>
+                        <Col xs={2}>{user.level}</Col>
+                        <Col xs={2}>
                             <Form.Select className="bg-card text-light" onChange={(ev) => updateRole(ev, user.id)}
                                          defaultValue={user.role}>
-                                {allRoles.map(s => <option key={s}>{s}</option>)}
+                                {allRoles.map(role => <option key={role}>{role}</option>)}
                             </Form.Select>
                         </Col>
                         <Col xs={3}>
@@ -64,7 +74,7 @@ const AdminDashBoardPage = () => {
     const {apiData, loading, error} = useFetchData("/admin/dashboard");
 
     if (error?.status === 403) {
-        flash("Your authorization expired. Please reconnect")
+        flash("Your authorization expired. Please reconnect.")
         return navigate("/admin");
     }
 

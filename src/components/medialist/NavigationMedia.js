@@ -6,11 +6,11 @@ import {FaBook, FaFilm, FaGamepad, FaToriiGate, FaTv, FaUser} from "react-icons/
 const NavigationMedia = ({ userData, mediaType, path }) => {
     const menuItems = [
         {url: "/profile", media: "user", icon: FaUser},
-        {url: `/${path}/series`, media: "series", icon: FaTv},
-        {url: `/${path}/anime`, media: "anime", icon: FaToriiGate, cond: userData.add_anime},
-        {url: `/${path}/movies`, media: "movies", icon: FaFilm},
-        {url: `/${path}/books`, media: "books", icon: FaBook, cond: userData.add_books},
-        {url: `/${path}/games`, media: "games", icon: FaGamepad, cond: userData.add_games}
+        {url: `/list/series`, media: "series", icon: FaTv},
+        {url: `/list/anime`, media: "anime", icon: FaToriiGate, cond: userData.add_anime},
+        {url: `/list/movies`, media: "movies", icon: FaFilm},
+        {url: `/list/books`, media: "books", icon: FaBook, cond: userData.add_books},
+        {url: `/list/games`, media: "games", icon: FaGamepad, cond: userData.add_games}
     ];
 
     return (

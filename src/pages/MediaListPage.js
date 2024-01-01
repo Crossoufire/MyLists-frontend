@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {Link, useParams, useSearchParams} from "react-router-dom";
-import {Button} from "react-bootstrap";
+import {useParams, useSearchParams} from "react-router-dom";
 
 import {useUser} from "../providers/UserProvider";
 import {withPrivateRoute} from "../components/HigherOrderComp/hocs";
@@ -15,6 +14,8 @@ import ErrorPage from "./ErrorPage";
 import Loading from "../components/primitives/Loading";
 import HLine from "../components/primitives/HLine";
 import CommonMedia from "../components/medialist/CommonMedia";
+import MediaListStats from "../components/medialist/MediaListStats";
+import MediaLabels from "../components/medialist/MediaLabels";
 
 
 const MediaListPage = () => {
@@ -25,8 +26,7 @@ const MediaListPage = () => {
 	const { apiData, loading, error } = useFetchData2(`/list/${mediaType}/${username}`,
 		{...Object.fromEntries(searchParams)});
 
-
-	useEffect(() =>{
+	useEffect(() => {
 		setShowCommon(true);
 	}, [mediaType]);
 
@@ -61,6 +61,10 @@ const MediaListPage = () => {
 		genre: apiData.pagination.genre,
 		lang: lang,
 	});
+	const updateLabel = (label) => ({
+		status: apiData.pagination.status,
+		label_name: label,
+	});
 	const updatePagination = (page) => ({
 		search: apiData.pagination.search,
 		sorting: apiData.pagination.sorting,
@@ -90,18 +94,18 @@ const MediaListPage = () => {
 	if (error) return <ErrorPage error={error}/>
 	if (apiData === undefined || mediaType !== apiData.media_type) return <Loading/>;
 
+
 	return (
 		<>
 			<div className="d-flex media-navigation gap-4 m-t-35">
 				<NavigationMedia
 					userData={apiData.user_data}
 					mediaType={mediaType}
-					path={"list"}
 				/>
 				<SearchMediaList
 					search={apiData.pagination.search}
 					updateSearch={(value) => updateSearchParams(updateSearch, value)}
-					mediaType={mediaType}
+					condition={currentUser.username === username ? "your" : username}
 				/>
 				{(currentUser.id !== apiData.user_data.id) &&
 					<CommonMedia
@@ -111,9 +115,6 @@ const MediaListPage = () => {
 						updateCommon={updateCommon}
 					/>
 				}
-				<Link to={`/stats/${mediaType}/${apiData.user_data.username}`}>
-					<Button className="p-l-15 p-r-15" variant="success" size="sm">Stats</Button>
-				</Link>
 			</div>
 			<NavigationStatus
 				allStatus={apiData.pagination.all_status}
@@ -124,25 +125,45 @@ const MediaListPage = () => {
 				<TitleStatus
 					status={apiData.pagination.status}
 					total={apiData.pagination.total}
+					title={apiData.pagination.title}
 				/>
-				<FilterAndSort
-					mediaType={mediaType}
-					paginateData={apiData.pagination}
-					updateLang={(value) => updateSearchParams(updateLang, value)}
-					updateGenre={(value) => updateSearchParams(updateGenre, value)}
-					updateSorting={(value) => updateSearchParams(updateSorting, value)}
-				/>
+				{!["Stats", "Search", "Labels"].includes(apiData.pagination.status) &&
+					<FilterAndSort
+						mediaType={mediaType}
+						paginateData={apiData.pagination}
+						updateLang={(value) => updateSearchParams(updateLang, value)}
+						updateGenre={(value) => updateSearchParams(updateGenre, value)}
+						updateSorting={(value) => updateSearchParams(updateSorting, value)}
+					/>
+				}
 			</div>
 			<HLine mtop={2}/>
-			<MediaListData
-				loading={loading}
-				apiData={apiData}
-				isCurrent={apiData.user_data.id === currentUser.id}
-				mediaType={mediaType}
-				updatePagination={(value) => updateSearchParams(updatePagination, value)}
-			/>
+			{apiData.pagination.status === "Stats" ?
+				<MediaListStats
+					mediaType={mediaType}
+					graphData={apiData.media_data.graph_data}
+				/>
+				:
+				apiData.pagination.status === "Labels" ?
+					<MediaLabels
+						mediaType={mediaType}
+						labels={apiData.media_data.labels}
+						labelsMedia={apiData.media_data.labels_media}
+						isCurrent={currentUser.username === username}
+						updateLabel={(value) => updateSearchParams(updateLabel, value)}
+						loading={loading}
+					/>
+					:
+					<MediaListData
+						loading={loading}
+						apiData={apiData}
+						isCurrent={apiData.user_data.id === currentUser.id}
+						mediaType={mediaType}
+						updatePagination={(value) => updateSearchParams(updatePagination, value)}
+					/>
+			}
 		</>
-	)
+	);
 };
 
 
