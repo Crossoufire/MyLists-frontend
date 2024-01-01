@@ -1,4 +1,26 @@
 
+## CHANGELOG v1.1.0
+---
+### Under the Hood
+- Small typo fixes
+- Small fixes and ESLint
+- Replaced private and public route component with Higher Order Function (HOF)
+- Added a new very short live token for admin elevation (5 minutes)
+- Improved the clicked outside hook
+- Changed some functions to variable holding functions
+
+
+### UI Modification
+- Corrected `profile` and `notification` dropdown overflow 
+
+
+### New Features
+- Added a `label system` for each type of media: you can now add labels to every media to group them together as you which
+- Added very simple `Admin` user management
+- User can now delete their own account (finally!)
+- Added the `CHANGELOG` in the `profile` dropdown
+
+&nbsp;
 ## CHANGELOG v1.0.1
 ---
 ### Under the Hood
