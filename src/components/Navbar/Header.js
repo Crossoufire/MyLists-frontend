@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import {NavLink} from "react-router-dom";
-import {FaCog, FaFileAlt, FaHistory, FaSignOutAlt, FaUser} from "react-icons/fa";
+import {FaCog, FaFileAlt, FaSignOutAlt, FaUser} from "react-icons/fa";
 import {Col, Container, Image, Nav, Navbar, NavDropdown, Row} from "react-bootstrap";
 
 import {useUser} from "../../providers/UserProvider";

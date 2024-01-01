@@ -19,7 +19,7 @@ export default function Footer() {
                         </h5>
                         <p>
                             Create your media lists, see how much time you spent, follow your friends and compare with them.
-                            Add favorites, comments, rewatch and gain levels to get to the top of the Hall of Fame.
+                            Add favorites, comments, re-watch and gain levels to get to the top of the Hall of Fame.
                         </p>
                         <a className="text-light" href={"mailto:" + mail}><b><FaEnvelope/> Contact us</b></a>
                     </Col>

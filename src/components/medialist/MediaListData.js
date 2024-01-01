@@ -7,7 +7,7 @@ import CustomPagination from "../primitives/CustomPagination";
 
 
 export default function MediaListData({ loading, apiData, mediaType, isCurrent, updatePagination }) {
-    if (loading) return <Loading style="text-center"/>;
+    if (loading) return <Loading addStyle="text-center"/>;
 
     return (
         <>

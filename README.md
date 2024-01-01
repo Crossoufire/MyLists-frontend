@@ -1,15 +1,15 @@
 # React Frontend for MyLists
-This react app is the frontend of the [MyLists](https://mylists.info) website. It is a nice and clear interface to list all the series, anime, movies, games and books you've watched/read/played. 
+This React app is the frontend of the [MyLists](https://mylists.info) website. It is a nice and clear interface to list all the series, anime, movies, games and books you've watched/read/played. 
 It regroups the functionalities of different site in one. It integrates statistics like: watched time, comments, favorites and more. You can follow people, see their lists and compare it to yours.
 
 This project was bootstrapped with the [Create React App](https://github.com/facebook/create-react-app).
 
-The API backend [MyLists-api](https://github.com/Crossoufire/MyLists-api) is also on github.
+The API backend [MyLists-api](https://github.com/Crossoufire/MyLists-api) is also on GitHub.
 
 # Installation (Linux)
 
-## Instalation of Node.js
-- Download and install Node.JS
+## Installation of Node.js
+- Download and install Node.js
   - For a Raspberry Py: [Rasp](https://pimylifeup.com/raspberry-pi-nodejs/) 
   - For Ubuntu/Linux: [Ubuntu](https://deb.nodesource.com/)
 

@@ -6,7 +6,7 @@ import useLoading from "../../../hooks/LoadingHook";
 import AddTooltip from "../../primitives/AddTooltip";
 
 
-export default function FavoriteIcon({ mediaId, isEnabled=true, initFav, updateFavorite }) {
+export default function FavoriteIcon({ isEnabled=true, initFav, updateFavorite }) {
     const [favorite, setFavorite] = useState(initFav);
     const [isLoading, handleLoading] = useLoading();
 

@@ -57,7 +57,7 @@ export default function Notifications() {
             </Dropdown.Toggle>
             <Dropdown.Menu style={{width: 280, maxHeight: 332, overflowY: "auto"}}>
                 {loading ?
-                    <Dropdown.Item><Loading style={null} size={25}/></Dropdown.Item>
+                    <Dropdown.Item><Loading addStyle={null} size={25}/></Dropdown.Item>
                     :
                     notifications.length === 0 ?
                         <i className="m-l-10 fw-4">No notifications found.</i>

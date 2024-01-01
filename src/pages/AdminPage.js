@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Form, Button} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
@@ -33,6 +33,7 @@ const AdminPage = () => {
         return navigate("/admin/dashboard");
     }
 
+    // noinspection JSValidateTypes
     return (
         <>
             <h3 className="m-t-40">Admin Elevation</h3>

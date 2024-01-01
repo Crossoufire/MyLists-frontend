@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Button} from "react-bootstrap";
-import {FaRegEdit} from "react-icons/fa";
 
 import HLine2 from "../../primitives/HLine2";
 import useLoading from "../../../hooks/LoadingHook";

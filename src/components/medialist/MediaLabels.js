@@ -155,7 +155,7 @@ const MediaLabels = ({ mediaType, labels, labelsMedia, isCurrent, updateLabel, l
     return (
         <Row className="gy-lg-4 gx-lg-4 g-0 m-b-30">
             {loading ?
-                <Loading style={"text-center"}/>
+                <Loading addStyle="text-center"/>
                 :
                 labelsMedia.length > 0 ?
                     <ShowMediaWithLabel

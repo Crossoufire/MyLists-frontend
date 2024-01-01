@@ -12,7 +12,7 @@ export default function ShowSearch({ query, results, activePage, resetSearch, se
     if (query.length > 1 && results === undefined) {
         return (
             <Dropdown className="search-autocomplete p-2">
-                <Loading style={null}/>
+                <Loading addStyle={null}/>
             </Dropdown>
         );
     }

@@ -22,7 +22,7 @@ const INITIAL_PARAMS = {
 const HallOfFamePage = () => {
     const api = useApi();
     const { currentUser } = useUser();
-    const [error, setError] = useState();
+    const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState(INITIAL_PARAMS.search);
     const [users, setUsers] = useState({nodes: [], totalPages: 0, page: INITIAL_PARAMS.page});
@@ -51,10 +51,12 @@ const HallOfFamePage = () => {
     useEffect(() => {
         (async () => {
             setLoading(true);
+
             await fetchData({
                 search: INITIAL_PARAMS.search,
                 page: INITIAL_PARAMS.page
             });
+
             setLoading(false);
         })();
 
@@ -76,13 +78,13 @@ const HallOfFamePage = () => {
         })
 
         if (ev.target.value === "") {
-            resetSearch();
+            void resetSearch();
         }
 
         setSearch(ev.target.value);
     }
     const onChangePage = (page) => {
-        fetchData({
+        void fetchData({
             search: search,
             page: page}
         );
@@ -93,7 +95,7 @@ const HallOfFamePage = () => {
         page: users.page
     });
 
-    if (error) return <ErrorPage error={error}/>;
+    if (error?.status) return <ErrorPage error={error}/>;
     if (loading) return <Loading/>;
 
 

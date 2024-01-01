@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Badge, Col, Image, Row} from "react-bootstrap";
-import {FaExternalLinkAlt} from "react-icons/fa";
 
 import AddTooltip from "../primitives/AddTooltip";
 import {capitalize, getStatusColor} from "../../utils/functions";

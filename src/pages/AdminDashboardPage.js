@@ -11,7 +11,6 @@ import Loading from "../components/primitives/Loading";
 import useAdminApi from "../hooks/AdminUpdateAPI";
 import ErrorPage from "./ErrorPage";
 
-
 function PopulateUsers({ users }) {
     const navigate = useNavigate();
     const allRoles = ["user", "manager"];

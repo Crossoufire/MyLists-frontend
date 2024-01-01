@@ -46,7 +46,7 @@ export default function AllUpdates({ username }) {
     }, []);
 
     useEffect(() => {
-        fetchData({
+        void fetchData({
             search: INITIAL_PARAMS.search,
             page: INITIAL_PARAMS.page,
         });
@@ -71,7 +71,7 @@ export default function AllUpdates({ username }) {
     });
 
     function onPaginationChange(action, state) {
-        fetchData({
+        void fetchData({
             search: search,
             page: state.page,
         });
