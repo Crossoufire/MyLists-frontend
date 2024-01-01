@@ -59,7 +59,7 @@ const LabelLists = ({ username, mediaId, mediaType, initIn, initAvailable }) => 
                     <i className="text-grey">Not labels added yet.</i>
                     :
                     labelsInList.map(lab =>
-                        <Link key={lab} to={`/list/${mediaType}/${username}?status=Labels`}>
+                        <Link key={lab} to={`/list/${mediaType}/${username}?status=Labels&label_name=${lab}`}>
                             <Badge key={lab} className="p-t-7 p-b-7 fs-14" bg="success">
                                 <div className="d-flex justify-content-between gap-2">{lab}</div>
                             </Badge>
